@@ -1,0 +1,53 @@
+document.addEventListener('DOMContentLoaded', () => {
+  const $ = selector => document.querySelector(selector);
+  const $$ = selector => document.querySelectorAll(selector);
+
+  /* Start - SideBar ################################################################# */
+  $('#sidebar-toggle').addEventListener('click', () => {
+    const sidebar = $('.sidebar').classList;
+    const contentMain = $('.content').classList;
+    const btnOpen = $('.btn-sidebar-open').classList;
+    const btnClose = $('.btn-sidebar-close').classList;
+    const backdrop = $('.sidebar-backdrop').classList;
+
+    if (sidebar.contains('sidebar-toggle')) {
+      sidebar.remove('sidebar-toggle');
+      contentMain.remove('sidebar-toggle');
+      btnOpen.add('hidden');
+      btnClose.remove('hidden');
+      backdrop.remove('sidebar-toggle');
+    } else {
+      sidebar.add('sidebar-toggle');
+      contentMain.add('sidebar-toggle');
+      btnOpen.remove('hidden');
+      btnClose.add('hidden');
+      backdrop.add('sidebar-toggle');
+    }
+  });
+
+  // $('.sidebar .sidebar-footer').addEventListener('click', () => $('.user-options').classList.toggle('hidden'));
+
+  /* End - SideBar ################################################################### */
+
+  /* Start - DarkMode ################################################################ */
+  const dark = $('.icon-moon').classList;
+  const light = $('.icon-sun').classList;
+
+  $('#dark-mode').addEventListener('click', () => {
+    $('html').classList.toggle('dark');
+    dark.toggle('hidden');
+    light.toggle('hidden');
+
+    localStorage.setItem('theme', $('html').classList.contains('dark') ? 'dark' : 'light');
+  });
+
+  // Al cargar la pÃ¡gina los iconos se aplican automaticamente
+  if (localStorage.getItem('theme') === 'dark' || $('html').classList.contains('dark')) {
+    dark.remove('hidden');
+    light.add('hidden');
+  } else {
+    dark.add('hidden');
+    light.remove('hidden');
+  }
+  /* End - DarkMode ################################################################## */
+});

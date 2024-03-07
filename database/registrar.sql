@@ -1,8 +1,23 @@
 USE automotores;
 
+DROP PROCEDURE IF EXISTS registrarCategorias;
+DROP PROCEDURE IF EXISTS registrarMarcas;
+DROP PROCEDURE IF EXISTS registrarProductos;
+DROP PROCEDURE IF EXISTS registrarAlmacenes;
+DROP PROCEDURE IF EXISTS registrarKardex;
+DROP PROCEDURE IF EXISTS registrarMovimientos;
+DROP PROCEDURE IF EXISTS registrarProveedores;
+DROP PROCEDURE IF EXISTS registrarCompras;
+DROP PROCEDURE IF EXISTS registrarDetallesCompras;
+DROP PROCEDURE IF EXISTS registrarClientes;
+DROP PROCEDURE IF EXISTS registrarVentas;
+DROP PROCEDURE IF EXISTS registrarDetallesVentas;
+DROP PROCEDURE IF EXISTS registrarRoles;
+DROP PROCEDURE IF EXISTS registrarEmpleados;
+
 -- ###################################################################
 DELIMITER $$
-CREATE PROCEDURE RegistrarCategoria(
+CREATE PROCEDURE registrarCategoria(
     IN _nombre VARCHAR(50)
 )
 BEGIN
@@ -14,7 +29,7 @@ END$$
 
 -- ###################################################################
 DELIMITER $$
-CREATE PROCEDURE RegistrarMarca(
+CREATE PROCEDURE registrarMarca(
     IN _nombre VARCHAR(50)
 )
 BEGIN
@@ -26,7 +41,7 @@ END$$
 
 -- ###################################################################
 DELIMITER $$
-CREATE PROCEDURE RegistrarProducto(
+CREATE PROCEDURE registrarProducto(
     IN _categoria_id	INT,
     IN _marca_id		INT,
     IN _nombre			VARCHAR(120),
@@ -46,7 +61,7 @@ END$$
 
 -- ###################################################################
 DELIMITER $$
-CREATE PROCEDURE RegistrarAlmacen(
+CREATE PROCEDURE registrarAlmacen(
     IN _direccion	VARCHAR(255),
     IN _referencia	VARCHAR(255),
     IN _latitud		VARCHAR(15),
@@ -63,7 +78,7 @@ END$$
 
 -- ###################################################################
 DELIMITER $$
-CREATE PROCEDURE RegistrarKardex(
+CREATE PROCEDURE registrarKardex(
     IN _producto_id INT,
     IN _almacen_id INT,
     IN _minimo SMALLINT,
@@ -80,7 +95,7 @@ END$$
 
 -- ###################################################################
 DELIMITER $$
-CREATE PROCEDURE RegistrarMovimiento(
+CREATE PROCEDURE registrarMovimiento(
     IN _kardexId	INT,
     IN _cantidad	SMALLINT,
     IN _saldo		SMALLINT,
@@ -97,7 +112,7 @@ END$$
 
 -- ###################################################################
 DELIMITER $$
-CREATE PROCEDURE RegistrarProveedor(
+CREATE PROCEDURE registrarProveedor(
     IN _nombre		VARCHAR(80),
     IN _telefono	VARCHAR(9),
     IN _correo		VARCHAR(120),
@@ -115,7 +130,7 @@ END$$
 
 -- ###################################################################
 DELIMITER $$
-CREATE PROCEDURE RegistrarCompra(
+CREATE PROCEDURE registrarCompra(
     IN _proveedor_id INT,
     IN _fecha DATETIME
 )
@@ -131,7 +146,7 @@ END$$
 
 -- ###################################################################
 DELIMITER $$
-CREATE PROCEDURE RegistrarDetalleCompra(
+CREATE PROCEDURE registrarDetalleCompra(
     IN _compra_id	INT,
     IN _producto_id	INT,
     IN _cantidad	SMALLINT
@@ -147,7 +162,7 @@ END$$
 
 -- ###################################################################
 DELIMITER $$
-CREATE PROCEDURE RegistrarCliente(
+CREATE PROCEDURE registrarCliente(
     IN _nombres		VARCHAR(50),
     IN _apellidos	VARCHAR(50),
     IN _dni			CHAR(8),
@@ -165,7 +180,7 @@ END $$
 
 -- ###################################################################
 DELIMITER $$
-CREATE PROCEDURE RegistrarVenta(
+CREATE PROCEDURE registrarVenta(
     IN _cliente_id	INT,
     IN _empleado_id	INT,
     IN _fecha		DATETIME
@@ -181,7 +196,7 @@ END$$
 
 -- ###################################################################
 DELIMITER $$
-CREATE PROCEDURE RegistrarDetalleVenta(
+CREATE PROCEDURE registrarDetalleVenta(
     IN _venta_id	INT,
     IN _producto_id	INT,
     IN _cantidad	SMALLINT
@@ -197,7 +212,7 @@ END$$
 
 -- ###################################################################
 DELIMITER $$
-CREATE PROCEDURE RegistrarEmpleado(
+CREATE PROCEDURE registrarEmpleado(
     IN _rol_id		INT,
     IN _nombres		VARCHAR(50),
     IN _apellidos	VARCHAR(50),
@@ -218,7 +233,7 @@ END $$
 
 -- ###################################################################
 DELIMITER $$
-CREATE PROCEDURE RegistrarRol(
+CREATE PROCEDURE registrarRol(
     IN _nombre VARCHAR(20)
 )
 BEGIN

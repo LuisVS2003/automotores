@@ -1,5 +1,20 @@
 USE automotores;
 
+DROP PROCEDURE IF EXISTS listarCategorias;
+DROP PROCEDURE IF EXISTS listarMarcas;
+DROP PROCEDURE IF EXISTS listarProductos;
+DROP PROCEDURE IF EXISTS listarAlmacenes;
+DROP PROCEDURE IF EXISTS listarKardex;
+DROP PROCEDURE IF EXISTS listarMovimientos;
+DROP PROCEDURE IF EXISTS listarProveedores;
+DROP PROCEDURE IF EXISTS listarCompras;
+DROP PROCEDURE IF EXISTS listarDetallesCompras;
+DROP PROCEDURE IF EXISTS listarClientes;
+DROP PROCEDURE IF EXISTS listarVentas;
+DROP PROCEDURE IF EXISTS listarDetallesVentas;
+DROP PROCEDURE IF EXISTS listarRoles;
+DROP PROCEDURE IF EXISTS listarEmpleados;
+
 -- ###################################################################
 DELIMITER $$
 CREATE PROCEDURE listarCategorias()
@@ -122,7 +137,7 @@ END$$
 
 -- ###################################################################
 DELIMITER $$
-CREATE PROCEDURE ListarClientes()
+CREATE PROCEDURE listarClientes()
 BEGIN
     SELECT
         id,
@@ -162,7 +177,7 @@ END$$
 
 -- ###################################################################
 DELIMITER $$
-CREATE PROCEDURE ListarRoles()
+CREATE PROCEDURE listarRoles()
 BEGIN
     SELECT *
     FROM roles;
@@ -170,7 +185,7 @@ END $$
 
 -- ###################################################################
 DELIMITER $$
-CREATE PROCEDURE ListarEmpleados()
+CREATE PROCEDURE listarEmpleados()
 BEGIN
     SELECT
         id,

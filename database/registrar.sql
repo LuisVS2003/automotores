@@ -134,10 +134,8 @@ CREATE PROCEDURE registrarCompra(
     IN _proveedor_id INT
 )
 BEGIN
-    INSERT INTO compras
-		(proveedor_id, fecha)
-    VALUES
-		(_proveedor_id, _fecha);
+    INSERT INTO compras (proveedor_id)
+    VALUES (_proveedor_id);
         
     SELECT LAST_INSERT_ID() 'id';
 END$$
@@ -184,10 +182,8 @@ CREATE PROCEDURE registrarVenta(
     IN _empleado_id	INT
 )
 BEGIN
-    INSERT INTO ventas
-		(_cliente_id, fecha)
-    VALUES
-		(_cliente_id, _fecha);
+    INSERT INTO ventas (cliente_id, empleado_id)
+    VALUES (_cliente_id, _empleado_id);
         
     SELECT LAST_INSERT_ID() 'id';
 END$$

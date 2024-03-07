@@ -95,8 +95,7 @@ BEGIN
         kardex_id,
         cantidad,
         saldo,
-        tipo,
-        fecha
+        tipo
     FROM movimientos
     WHERE inactive_at IS NULL;
 END$$
@@ -122,8 +121,7 @@ CREATE PROCEDURE listarCompras()
 BEGIN
     SELECT
 		id,
-        proveedor_id,
-        fecha
+        proveedor_id
     FROM compras
     WHERE inactive_at IS NULL;
 END$$
@@ -162,8 +160,7 @@ BEGIN
     SELECT
 		id,
         cliente_id,
-        empleado_id,
-        fecha
+        empleado_id
     FROM ventas
     WHERE inactive_at IS NULL;
 END$$

@@ -1,19 +1,19 @@
 USE automotores;
 
-DROP PROCEDURE IF EXISTS registrarCategorias;
-DROP PROCEDURE IF EXISTS registrarMarcas;
-DROP PROCEDURE IF EXISTS registrarProductos;
-DROP PROCEDURE IF EXISTS registrarAlmacenes;
+DROP PROCEDURE IF EXISTS registrarCategoria;
+DROP PROCEDURE IF EXISTS registrarMarca;
+DROP PROCEDURE IF EXISTS registrarProducto;
+DROP PROCEDURE IF EXISTS registrarAlmacen;
 DROP PROCEDURE IF EXISTS registrarKardex;
-DROP PROCEDURE IF EXISTS registrarMovimientos;
-DROP PROCEDURE IF EXISTS registrarProveedores;
-DROP PROCEDURE IF EXISTS registrarCompras;
-DROP PROCEDURE IF EXISTS registrarDetallesCompras;
-DROP PROCEDURE IF EXISTS registrarClientes;
-DROP PROCEDURE IF EXISTS registrarVentas;
-DROP PROCEDURE IF EXISTS registrarDetallesVentas;
-DROP PROCEDURE IF EXISTS registrarRoles;
-DROP PROCEDURE IF EXISTS registrarEmpleados;
+DROP PROCEDURE IF EXISTS registrarMovimiento;
+DROP PROCEDURE IF EXISTS registrarProveedor;
+DROP PROCEDURE IF EXISTS registrarCompra;
+DROP PROCEDURE IF EXISTS registrarDetalleCompra;
+DROP PROCEDURE IF EXISTS registrarCliente;
+DROP PROCEDURE IF EXISTS registrarVenta;
+DROP PROCEDURE IF EXISTS registrarDetalleVenta;
+DROP PROCEDURE IF EXISTS registrarRol;
+DROP PROCEDURE IF EXISTS registrarEmpleado;
 
 -- ###################################################################
 DELIMITER $$
@@ -131,8 +131,7 @@ END$$
 -- ###################################################################
 DELIMITER $$
 CREATE PROCEDURE registrarCompra(
-    IN _proveedor_id INT,
-    IN _fecha DATETIME
+    IN _proveedor_id INT
 )
 BEGIN
     INSERT INTO compras
@@ -182,8 +181,7 @@ END $$
 DELIMITER $$
 CREATE PROCEDURE registrarVenta(
     IN _cliente_id	INT,
-    IN _empleado_id	INT,
-    IN _fecha		DATETIME
+    IN _empleado_id	INT
 )
 BEGIN
     INSERT INTO ventas

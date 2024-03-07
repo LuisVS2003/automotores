@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1:3306
--- Tiempo de generación: 07-03-2024 a las 19:45:17
+-- Tiempo de generación: 07-03-2024 a las 20:18:03
 -- Versión del servidor: 8.2.0
 -- Versión de PHP: 8.2.13
 
@@ -45,8 +45,8 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `listarCategorias` ()   BEGIN
     WHERE inactive_at IS NULL;
 END$$
 
-DROP PROCEDURE IF EXISTS `ListarClientes`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `ListarClientes` ()   BEGIN
+DROP PROCEDURE IF EXISTS `listarClientes`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `listarClientes` ()   BEGIN
     SELECT
         id,
         nombres,
@@ -89,18 +89,20 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `listarDetallesVentas` ()   BEGIN
     WHERE inactive_at IS NULL;
 END$$
 
-DROP PROCEDURE IF EXISTS `ListarEmpleados`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `ListarEmpleados` ()   BEGIN
+DROP PROCEDURE IF EXISTS `listarEmpleados`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `listarEmpleados` ()   BEGIN
     SELECT
-        id,
-        nombres,
-        apellidos,
-        dni,
-        correo,
-        direccion,
-        salario
-    FROM empleados
-    WHERE inactive_at IS NULL;
+        EMP.id,
+        EMP.rol_id,
+        CONCAT(EMP.apellidos, ", ", EMP.nombres) AS 'nombre_completo',
+        ROL.nombre AS rol,
+        EMP.dni,
+        EMP.correo,
+        EMP.direccion,
+        EMP.salario
+    FROM empleados EMP
+	INNER JOIN roles ROL ON ROL.id = EMP.rol_id
+    WHERE EMP.inactive_at IS NULL;
 END$$
 
 DROP PROCEDURE IF EXISTS `listarKardex`$$
@@ -139,16 +141,22 @@ END$$
 DROP PROCEDURE IF EXISTS `listarProductos`$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `listarProductos` ()   BEGIN
     SELECT 
-		id,
-        categoria_id,
-        marca_id,
-        nombre,
-        codigo,
-        descripcion,
-        precio,
-        imagen
-    FROM productos
-    WHERE inactive_at IS NULL;
+		PRO.id,
+        PRO.categoria_id,
+        PRO.marca_id,
+        PRO.nombre AS producto,
+        CAT.nombre AS categoria,
+        MAR.nombre AS marca,
+        PRO.codigo,
+        PRO.descripcion,
+        PRO.precio,
+        PRO.imagen
+    FROM productos PRO
+	INNER JOIN categorias CAT ON CAT.id = PRO.categoria_id
+	INNER JOIN marcas MAR ON MAR.id = PRO.marca_id
+    WHERE PRO.inactive_at IS NULL
+        AND CAT.inactive_at IS NULL
+        AND MAR.inactive_at IS NULL;
 END$$
 
 DROP PROCEDURE IF EXISTS `listarProveedores`$$
@@ -164,9 +172,10 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `listarProveedores` ()   BEGIN
     WHERE inactive_at IS NULL;
 END$$
 
-DROP PROCEDURE IF EXISTS `ListarRoles`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `ListarRoles` ()   BEGIN
-    SELECT *
+DROP PROCEDURE IF EXISTS `listarRoles`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `listarRoles` ()   BEGIN
+    SELECT
+		id, nombre
     FROM roles;
 END$$
 
@@ -181,8 +190,8 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `listarVentas` ()   BEGIN
     WHERE inactive_at IS NULL;
 END$$
 
-DROP PROCEDURE IF EXISTS `RegistrarAlmacen`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `RegistrarAlmacen` (IN `_direccion` VARCHAR(255), IN `_referencia` VARCHAR(255), IN `_latitud` VARCHAR(15), IN `_longitud` VARCHAR(15))   BEGIN
+DROP PROCEDURE IF EXISTS `registrarAlmacen`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `registrarAlmacen` (IN `_direccion` VARCHAR(255), IN `_referencia` VARCHAR(255), IN `_latitud` VARCHAR(15), IN `_longitud` VARCHAR(15))   BEGIN
     INSERT INTO almacen
 		(direccion, referencia, latitud, longitud)
     VALUES
@@ -191,16 +200,16 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `RegistrarAlmacen` (IN `_direccion` 
     SELECT LAST_INSERT_ID() 'id';
 END$$
 
-DROP PROCEDURE IF EXISTS `RegistrarCategoria`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `RegistrarCategoria` (IN `_nombre` VARCHAR(50))   BEGIN
+DROP PROCEDURE IF EXISTS `registrarCategoria`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `registrarCategoria` (IN `_nombre` VARCHAR(50))   BEGIN
     INSERT INTO categorias(nombre)
     VALUES (_nombre);
         
     SELECT LAST_INSERT_ID() 'id';
 END$$
 
-DROP PROCEDURE IF EXISTS `RegistrarCliente`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `RegistrarCliente` (IN `_nombres` VARCHAR(50), IN `_apellidos` VARCHAR(50), IN `_dni` CHAR(8), IN `_correo` VARCHAR(120), IN `_clave` VARCHAR(60))   BEGIN
+DROP PROCEDURE IF EXISTS `registrarCliente`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `registrarCliente` (IN `_nombres` VARCHAR(50), IN `_apellidos` VARCHAR(50), IN `_dni` CHAR(8), IN `_correo` VARCHAR(120), IN `_clave` VARCHAR(60))   BEGIN
     INSERT INTO clientes
 		(nombres, apellidos, dni, correo, clave)
     VALUES
@@ -209,8 +218,8 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `RegistrarCliente` (IN `_nombres` VA
     SELECT LAST_INSERT_ID() 'id';
 END$$
 
-DROP PROCEDURE IF EXISTS `RegistrarCompra`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `RegistrarCompra` (IN `_proveedor_id` INT, IN `_fecha` DATETIME)   BEGIN
+DROP PROCEDURE IF EXISTS `registrarCompra`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `registrarCompra` (IN `_proveedor_id` INT, IN `_fecha` DATETIME)   BEGIN
     INSERT INTO compras
 		(proveedor_id, fecha)
     VALUES
@@ -219,8 +228,8 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `RegistrarCompra` (IN `_proveedor_id
     SELECT LAST_INSERT_ID() 'id';
 END$$
 
-DROP PROCEDURE IF EXISTS `RegistrarDetalleCompra`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `RegistrarDetalleCompra` (IN `_compra_id` INT, IN `_producto_id` INT, IN `_cantidad` SMALLINT)   BEGIN
+DROP PROCEDURE IF EXISTS `registrarDetalleCompra`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `registrarDetalleCompra` (IN `_compra_id` INT, IN `_producto_id` INT, IN `_cantidad` SMALLINT)   BEGIN
     INSERT INTO detalles_compras
 		(compra_id, producto_id, cantidad)
     VALUES
@@ -229,8 +238,8 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `RegistrarDetalleCompra` (IN `_compr
     SELECT LAST_INSERT_ID() 'id';
 END$$
 
-DROP PROCEDURE IF EXISTS `RegistrarDetalleVenta`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `RegistrarDetalleVenta` (IN `_venta_id` INT, IN `_producto_id` INT, IN `_cantidad` SMALLINT)   BEGIN
+DROP PROCEDURE IF EXISTS `registrarDetalleVenta`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `registrarDetalleVenta` (IN `_venta_id` INT, IN `_producto_id` INT, IN `_cantidad` SMALLINT)   BEGIN
     INSERT INTO detalles_ventas
 		(_venta_id, producto_id, cantidad)
     VALUES
@@ -239,8 +248,8 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `RegistrarDetalleVenta` (IN `_venta_
     SELECT LAST_INSERT_ID() 'id';
 END$$
 
-DROP PROCEDURE IF EXISTS `RegistrarEmpleado`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `RegistrarEmpleado` (IN `_rol_id` INT, IN `_nombres` VARCHAR(50), IN `_apellidos` VARCHAR(50), IN `_dni` CHAR(8), IN `_correo` VARCHAR(120), IN `_clave` VARCHAR(60), IN `_direccion` VARCHAR(255), IN `_salario` DECIMAL(9,2))   BEGIN
+DROP PROCEDURE IF EXISTS `registrarEmpleado`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `registrarEmpleado` (IN `_rol_id` INT, IN `_nombres` VARCHAR(50), IN `_apellidos` VARCHAR(50), IN `_dni` CHAR(8), IN `_correo` VARCHAR(120), IN `_clave` VARCHAR(60), IN `_direccion` VARCHAR(255), IN `_salario` DECIMAL(9,2))   BEGIN
     INSERT INTO empleados
 		(rol_id, nombres, apellidos, dni, correo, clave, direccion, salario)
     VALUES
@@ -249,8 +258,8 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `RegistrarEmpleado` (IN `_rol_id` IN
     SELECT LAST_INSERT_ID() 'id';
 END$$
 
-DROP PROCEDURE IF EXISTS `RegistrarKardex`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `RegistrarKardex` (IN `_producto_id` INT, IN `_almacen_id` INT, IN `_minimo` SMALLINT, IN `_maximo` SMALLINT)   BEGIN
+DROP PROCEDURE IF EXISTS `registrarKardex`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `registrarKardex` (IN `_producto_id` INT, IN `_almacen_id` INT, IN `_minimo` SMALLINT, IN `_maximo` SMALLINT)   BEGIN
     INSERT INTO kardex
 		(producto_id, almacen_id, minimo, maximo)
     VALUES
@@ -259,16 +268,16 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `RegistrarKardex` (IN `_producto_id`
     SELECT LAST_INSERT_ID() 'id';
 END$$
 
-DROP PROCEDURE IF EXISTS `RegistrarMarca`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `RegistrarMarca` (IN `_nombre` VARCHAR(50))   BEGIN
+DROP PROCEDURE IF EXISTS `registrarMarca`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `registrarMarca` (IN `_nombre` VARCHAR(50))   BEGIN
     INSERT INTO marcas(nombre)
     VALUES (_nombre);
         
     SELECT LAST_INSERT_ID() 'id';
 END$$
 
-DROP PROCEDURE IF EXISTS `RegistrarMovimiento`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `RegistrarMovimiento` (IN `_kardexId` INT, IN `_cantidad` SMALLINT, IN `_saldo` SMALLINT, IN `_tipo` CHAR(1))   BEGIN
+DROP PROCEDURE IF EXISTS `registrarMovimiento`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `registrarMovimiento` (IN `_kardexId` INT, IN `_cantidad` SMALLINT, IN `_saldo` SMALLINT, IN `_tipo` CHAR(1))   BEGIN
     INSERT INTO movimientos
 		(kardex_id, cantidad, saldo, tipo)
     VALUES
@@ -277,8 +286,8 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `RegistrarMovimiento` (IN `_kardexId
     SELECT LAST_INSERT_ID() 'id';
 END$$
 
-DROP PROCEDURE IF EXISTS `RegistrarProducto`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `RegistrarProducto` (IN `_categoria_id` INT, IN `_marca_id` INT, IN `_nombre` VARCHAR(120), IN `_codigo` VARCHAR(20), IN `_descripcion` TEXT, IN `_precio` DECIMAL(7,2), IN `_imagen` VARCHAR(60))   BEGIN
+DROP PROCEDURE IF EXISTS `registrarProducto`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `registrarProducto` (IN `_categoria_id` INT, IN `_marca_id` INT, IN `_nombre` VARCHAR(120), IN `_codigo` VARCHAR(20), IN `_descripcion` TEXT, IN `_precio` DECIMAL(7,2), IN `_imagen` VARCHAR(60))   BEGIN
     INSERT INTO productos
 		(categoria_id, marca_id, nombre, codigo, descripcion, precio, imagen)
     VALUES
@@ -287,8 +296,8 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `RegistrarProducto` (IN `_categoria_
     SELECT LAST_INSERT_ID() 'id';
 END$$
 
-DROP PROCEDURE IF EXISTS `RegistrarProveedor`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `RegistrarProveedor` (IN `_nombre` VARCHAR(80), IN `_telefono` VARCHAR(9), IN `_correo` VARCHAR(120), IN `_ruc` CHAR(11), IN `_direccion` VARCHAR(255))   BEGIN
+DROP PROCEDURE IF EXISTS `registrarProveedor`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `registrarProveedor` (IN `_nombre` VARCHAR(80), IN `_telefono` VARCHAR(9), IN `_correo` VARCHAR(120), IN `_ruc` CHAR(11), IN `_direccion` VARCHAR(255))   BEGIN
     INSERT INTO proveedores
 		(nombre, telefono, correo, ruc, direccion)
     VALUES
@@ -297,16 +306,16 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `RegistrarProveedor` (IN `_nombre` V
     SELECT LAST_INSERT_ID() 'id';
 END$$
 
-DROP PROCEDURE IF EXISTS `RegistrarRol`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `RegistrarRol` (IN `_nombre` VARCHAR(20))   BEGIN
+DROP PROCEDURE IF EXISTS `registrarRol`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `registrarRol` (IN `_nombre` VARCHAR(20))   BEGIN
     INSERT INTO roles (nombre)
     VALUES (_nombre);
 
     SELECT LAST_INSERT_ID() 'id';
 END$$
 
-DROP PROCEDURE IF EXISTS `RegistrarVenta`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `RegistrarVenta` (IN `_cliente_id` INT, IN `_empleado_id` INT, IN `_fecha` DATETIME)   BEGIN
+DROP PROCEDURE IF EXISTS `registrarVenta`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `registrarVenta` (IN `_cliente_id` INT, IN `_empleado_id` INT, IN `_fecha` DATETIME)   BEGIN
     INSERT INTO ventas
 		(_cliente_id, fecha)
     VALUES
@@ -350,7 +359,21 @@ CREATE TABLE IF NOT EXISTS `categorias` (
   `update_at` datetime DEFAULT NULL,
   `inactive_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Volcado de datos para la tabla `categorias`
+--
+
+INSERT INTO `categorias` (`id`, `nombre`, `create_at`, `update_at`, `inactive_at`) VALUES
+(1, 'Filtro de aceite', '2024-03-07 15:17:37', NULL, NULL),
+(2, 'Bujias', '2024-03-07 15:17:37', NULL, NULL),
+(3, 'Pastillas de freno', '2024-03-07 15:17:37', NULL, NULL),
+(4, 'Bomba de agua', '2024-03-07 15:17:37', NULL, NULL),
+(5, 'Correa de distribución', '2024-03-07 15:17:37', NULL, NULL),
+(6, 'Batería', '2024-03-07 15:17:37', NULL, NULL),
+(7, 'Rotor de freno', '2024-03-07 15:17:37', NULL, NULL),
+(8, 'Alternador', '2024-03-07 15:17:37', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -370,7 +393,18 @@ CREATE TABLE IF NOT EXISTS `clientes` (
   `update_at` datetime DEFAULT NULL,
   `inactive_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Volcado de datos para la tabla `clientes`
+--
+
+INSERT INTO `clientes` (`id`, `nombres`, `apellidos`, `dni`, `correo`, `clave`, `create_at`, `update_at`, `inactive_at`) VALUES
+(1, 'Alejandra Flores Velasco', NULL, NULL, NULL, NULL, '2024-03-07 15:17:37', NULL, NULL),
+(2, 'Manuel Díaz Torres', NULL, NULL, NULL, NULL, '2024-03-07 15:17:37', NULL, NULL),
+(3, 'Patricia Gómez Sánchez', NULL, NULL, NULL, NULL, '2024-03-07 15:17:37', NULL, NULL),
+(4, 'Ricardo López Herrera', NULL, NULL, NULL, NULL, '2024-03-07 15:17:37', NULL, NULL),
+(5, 'Laura Martínez Ramírez', NULL, NULL, NULL, NULL, '2024-03-07 15:17:37', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -452,7 +486,16 @@ CREATE TABLE IF NOT EXISTS `empleados` (
   `inactive_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_rol_emp` (`rol_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Volcado de datos para la tabla `empleados`
+--
+
+INSERT INTO `empleados` (`id`, `rol_id`, `nombres`, `apellidos`, `dni`, `correo`, `clave`, `direccion`, `salario`, `create_at`, `update_at`, `inactive_at`) VALUES
+(1, 1, 'Juan', 'Pérez', '12345678', 'juan@example.com', 'clave123', 'Calle 123', 2000.00, '2024-03-07 15:17:37', NULL, NULL),
+(2, 2, 'María', 'González', '87654321', 'maria@example.com', 'clave456', 'Avenida 456', 2500.00, '2024-03-07 15:17:37', NULL, NULL),
+(3, 3, 'Carlos', 'Martínez', '23456789', 'carlos@example.com', 'clave789', 'Plaza 789', 1800.00, '2024-03-07 15:17:37', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -489,7 +532,40 @@ CREATE TABLE IF NOT EXISTS `marcas` (
   `update_at` datetime DEFAULT NULL,
   `inactive_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Volcado de datos para la tabla `marcas`
+--
+
+INSERT INTO `marcas` (`id`, `nombre`, `create_at`, `update_at`, `inactive_at`) VALUES
+(1, 'Bosch', '2024-03-07 15:17:37', NULL, NULL),
+(2, 'Fram', '2024-03-07 15:17:37', NULL, NULL),
+(3, 'Purolator', '2024-03-07 15:17:37', NULL, NULL),
+(4, 'NGK', '2024-03-07 15:17:37', NULL, NULL),
+(5, 'Denso', '2024-03-07 15:17:37', NULL, NULL),
+(6, 'Champion', '2024-03-07 15:17:37', NULL, NULL),
+(7, 'Brembo', '2024-03-07 15:17:37', NULL, NULL),
+(8, 'Wagner', '2024-03-07 15:17:37', NULL, NULL),
+(9, 'Akebono', '2024-03-07 15:17:37', NULL, NULL),
+(10, 'Monroe', '2024-03-07 15:17:37', NULL, NULL),
+(11, 'KYB', '2024-03-07 15:17:37', NULL, NULL),
+(12, 'Bilstein', '2024-03-07 15:17:37', NULL, NULL),
+(13, 'Gates', '2024-03-07 15:17:37', NULL, NULL),
+(14, 'ACDelco', '2024-03-07 15:17:37', NULL, NULL),
+(15, 'GMB', '2024-03-07 15:17:37', NULL, NULL),
+(16, 'Gates', '2024-03-07 15:17:37', NULL, NULL),
+(17, 'Continental', '2024-03-07 15:17:37', NULL, NULL),
+(18, 'Dayco', '2024-03-07 15:17:37', NULL, NULL),
+(19, 'Interstate', '2024-03-07 15:17:37', NULL, NULL),
+(20, 'Optima', '2024-03-07 15:17:37', NULL, NULL),
+(21, 'AC Delco', '2024-03-07 15:17:37', NULL, NULL),
+(22, 'K&N', '2024-03-07 15:17:37', NULL, NULL),
+(23, 'Fram', '2024-03-07 15:17:37', NULL, NULL),
+(24, 'Wagner', '2024-03-07 15:17:37', NULL, NULL),
+(25, 'ACDelco', '2024-03-07 15:17:37', NULL, NULL),
+(26, 'Bosch', '2024-03-07 15:17:37', NULL, NULL),
+(27, 'Denso', '2024-03-07 15:17:37', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -533,7 +609,18 @@ CREATE TABLE IF NOT EXISTS `productos` (
   PRIMARY KEY (`id`),
   KEY `fk_categoria_prod` (`categoria_id`),
   KEY `fk_marca_prod` (`marca_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Volcado de datos para la tabla `productos`
+--
+
+INSERT INTO `productos` (`id`, `categoria_id`, `marca_id`, `nombre`, `codigo`, `descripcion`, `precio`, `imagen`, `create_at`, `update_at`, `inactive_at`) VALUES
+(1, 1, 2, 'Filtro de aceite Fram XYZ', 'COD000000002', 'Filtro de aceite de alta calidad', 15.99, 'imagen2.jpg', '2024-03-07 15:17:37', NULL, NULL),
+(2, 2, 5, 'Bujía Denso ABC', 'COD000000003', 'Bujía de platino para un mejor rendimiento', 8.50, 'imagen3.jpg', '2024-03-07 15:17:37', NULL, NULL),
+(3, 3, 7, 'Pastillas de freno Brembo 123', 'COD000000004', 'Pastillas de freno de cerámica para un frenado suave', 45.75, 'imagen4.jpg', '2024-03-07 15:17:37', NULL, NULL),
+(4, 4, 10, 'Bomba de agua Monroe XYZ', 'COD000000005', 'Bomba de agua de alta eficiencia', 65.30, 'imagen5.jpg', '2024-03-07 15:17:37', NULL, NULL),
+(5, 5, 4, 'Correa de distribución NGK 567', 'COD000000006', 'Correa de distribución resistente y duradera', 25.99, 'imagen6.jpg', '2024-03-07 15:17:37', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -566,7 +653,18 @@ CREATE TABLE IF NOT EXISTS `roles` (
   `id` int NOT NULL AUTO_INCREMENT,
   `nombre` varchar(20) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Volcado de datos para la tabla `roles`
+--
+
+INSERT INTO `roles` (`id`, `nombre`) VALUES
+(1, 'Administrador'),
+(2, 'Gerente'),
+(3, 'Vendedor'),
+(4, 'Técnico'),
+(5, 'Contador');
 
 -- --------------------------------------------------------
 

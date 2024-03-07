@@ -1,0 +1,198 @@
+USE automotores;
+
+-- Registrar Categoria
+DELIMITER $$
+CREATE PROCEDURE RegistrarCategoria(
+    IN _nombre VARCHAR(50)
+)
+BEGIN
+    INSERT INTO categorias(nombre)
+    VALUES (_nombre);
+        
+    SELECT LAST_INSERT_ID() 'id';
+END$$
+
+-- Registrar Categoria
+DELIMITER $$
+CREATE PROCEDURE RegistrarMarca(
+    IN _nombre VARCHAR(50)
+)
+BEGIN
+    INSERT INTO marcas(nombre)
+    VALUES (_nombre);
+        
+    SELECT LAST_INSERT_ID() 'id';
+END$$
+
+-- Registrar Producto
+DELIMITER $$
+CREATE PROCEDURE RegistrarProducto(
+    IN _categoria_id	INT,
+    IN _marca_id		INT,
+    IN _nombre			VARCHAR(120),
+    IN _codigo			VARCHAR(20),
+    IN _descripcion		TEXT,
+    IN _precio			DECIMAL(7,2),
+    IN _imagen			VARCHAR(60)
+)
+BEGIN
+    INSERT INTO productos
+		(categoria_id, marca_id, nombre, codigo, descripcion, precio, imagen)
+    VALUES
+		(_categoria_id, IFNULL(_marca_id, ''), _nombre, _codigo, _descripcion, _precio, _imagen);
+        
+    SELECT LAST_INSERT_ID() 'id';
+END$$
+
+-- Registrar Almacen
+DELIMITER $$
+CREATE PROCEDURE RegistrarAlmacen(
+    IN _direccion	VARCHAR(255),
+    IN _referencia	VARCHAR(255),
+    IN _latitud		VARCHAR(15),
+    IN _longitud	VARCHAR(15)
+)
+BEGIN
+    INSERT INTO almacen
+		(direccion, referencia, latitud, longitud)
+    VALUES
+		(_direccion, _referencia, _latitud, _longitud);
+        
+    SELECT LAST_INSERT_ID() 'id';
+END$$
+
+-- Registrar Kardex
+DELIMITER $$
+CREATE PROCEDURE RegistrarKardex(
+    IN _producto_id INT,
+    IN _almacen_id INT,
+    IN _minimo SMALLINT,
+    IN _maximo SMALLINT
+)
+BEGIN
+    INSERT INTO kardex
+		(producto_id, almacen_id, minimo, maximo)
+    VALUES
+		(_producto_id, _almacen_id, _minimo, _maximo);
+        
+    SELECT LAST_INSERT_ID() 'id';
+END$$
+
+-- Registrar Movimiento
+DELIMITER $$
+CREATE PROCEDURE RegistrarMovimiento(
+    IN _kardexId	INT,
+    IN _cantidad	SMALLINT,
+    IN _saldo		SMALLINT,
+    IN _tipo		CHAR(1)
+)
+BEGIN
+    INSERT INTO movimientos
+		(kardex_id, cantidad, saldo, tipo)
+    VALUES
+		(_kardexId, _cantidad, _saldo, _tipo);
+        
+    SELECT LAST_INSERT_ID() 'id';
+END$$
+
+-- Registrar Proveedor
+DELIMITER $$
+CREATE PROCEDURE RegistrarProveedor(
+    IN _nombre		VARCHAR(80),
+    IN _telefono	VARCHAR(9),
+    IN _correo		VARCHAR(120),
+    IN _ruc			CHAR(11),
+    IN _direccion	VARCHAR(255)
+)
+BEGIN
+    INSERT INTO proveedores
+		(nombre, telefono, correo, ruc, direccion)
+    VALUES
+		(_nombre, _telefono, _correo, _ruc, _direccion);
+        
+    SELECT LAST_INSERT_ID() 'id';
+END$$
+
+-- Registrar Compra
+DELIMITER $$
+CREATE PROCEDURE RegistrarCompra(
+    IN _proveedor_id INT,
+    IN _fecha DATETIME
+)
+BEGIN
+    INSERT INTO compras
+		(proveedor_id, fecha)
+    VALUES
+		(_proveedor_id, _fecha);
+        
+    SELECT LAST_INSERT_ID() 'id';
+END$$
+
+
+-- Registrar Detalle de Compra
+DELIMITER $$
+CREATE PROCEDURE RegistrarDetalleCompra(
+    IN _compra_id	INT,
+    IN _producto_id	INT,
+    IN _cantidad	SMALLINT
+)
+BEGIN
+    INSERT INTO detalles_compras
+		(compra_id, producto_id, cantidad)
+    VALUES
+		(_compra_id, _producto_id, _cantidad);
+        
+    SELECT LAST_INSERT_ID() 'id';
+END$$
+
+--  Registrar Cliente:
+DELIMITER $$
+CREATE PROCEDURE RegistrarCliente(
+    IN _nombres		VARCHAR(50),
+    IN _apellidos	VARCHAR(50),
+    IN _dni			CHAR(8),
+    IN _correo		VARCHAR(120),
+    IN _clave		VARCHAR(60)
+)
+BEGIN
+    INSERT INTO clientes
+		(nombres, apellidos, dni, correo, clave)
+    VALUES
+		(_nombres, _apellidos, _dni, _correo, _clave);
+
+    SELECT LAST_INSERT_ID() 'id';
+END $$
+
+--  Registrar Empleado:
+DELIMITER $$
+CREATE PROCEDURE RegistrarEmpleado(
+    IN _rol_id		INT,
+    IN _nombres		VARCHAR(50),
+    IN _apellidos	VARCHAR(50),
+    IN _dni			CHAR(8),
+    IN _correo		VARCHAR(120),
+    IN _clave		VARCHAR(60),
+    IN _direccion	VARCHAR(255),
+    IN _salario		DECIMAL(9,2)
+)
+BEGIN
+    INSERT INTO empleados
+		(rol_id, nombres, apellidos, dni, correo, clave, direccion, salario)
+    VALUES
+		(_rol_id, _nombres, _apellidos, _dni, _correo, _clave, _direccion, _salario);
+
+    SELECT LAST_INSERT_ID() 'id';
+END $$
+
+--  Registrar Rol:
+DELIMITER $$
+CREATE PROCEDURE RegistrarRol(
+    IN _nombre VARCHAR(20)
+)
+BEGIN
+    INSERT INTO roles (nombre)
+    VALUES (_nombre);
+
+    SELECT LAST_INSERT_ID() 'id';
+END $$
+

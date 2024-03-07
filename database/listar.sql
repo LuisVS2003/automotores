@@ -1,6 +1,6 @@
 USE automotores;
 
--- Listar categorias
+-- ###################################################################
 DELIMITER $$
 CREATE PROCEDURE listarCategorias()
 BEGIN
@@ -10,7 +10,7 @@ BEGIN
     WHERE inactive_at IS NULL;
 END$$
 
--- Listar marcas
+-- ###################################################################
 DELIMITER $$
 CREATE PROCEDURE listarMarcas()
 BEGIN
@@ -20,7 +20,7 @@ BEGIN
     WHERE inactive_at IS NULL;
 END$$
 
--- Listar productos
+-- ###################################################################
 DELIMITER $$
 CREATE PROCEDURE listarProductos()
 BEGIN
@@ -37,7 +37,7 @@ BEGIN
     WHERE inactive_at IS NULL;
 END$$
 
--- Listar almacenes
+-- ###################################################################
 DELIMITER $$
 CREATE PROCEDURE listarAlmacenes()
 BEGIN
@@ -51,7 +51,7 @@ BEGIN
     WHERE inactive_at IS NULL;
 END$$
 
--- Listar kardex
+-- ###################################################################
 DELIMITER $$
 CREATE PROCEDURE listarKardex()
 BEGIN
@@ -65,7 +65,7 @@ BEGIN
     WHERE inactive_at IS NULL;
 END$$
 
--- Listar movimientos
+-- ###################################################################
 DELIMITER $$
 CREATE PROCEDURE listarMovimientos()
 BEGIN
@@ -80,7 +80,7 @@ BEGIN
     WHERE inactive_at IS NULL;
 END$$
 
--- Listar proveedores
+-- ###################################################################
 DELIMITER $$
 CREATE PROCEDURE listarProveedores()
 BEGIN
@@ -95,7 +95,7 @@ BEGIN
     WHERE inactive_at IS NULL;
 END$$
 
--- Listar compras
+-- ###################################################################
 DELIMITER $$
 CREATE PROCEDURE listarCompras()
 BEGIN
@@ -107,7 +107,7 @@ BEGIN
     WHERE inactive_at IS NULL;
 END$$
 
--- Listar detalles de compras
+-- ###################################################################
 DELIMITER $$
 CREATE PROCEDURE listarDetallesCompras()
 BEGIN
@@ -120,7 +120,7 @@ BEGIN
     WHERE inactive_at IS NULL;
 END$$
 
-
+-- ###################################################################
 DELIMITER $$
 CREATE PROCEDURE ListarClientes()
 BEGIN
@@ -134,7 +134,33 @@ BEGIN
     WHERE inactive_at IS NULL;
 END $$
 
---  Listar Roles:
+-- ###################################################################
+DELIMITER $$
+CREATE PROCEDURE listarVentas()
+BEGIN
+    SELECT
+		id,
+        cliente_id,
+        empleado_id,
+        fecha
+    FROM ventas
+    WHERE inactive_at IS NULL;
+END$$
+
+-- ###################################################################
+DELIMITER $$
+CREATE PROCEDURE listarDetallesVentas()
+BEGIN
+    SELECT
+		id,
+        venta_id,
+        producto_id,
+        cantidad
+    FROM detalles_ventas
+    WHERE inactive_at IS NULL;
+END$$
+
+-- ###################################################################
 DELIMITER $$
 CREATE PROCEDURE ListarRoles()
 BEGIN
@@ -142,7 +168,7 @@ BEGIN
     FROM roles;
 END $$
 
---  Listar Empleados Activos:
+-- ###################################################################
 DELIMITER $$
 CREATE PROCEDURE ListarEmpleados()
 BEGIN

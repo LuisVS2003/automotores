@@ -1,6 +1,6 @@
 USE automotores;
 
--- Registrar Categoria
+-- ###################################################################
 DELIMITER $$
 CREATE PROCEDURE RegistrarCategoria(
     IN _nombre VARCHAR(50)
@@ -12,7 +12,7 @@ BEGIN
     SELECT LAST_INSERT_ID() 'id';
 END$$
 
--- Registrar Categoria
+-- ###################################################################
 DELIMITER $$
 CREATE PROCEDURE RegistrarMarca(
     IN _nombre VARCHAR(50)
@@ -24,7 +24,7 @@ BEGIN
     SELECT LAST_INSERT_ID() 'id';
 END$$
 
--- Registrar Producto
+-- ###################################################################
 DELIMITER $$
 CREATE PROCEDURE RegistrarProducto(
     IN _categoria_id	INT,
@@ -44,7 +44,7 @@ BEGIN
     SELECT LAST_INSERT_ID() 'id';
 END$$
 
--- Registrar Almacen
+-- ###################################################################
 DELIMITER $$
 CREATE PROCEDURE RegistrarAlmacen(
     IN _direccion	VARCHAR(255),
@@ -61,7 +61,7 @@ BEGIN
     SELECT LAST_INSERT_ID() 'id';
 END$$
 
--- Registrar Kardex
+-- ###################################################################
 DELIMITER $$
 CREATE PROCEDURE RegistrarKardex(
     IN _producto_id INT,
@@ -78,7 +78,7 @@ BEGIN
     SELECT LAST_INSERT_ID() 'id';
 END$$
 
--- Registrar Movimiento
+-- ###################################################################
 DELIMITER $$
 CREATE PROCEDURE RegistrarMovimiento(
     IN _kardexId	INT,
@@ -95,7 +95,7 @@ BEGIN
     SELECT LAST_INSERT_ID() 'id';
 END$$
 
--- Registrar Proveedor
+-- ###################################################################
 DELIMITER $$
 CREATE PROCEDURE RegistrarProveedor(
     IN _nombre		VARCHAR(80),
@@ -113,7 +113,7 @@ BEGIN
     SELECT LAST_INSERT_ID() 'id';
 END$$
 
--- Registrar Compra
+-- ###################################################################
 DELIMITER $$
 CREATE PROCEDURE RegistrarCompra(
     IN _proveedor_id INT,
@@ -129,7 +129,7 @@ BEGIN
 END$$
 
 
--- Registrar Detalle de Compra
+-- ###################################################################
 DELIMITER $$
 CREATE PROCEDURE RegistrarDetalleCompra(
     IN _compra_id	INT,
@@ -145,7 +145,7 @@ BEGIN
     SELECT LAST_INSERT_ID() 'id';
 END$$
 
---  Registrar Cliente:
+-- ###################################################################
 DELIMITER $$
 CREATE PROCEDURE RegistrarCliente(
     IN _nombres		VARCHAR(50),
@@ -163,7 +163,39 @@ BEGIN
     SELECT LAST_INSERT_ID() 'id';
 END $$
 
---  Registrar Empleado:
+-- ###################################################################
+DELIMITER $$
+CREATE PROCEDURE RegistrarVenta(
+    IN _cliente_id	INT,
+    IN _empleado_id	INT,
+    IN _fecha		DATETIME
+)
+BEGIN
+    INSERT INTO ventas
+		(_cliente_id, fecha)
+    VALUES
+		(_cliente_id, _fecha);
+        
+    SELECT LAST_INSERT_ID() 'id';
+END$$
+
+-- ###################################################################
+DELIMITER $$
+CREATE PROCEDURE RegistrarDetalleVenta(
+    IN _venta_id	INT,
+    IN _producto_id	INT,
+    IN _cantidad	SMALLINT
+)
+BEGIN
+    INSERT INTO detalles_ventas
+		(_venta_id, producto_id, cantidad)
+    VALUES
+		(_venta_id, _producto_id, _cantidad);
+        
+    SELECT LAST_INSERT_ID() 'id';
+END$$
+
+-- ###################################################################
 DELIMITER $$
 CREATE PROCEDURE RegistrarEmpleado(
     IN _rol_id		INT,
@@ -184,7 +216,7 @@ BEGIN
     SELECT LAST_INSERT_ID() 'id';
 END $$
 
---  Registrar Rol:
+-- ###################################################################
 DELIMITER $$
 CREATE PROCEDURE RegistrarRol(
     IN _nombre VARCHAR(20)

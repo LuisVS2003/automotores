@@ -3,12 +3,12 @@ document.addEventListener('DOMContentLoaded', () => {
   const $$ = selector => document.querySelectorAll(selector);
 
   /* Start - SideBar ################################################################# */
-  $('#sidebar-toggle').addEventListener('click', () => {
+  function sidebarToggle () {
     const sidebar = $('.sidebar').classList;
     const contentMain = $('.content').classList;
     const btnOpen = $('.btn-sidebar-open').classList;
     const btnClose = $('.btn-sidebar-close').classList;
-    const backdrop = $('.sidebar-backdrop').classList;
+    const backdrop = $('.backdrop').classList;
 
     if (sidebar.contains('sidebar-toggle')) {
       sidebar.remove('sidebar-toggle');
@@ -23,7 +23,10 @@ document.addEventListener('DOMContentLoaded', () => {
       btnClose.add('hidden');
       backdrop.add('sidebar-toggle');
     }
-  });
+  }
+
+  $('#sidebar-toggle').addEventListener('click', sidebarToggle);
+  $('#backdrop').addEventListener('click', sidebarToggle)
 
   // $('.sidebar .sidebar-footer').addEventListener('click', () => $('.user-options').classList.toggle('hidden'));
 
@@ -50,4 +53,9 @@ document.addEventListener('DOMContentLoaded', () => {
     light.remove('hidden');
   }
   /* End - DarkMode ################################################################## */
+
+  /* Start - Modal ################################################################### */
+  
+
+  /* End - Modal ##################################################################### */
 });

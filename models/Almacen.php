@@ -14,7 +14,7 @@ class Almacen extends Conexion
 	public function listarAlmacen()
 	{
 		try {
-			$consulta = $this->conexion->prepare('');
+			$consulta = $this->conexion->prepare('CALL listarAlmacenes()');
 			$consulta->execute();
 
 			return $consulta->fetchAll(PDO::FETCH_ASSOC);

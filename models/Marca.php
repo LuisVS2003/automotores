@@ -14,7 +14,7 @@ class Marca extends Conexion
 	public function listarMarca()
 	{
 		try {
-			$consulta = $this->conexion->prepare('');
+			$consulta = $this->conexion->prepare('CALL listarMarcas()');
 			$consulta->execute();
 
 			return $consulta->fetchAll(PDO::FETCH_ASSOC);

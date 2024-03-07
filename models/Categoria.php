@@ -14,7 +14,7 @@ class Categoria extends Conexion
 	public function listarCategoria()
 	{
 		try {
-			$consulta = $this->conexion->prepare('');
+			$consulta = $this->conexion->prepare('CALL listarCategorias()');
 			$consulta->execute();
 
 			return $consulta->fetchAll(PDO::FETCH_ASSOC);

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1:3306
--- Tiempo de generación: 07-03-2024 a las 20:18:03
+-- Tiempo de generación: 07-03-2024 a las 21:25:46
 -- Versión del servidor: 8.2.0
 -- Versión de PHP: 8.2.13
 
@@ -61,8 +61,7 @@ DROP PROCEDURE IF EXISTS `listarCompras`$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `listarCompras` ()   BEGIN
     SELECT
 		id,
-        proveedor_id,
-        fecha
+        proveedor_id
     FROM compras
     WHERE inactive_at IS NULL;
 END$$
@@ -132,8 +131,7 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `listarMovimientos` ()   BEGIN
         kardex_id,
         cantidad,
         saldo,
-        tipo,
-        fecha
+        tipo
     FROM movimientos
     WHERE inactive_at IS NULL;
 END$$
@@ -184,8 +182,7 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `listarVentas` ()   BEGIN
     SELECT
 		id,
         cliente_id,
-        empleado_id,
-        fecha
+        empleado_id
     FROM ventas
     WHERE inactive_at IS NULL;
 END$$
@@ -219,7 +216,7 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `registrarCliente` (IN `_nombres` VA
 END$$
 
 DROP PROCEDURE IF EXISTS `registrarCompra`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `registrarCompra` (IN `_proveedor_id` INT, IN `_fecha` DATETIME)   BEGIN
+CREATE DEFINER=`root`@`localhost` PROCEDURE `registrarCompra` (IN `_proveedor_id` INT)   BEGIN
     INSERT INTO compras
 		(proveedor_id, fecha)
     VALUES
@@ -315,7 +312,7 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `registrarRol` (IN `_nombre` VARCHAR
 END$$
 
 DROP PROCEDURE IF EXISTS `registrarVenta`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `registrarVenta` (IN `_cliente_id` INT, IN `_empleado_id` INT, IN `_fecha` DATETIME)   BEGIN
+CREATE DEFINER=`root`@`localhost` PROCEDURE `registrarVenta` (IN `_cliente_id` INT, IN `_empleado_id` INT)   BEGIN
     INSERT INTO ventas
 		(_cliente_id, fecha)
     VALUES
@@ -366,14 +363,14 @@ CREATE TABLE IF NOT EXISTS `categorias` (
 --
 
 INSERT INTO `categorias` (`id`, `nombre`, `create_at`, `update_at`, `inactive_at`) VALUES
-(1, 'Filtro de aceite', '2024-03-07 15:17:37', NULL, NULL),
-(2, 'Bujias', '2024-03-07 15:17:37', NULL, NULL),
-(3, 'Pastillas de freno', '2024-03-07 15:17:37', NULL, NULL),
-(4, 'Bomba de agua', '2024-03-07 15:17:37', NULL, NULL),
-(5, 'Correa de distribución', '2024-03-07 15:17:37', NULL, NULL),
-(6, 'Batería', '2024-03-07 15:17:37', NULL, NULL),
-(7, 'Rotor de freno', '2024-03-07 15:17:37', NULL, NULL),
-(8, 'Alternador', '2024-03-07 15:17:37', NULL, NULL);
+(1, 'Filtro de aceite', '2024-03-07 16:17:12', NULL, NULL),
+(2, 'Bujias', '2024-03-07 16:17:12', NULL, NULL),
+(3, 'Pastillas de freno', '2024-03-07 16:17:12', NULL, NULL),
+(4, 'Bomba de agua', '2024-03-07 16:17:12', NULL, NULL),
+(5, 'Correa de distribución', '2024-03-07 16:17:12', NULL, NULL),
+(6, 'Batería', '2024-03-07 16:17:12', NULL, NULL),
+(7, 'Rotor de freno', '2024-03-07 16:17:12', NULL, NULL),
+(8, 'Alternador', '2024-03-07 16:17:12', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -400,11 +397,11 @@ CREATE TABLE IF NOT EXISTS `clientes` (
 --
 
 INSERT INTO `clientes` (`id`, `nombres`, `apellidos`, `dni`, `correo`, `clave`, `create_at`, `update_at`, `inactive_at`) VALUES
-(1, 'Alejandra Flores Velasco', NULL, NULL, NULL, NULL, '2024-03-07 15:17:37', NULL, NULL),
-(2, 'Manuel Díaz Torres', NULL, NULL, NULL, NULL, '2024-03-07 15:17:37', NULL, NULL),
-(3, 'Patricia Gómez Sánchez', NULL, NULL, NULL, NULL, '2024-03-07 15:17:37', NULL, NULL),
-(4, 'Ricardo López Herrera', NULL, NULL, NULL, NULL, '2024-03-07 15:17:37', NULL, NULL),
-(5, 'Laura Martínez Ramírez', NULL, NULL, NULL, NULL, '2024-03-07 15:17:37', NULL, NULL);
+(1, 'Alejandra Flores Velasco', NULL, NULL, NULL, NULL, '2024-03-07 16:17:12', NULL, NULL),
+(2, 'Manuel Díaz Torres', NULL, NULL, NULL, NULL, '2024-03-07 16:17:12', NULL, NULL),
+(3, 'Patricia Gómez Sánchez', NULL, NULL, NULL, NULL, '2024-03-07 16:17:12', NULL, NULL),
+(4, 'Ricardo López Herrera', NULL, NULL, NULL, NULL, '2024-03-07 16:17:12', NULL, NULL),
+(5, 'Laura Martínez Ramírez', NULL, NULL, NULL, NULL, '2024-03-07 16:17:12', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -493,9 +490,9 @@ CREATE TABLE IF NOT EXISTS `empleados` (
 --
 
 INSERT INTO `empleados` (`id`, `rol_id`, `nombres`, `apellidos`, `dni`, `correo`, `clave`, `direccion`, `salario`, `create_at`, `update_at`, `inactive_at`) VALUES
-(1, 1, 'Juan', 'Pérez', '12345678', 'juan@example.com', 'clave123', 'Calle 123', 2000.00, '2024-03-07 15:17:37', NULL, NULL),
-(2, 2, 'María', 'González', '87654321', 'maria@example.com', 'clave456', 'Avenida 456', 2500.00, '2024-03-07 15:17:37', NULL, NULL),
-(3, 3, 'Carlos', 'Martínez', '23456789', 'carlos@example.com', 'clave789', 'Plaza 789', 1800.00, '2024-03-07 15:17:37', NULL, NULL);
+(1, 1, 'Juan', 'Pérez', '12345678', 'juan@example.com', 'clave123', 'Calle 123', 2000.00, '2024-03-07 16:17:12', NULL, NULL),
+(2, 2, 'María', 'González', '87654321', 'maria@example.com', 'clave456', 'Avenida 456', 2500.00, '2024-03-07 16:17:12', NULL, NULL),
+(3, 3, 'Carlos', 'Martínez', '23456789', 'carlos@example.com', 'clave789', 'Plaza 789', 1800.00, '2024-03-07 16:17:12', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -539,33 +536,33 @@ CREATE TABLE IF NOT EXISTS `marcas` (
 --
 
 INSERT INTO `marcas` (`id`, `nombre`, `create_at`, `update_at`, `inactive_at`) VALUES
-(1, 'Bosch', '2024-03-07 15:17:37', NULL, NULL),
-(2, 'Fram', '2024-03-07 15:17:37', NULL, NULL),
-(3, 'Purolator', '2024-03-07 15:17:37', NULL, NULL),
-(4, 'NGK', '2024-03-07 15:17:37', NULL, NULL),
-(5, 'Denso', '2024-03-07 15:17:37', NULL, NULL),
-(6, 'Champion', '2024-03-07 15:17:37', NULL, NULL),
-(7, 'Brembo', '2024-03-07 15:17:37', NULL, NULL),
-(8, 'Wagner', '2024-03-07 15:17:37', NULL, NULL),
-(9, 'Akebono', '2024-03-07 15:17:37', NULL, NULL),
-(10, 'Monroe', '2024-03-07 15:17:37', NULL, NULL),
-(11, 'KYB', '2024-03-07 15:17:37', NULL, NULL),
-(12, 'Bilstein', '2024-03-07 15:17:37', NULL, NULL),
-(13, 'Gates', '2024-03-07 15:17:37', NULL, NULL),
-(14, 'ACDelco', '2024-03-07 15:17:37', NULL, NULL),
-(15, 'GMB', '2024-03-07 15:17:37', NULL, NULL),
-(16, 'Gates', '2024-03-07 15:17:37', NULL, NULL),
-(17, 'Continental', '2024-03-07 15:17:37', NULL, NULL),
-(18, 'Dayco', '2024-03-07 15:17:37', NULL, NULL),
-(19, 'Interstate', '2024-03-07 15:17:37', NULL, NULL),
-(20, 'Optima', '2024-03-07 15:17:37', NULL, NULL),
-(21, 'AC Delco', '2024-03-07 15:17:37', NULL, NULL),
-(22, 'K&N', '2024-03-07 15:17:37', NULL, NULL),
-(23, 'Fram', '2024-03-07 15:17:37', NULL, NULL),
-(24, 'Wagner', '2024-03-07 15:17:37', NULL, NULL),
-(25, 'ACDelco', '2024-03-07 15:17:37', NULL, NULL),
-(26, 'Bosch', '2024-03-07 15:17:37', NULL, NULL),
-(27, 'Denso', '2024-03-07 15:17:37', NULL, NULL);
+(1, 'Bosch', '2024-03-07 16:17:12', NULL, NULL),
+(2, 'Fram', '2024-03-07 16:17:12', NULL, NULL),
+(3, 'Purolator', '2024-03-07 16:17:12', NULL, NULL),
+(4, 'NGK', '2024-03-07 16:17:12', NULL, NULL),
+(5, 'Denso', '2024-03-07 16:17:12', NULL, NULL),
+(6, 'Champion', '2024-03-07 16:17:12', NULL, NULL),
+(7, 'Brembo', '2024-03-07 16:17:12', NULL, NULL),
+(8, 'Wagner', '2024-03-07 16:17:12', NULL, NULL),
+(9, 'Akebono', '2024-03-07 16:17:12', NULL, NULL),
+(10, 'Monroe', '2024-03-07 16:17:12', NULL, NULL),
+(11, 'KYB', '2024-03-07 16:17:12', NULL, NULL),
+(12, 'Bilstein', '2024-03-07 16:17:12', NULL, NULL),
+(13, 'Gates', '2024-03-07 16:17:12', NULL, NULL),
+(14, 'ACDelco', '2024-03-07 16:17:12', NULL, NULL),
+(15, 'GMB', '2024-03-07 16:17:12', NULL, NULL),
+(16, 'Gates', '2024-03-07 16:17:12', NULL, NULL),
+(17, 'Continental', '2024-03-07 16:17:12', NULL, NULL),
+(18, 'Dayco', '2024-03-07 16:17:12', NULL, NULL),
+(19, 'Interstate', '2024-03-07 16:17:12', NULL, NULL),
+(20, 'Optima', '2024-03-07 16:17:12', NULL, NULL),
+(21, 'AC Delco', '2024-03-07 16:17:12', NULL, NULL),
+(22, 'K&N', '2024-03-07 16:17:12', NULL, NULL),
+(23, 'Fram', '2024-03-07 16:17:12', NULL, NULL),
+(24, 'Wagner', '2024-03-07 16:17:12', NULL, NULL),
+(25, 'ACDelco', '2024-03-07 16:17:12', NULL, NULL),
+(26, 'Bosch', '2024-03-07 16:17:12', NULL, NULL),
+(27, 'Denso', '2024-03-07 16:17:12', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -616,11 +613,11 @@ CREATE TABLE IF NOT EXISTS `productos` (
 --
 
 INSERT INTO `productos` (`id`, `categoria_id`, `marca_id`, `nombre`, `codigo`, `descripcion`, `precio`, `imagen`, `create_at`, `update_at`, `inactive_at`) VALUES
-(1, 1, 2, 'Filtro de aceite Fram XYZ', 'COD000000002', 'Filtro de aceite de alta calidad', 15.99, 'imagen2.jpg', '2024-03-07 15:17:37', NULL, NULL),
-(2, 2, 5, 'Bujía Denso ABC', 'COD000000003', 'Bujía de platino para un mejor rendimiento', 8.50, 'imagen3.jpg', '2024-03-07 15:17:37', NULL, NULL),
-(3, 3, 7, 'Pastillas de freno Brembo 123', 'COD000000004', 'Pastillas de freno de cerámica para un frenado suave', 45.75, 'imagen4.jpg', '2024-03-07 15:17:37', NULL, NULL),
-(4, 4, 10, 'Bomba de agua Monroe XYZ', 'COD000000005', 'Bomba de agua de alta eficiencia', 65.30, 'imagen5.jpg', '2024-03-07 15:17:37', NULL, NULL),
-(5, 5, 4, 'Correa de distribución NGK 567', 'COD000000006', 'Correa de distribución resistente y duradera', 25.99, 'imagen6.jpg', '2024-03-07 15:17:37', NULL, NULL);
+(1, 1, 2, 'Filtro de aceite Fram XYZ', 'COD000000002', 'Filtro de aceite de alta calidad', 15.99, 'imagen2.jpg', '2024-03-07 16:17:12', NULL, NULL),
+(2, 2, 5, 'Bujía Denso ABC', 'COD000000003', 'Bujía de platino para un mejor rendimiento', 8.50, 'imagen3.jpg', '2024-03-07 16:17:12', NULL, NULL),
+(3, 3, 7, 'Pastillas de freno Brembo 123', 'COD000000004', 'Pastillas de freno de cerámica para un frenado suave', 45.75, 'imagen4.jpg', '2024-03-07 16:17:12', NULL, NULL),
+(4, 4, 10, 'Bomba de agua Monroe XYZ', 'COD000000005', 'Bomba de agua de alta eficiencia', 65.30, 'imagen5.jpg', '2024-03-07 16:17:12', NULL, NULL),
+(5, 5, 4, 'Correa de distribución NGK 567', 'COD000000006', 'Correa de distribución resistente y duradera', 25.99, 'imagen6.jpg', '2024-03-07 16:17:12', NULL, NULL);
 
 -- --------------------------------------------------------
 

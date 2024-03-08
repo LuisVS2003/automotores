@@ -197,7 +197,7 @@ CREATE PROCEDURE registrarDetalleVenta(
 )
 BEGIN
     INSERT INTO detalles_ventas
-		(_venta_id, producto_id, cantidad)
+		(venta_id, producto_id, cantidad)
     VALUES
 		(_venta_id, _producto_id, _cantidad);
         

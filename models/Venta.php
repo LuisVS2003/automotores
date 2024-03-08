@@ -26,9 +26,12 @@
 		public function registrarVenta($data = [])
 		{
 			try {
-				$consulta = $this->conexion->prepare('');
+				$consulta = $this->conexion->prepare('CALL registrarVenta(?,?);');
 				$consulta->execute(
-					array()
+					array(
+						$_POST['cliente_id'],
+						$_POST['empleado_id']
+					)
 				);
 
 				return $consulta->fetch(PDO::FETCH_ASSOC);

@@ -64,3 +64,13 @@ VALUES
 	(1, "Juan", "Pérez", "12345678", "juan@example.com", "clave123", "Calle 123", 2000.00 ),
 	(2, "María", "González", "87654321", "maria@example.com", "clave456", "Avenida 456", 2500.00 ),
 	(3, "Carlos", "Martínez", "23456789", "carlos@example.com", "clave789", "Plaza 789", 1800.00 );
+    
+    
+--  SELECT * FROM automotores.proveedores;
+
+INSERT INTO proveedores(nombre, telefono, correo, ruc, direccion) 
+VALUES
+	('test', '987654321', 'esteesuncorreotest@gmail.com', '12345678901', 'direcciontest');
+    
+    
+    

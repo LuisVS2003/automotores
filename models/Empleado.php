@@ -14,7 +14,7 @@
 		public function listarEmpleado()
 		{
 			try {
-				$consulta = $this->conexion->prepare('CALL listarEmpleados()');
+				$consulta = $this->conexion->prepare('CALL listarEmpleados();');
 				$consulta->execute();
 
 				return $consulta->fetchAll(PDO::FETCH_ASSOC);
@@ -26,9 +26,18 @@
 		public function registrarEmpleado($data = [])
 		{
 			try {
-				$consulta = $this->conexion->prepare('');
+				$consulta = $this->conexion->prepare('CALL registrarEmpleado(?,?,?,?,?,?,?,?);');
 				$consulta->execute(
-					array()
+					array(
+						$data['rol_id'],
+						$data['nombres'],
+						$data['apellidos'],
+						$data['dni'],
+						$data['correo'],
+						$data['clave'],
+						$data['direccion'],
+						$data['salario']
+					)
 				);
 
 				return $consulta->fetch(PDO::FETCH_ASSOC);

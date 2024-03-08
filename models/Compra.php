@@ -26,9 +26,11 @@ class Compra extends Conexion
 	public function registrarCompra($data = [])
 	{
 		try {
-			$consulta = $this->conexion->prepare('');
+			$consulta = $this->conexion->prepare('CALL registrarCompra(?);');
 			$consulta->execute(
-				array()
+				array(
+					$_POST['proveedor_id']
+				)
 			);
 
 			return $consulta->fetch(PDO::FETCH_ASSOC);

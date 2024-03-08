@@ -26,9 +26,13 @@ class DetalleCompra extends Conexion
 	public function registrarDetalleCompra($data = [])
 	{
 		try {
-			$consulta = $this->conexion->prepare('');
+			$consulta = $this->conexion->prepare('CALL registrarDetalleCompra(?,?,?)');
 			$consulta->execute(
-				array()
+				array(
+					$_POST['compra_id'],
+					$_POST['producto_id'],
+					$_POST['cantidad']
+				)
 			);
 
 			return $consulta->fetch(PDO::FETCH_ASSOC);

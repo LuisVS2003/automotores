@@ -10,7 +10,17 @@ if (isset($_POST['operacion'])) {
 			break;
 
 		case 'registrarEmpleado':
-			$data = [];
+			$data = [
+				'rol_id' 		=> $_POST['rol_id'],
+				'nombres' 	=> $_POST['nombres'],
+				'apellidos' => $_POST['apellidos'],
+				'dni' 			=> $_POST['dni'],
+				'correo' 		=> $_POST['correo'],
+				'clave' 		=> $_POST['clave'],
+				'direccion' => $_POST['direccion'],
+				'salario' 	=> $_POST['salario']
+			];
+			
 			echo json_encode($empleado->registrarEmpleado($data));
 			break;
 

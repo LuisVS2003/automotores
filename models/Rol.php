@@ -26,9 +26,11 @@
 		public function registrarRol($data = [])
 		{
 			try {
-				$consulta = $this->conexion->prepare('');
+				$consulta = $this->conexion->prepare('CALL registrarRol(?);');
 				$consulta->execute(
-					array()
+					array(
+						$_POST['nombre']
+					)
 				);
 
 				return $consulta->fetch(PDO::FETCH_ASSOC);

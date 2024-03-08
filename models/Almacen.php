@@ -26,9 +26,14 @@ class Almacen extends Conexion
 	public function registrarAlmacen($data = [])
 	{
 		try {
-			$consulta = $this->conexion->prepare('');
+			$consulta = $this->conexion->prepare('CALL registrarAlmacen(?,?,?,?)');
 			$consulta->execute(
-				array()
+				array(
+					$data['direccion'],
+					$data['referencia'],
+					$data['latitud'],
+					$data['longitud']
+				)
 			);
 
 			return $consulta->fetch(PDO::FETCH_ASSOC);

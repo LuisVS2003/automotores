@@ -29,7 +29,7 @@
 				$consulta = $this->conexion->prepare('CALL registrarRol(?);');
 				$consulta->execute(
 					array(
-						$_POST['nombre']
+						$data['nombre']
 					)
 				);
 

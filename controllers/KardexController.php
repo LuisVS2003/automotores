@@ -10,7 +10,12 @@ if (isset($_POST['operacion'])) {
 			break;
 
 		case 'registrarKardex':
-			$data = [];
+			$data = [
+				'producto_id'	=> $_POST['producto_id'],
+				'almacen_id'	=> $_POST['almacen_id'],
+				'minimo'			=> $_POST['minimo'],
+				'maximo'			=> $_POST['maximo'],
+			];
 			echo json_encode($kardex->registrarKardex($data));
 			break;
 

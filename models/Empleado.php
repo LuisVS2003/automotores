@@ -26,7 +26,7 @@
 		public function registrarEmpleado($data = [])
 		{
 			try {
-				$consulta = $this->conexion->prepare('CALL registrarEmpleado(?,?,?,?,?,?,?,?);');
+				$consulta = $this->conexion->prepare('CALL registrarEmpleado(?,?,?,?,?,?,?,?)');
 				$consulta->execute(
 					array(
 						$data['rol_id'],

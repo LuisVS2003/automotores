@@ -26,9 +26,14 @@
 		public function registrarMovimiento($data = [])
 		{
 			try {
-				$consulta = $this->conexion->prepare('');
+				$consulta = $this->conexion->prepare('CALL registrarMovimiento(?,?,?,?)');
 				$consulta->execute(
-					array()
+					array(
+						$data['kardexId'],
+						$data['cantidad'],
+						$data['saldo'],
+						$data['tipo']
+					)
 				);
 
 				return $consulta->fetch(PDO::FETCH_ASSOC);

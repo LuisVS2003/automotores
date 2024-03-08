@@ -26,9 +26,17 @@ class Producto extends Conexion
 	public function registrarProducto($data = [])
 	{
 		try {
-			$consulta = $this->conexion->prepare('');
+			$consulta = $this->conexion->prepare('CALL registrarProducto(?,?,?,?,?,?,?)');
 			$consulta->execute(
-				array()
+				array(
+					$data['categoria_id'],
+					$data['marca_id'],
+					$data['nombre'],
+					$data['codigo'],
+					$data['descripcion'],
+					$data['precio'],
+					$data['imagen']
+				)
 			);
 
 			return $consulta->fetch(PDO::FETCH_ASSOC);

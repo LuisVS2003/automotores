@@ -26,9 +26,15 @@
 		public function registrarProveedor($data = [])
 		{
 			try {
-				$consulta = $this->conexion->prepare('');
+				$consulta = $this->conexion->prepare('CALL registrarProveedor(?,?,?,?,?)');
 				$consulta->execute(
-					array()
+					array(
+						$data['nombre'],
+						$data['telefono'],
+						$data['correo'],
+						$data['ruc'],
+						$data['direccion']
+					)
 				);
 
 				return $consulta->fetch(PDO::FETCH_ASSOC);

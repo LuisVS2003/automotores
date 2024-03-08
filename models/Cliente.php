@@ -26,15 +26,15 @@ class Cliente extends Conexion
 	public function registrarCliente($data = [])
 	{
 		try {
-			$consulta = $this->conexion->prepare('CALL registrarCliente(?,?,?,?,?);');
+			$consulta = $this->conexion->prepare('CALL registrarCliente(?,?,?,?,?)');
 			$consulta->execute(
 				array(
-					$_POST['nombres'],
-					$_POST['apellidos'],
-					$_POST['dni'],
-					$_POST['correo'],
-					$_POST['clave']
-					)
+					$data['nombres'],
+					$data['apellidos'],
+					$data['dni'],
+					$data['correo'],
+					$data['clave']
+				)
 			);
 
 			return $consulta->fetch(PDO::FETCH_ASSOC);

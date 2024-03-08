@@ -26,9 +26,14 @@
 		public function registrarKardex($data = [])
 		{
 			try {
-				$consulta = $this->conexion->prepare('');
+				$consulta = $this->conexion->prepare('CALL registrarKardex(?,?,?,?)');
 				$consulta->execute(
-					array()
+					array(
+						$data['producto_id'],
+						$data['almacen_id'],
+						$data['minimo'],
+						$data['maximo']
+					)
 				);
 
 				return $consulta->fetch(PDO::FETCH_ASSOC);

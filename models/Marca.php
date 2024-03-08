@@ -26,9 +26,11 @@ class Marca extends Conexion
 	public function registrarMarca($data = [])
 	{
 		try {
-			$consulta = $this->conexion->prepare('');
+			$consulta = $this->conexion->prepare('CALL registrarMarca(?)');
 			$consulta->execute(
-				array()
+				array(
+					$data['nombre']
+				)
 			);
 
 			return $consulta->fetch(PDO::FETCH_ASSOC);

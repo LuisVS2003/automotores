@@ -29,9 +29,9 @@ class DetalleCompra extends Conexion
 			$consulta = $this->conexion->prepare('CALL registrarDetalleCompra(?,?,?)');
 			$consulta->execute(
 				array(
-					$_POST['compra_id'],
-					$_POST['producto_id'],
-					$_POST['cantidad']
+					$data['compra_id'],
+					$data['producto_id'],
+					$data['cantidad']
 				)
 			);
 

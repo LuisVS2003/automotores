@@ -26,10 +26,10 @@ class Compra extends Conexion
 	public function registrarCompra($data = [])
 	{
 		try {
-			$consulta = $this->conexion->prepare('CALL registrarCompra(?);');
+			$consulta = $this->conexion->prepare('CALL registrarCompra(?)');
 			$consulta->execute(
 				array(
-					$_POST['proveedor_id']
+					$data['proveedor_id']
 				)
 			);
 

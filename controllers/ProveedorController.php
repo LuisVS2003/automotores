@@ -10,7 +10,13 @@ if (isset($_POST['operacion'])) {
 			break;
 
 		case 'registrarProveedor':
-			$data = [];
+			$data = [
+				'nombre'		=> $_POST['nombre'],
+				'telefono'	=> $_POST['telefono'],
+				'correo'		=> $_POST['correo'],
+				'ruc'				=> $_POST['ruc'],
+				'direccion' => $_POST['direccion'],
+			];
 			echo json_encode($proveedor->registrarProveedor($data));
 			break;
 

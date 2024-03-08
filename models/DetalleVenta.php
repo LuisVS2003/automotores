@@ -29,9 +29,9 @@
 				$consulta = $this->conexion->prepare('CALL registrarDetalleVenta(?,?,?);');
 				$consulta->execute(
 					array(
-						$_POST['venta_id'],
-						$_POST['producto_id'],
-						$_POST['cantidad']
+						$data['venta_id'],
+						$data['producto_id'],
+						$data['cantidad']
 					)
 				);
 

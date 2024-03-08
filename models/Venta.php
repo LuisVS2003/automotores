@@ -29,8 +29,8 @@
 				$consulta = $this->conexion->prepare('CALL registrarVenta(?,?);');
 				$consulta->execute(
 					array(
-						$_POST['cliente_id'],
-						$_POST['empleado_id']
+						$data['cliente_id'],
+						$data['empleado_id']
 					)
 				);
 

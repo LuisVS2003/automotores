@@ -11,7 +11,7 @@ if (isset($_POST['operacion'])) {
 
 		case 'registrarCompra':
 			$data = [
-				'proveedor_id'		=>		$_POST['proveedor_id']
+				'proveedor_id'	=>	$_POST['proveedor_id']
 			];
 			echo json_encode($compra->registrarCompra($data));
 			break;

@@ -26,9 +26,11 @@ class Categoria extends Conexion
 	public function registrarCategoria($data = [])
 	{
 		try {
-			$consulta = $this->conexion->prepare('');
+			$consulta = $this->conexion->prepare('CALL registrarCategoria(?)');
 			$consulta->execute(
-				array()
+				array(
+					$data['nombre']
+				)
 			);
 
 			return $consulta->fetch(PDO::FETCH_ASSOC);

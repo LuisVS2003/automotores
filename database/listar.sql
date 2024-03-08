@@ -15,8 +15,6 @@ DROP PROCEDURE IF EXISTS listarDetallesVentas;
 DROP PROCEDURE IF EXISTS listarRoles;
 DROP PROCEDURE IF EXISTS listarEmpleados;
 
-CALL listarProductos
-
 -- ###################################################################
 DELIMITER $$
 CREATE PROCEDURE listarCategorias()
@@ -79,13 +77,15 @@ DELIMITER $$
 CREATE PROCEDURE listarKardex()
 BEGIN
     SELECT
-		id,
-		producto_id,
-		almacen_id,
-		minimo,
-		maximo
-    FROM kardex
-    WHERE inactive_at IS NULL;
+		KAR.id,
+		KAR.producto_id,
+		KAR.almacen_id,
+        PRO.nombre AS producto,
+		KAR.minimo,
+		KAR.maximo
+    FROM kardex KAR
+    INNER JOIN productos PRO ON PRO.id = KAR.producto_id
+    WHERE KAR.inactive_at IS NULL;
 END$$
 
 -- ###################################################################
@@ -122,10 +122,12 @@ DELIMITER $$
 CREATE PROCEDURE listarCompras()
 BEGIN
     SELECT
-		id,
-        proveedor_id
-    FROM compras
-    WHERE inactive_at IS NULL;
+		COM.id,
+        COM.proveedor_id,
+        PRO.nombre AS proveedor
+    FROM compras COM
+    INNER JOIN proveedores PRO ON PRO.id = COM.proveedor_id
+    WHERE COM.inactive_at IS NULL;
 END$$
 
 -- ###################################################################
@@ -133,12 +135,16 @@ DELIMITER $$
 CREATE PROCEDURE listarDetallesCompras()
 BEGIN
     SELECT
-		id,
-        compra_id,
-        producto_id,
-        cantidad
-    FROM detalles_compras
-    WHERE inactive_at IS NULL;
+		D_C.id,
+        D_C.compra_id,
+        D_C.producto_id,
+        D_C.cantidad,
+        PRO.nombre AS producto,
+        PRO.precio,
+        D_C.cantidad * PRO.precio AS importe
+    FROM detalles_compras D_C
+    INNER JOIN productos PRO ON PRO.id = D_C.producto_id
+    WHERE D_C.inactive_at IS NULL;
 END$$
 
 -- ###################################################################
@@ -160,11 +166,15 @@ DELIMITER $$
 CREATE PROCEDURE listarVentas()
 BEGIN
     SELECT
-		id,
-        cliente_id,
-        empleado_id
-    FROM ventas
-    WHERE inactive_at IS NULL;
+		VEN.id,
+        VEN.cliente_id,
+        VEN.empleado_id,
+        CLI.nombres AS cliente,
+        CONCAT(EMP.apellidos, ", ", EMP.nombres) AS empleado
+    FROM ventas VEN
+    INNER JOIN clientes CLI ON CLI.id = VEN.cliente_id
+    INNER JOIN empleados EMP ON EMP.id = VEN.empleado_id
+    WHERE VEN.inactive_at IS NULL;
 END$$
 
 -- ###################################################################
@@ -172,12 +182,16 @@ DELIMITER $$
 CREATE PROCEDURE listarDetallesVentas()
 BEGIN
     SELECT
-		id,
-        venta_id,
-        producto_id,
-        cantidad
-    FROM detalles_ventas
-    WHERE inactive_at IS NULL;
+		D_V.id,
+        D_V.venta_id,
+        D_V.producto_id,
+        D_V.cantidad,
+        PRO.nombre AS producto,
+        PRO.precio,
+        D_V.cantidad * PRO.precio AS importe
+    FROM detalles_ventas D_V
+    INNER JOIN productos PRO ON PRO.id = D_V.producto_id
+    WHERE D_V.inactive_at IS NULL;
 END$$
 
 -- ###################################################################

@@ -1,0 +1,112 @@
+html.dark {
+  .navbar {
+    background-color: var(--gray-800);
+    border-color: var(--gray-500);
+
+    .navbar-brand h1,
+    .user-profile,
+    button {
+      color: var(--gray-100);
+    }
+
+    button:hover,
+    button:focus,
+    .user-profile:hover,
+    .user-profile:focus {
+      background-color: var(--gray-600);
+      color: var(--gray-100);
+    }
+  }
+
+  .sidebar {
+    background-color: var(--gray-800);
+    border-color: var(--gray-500);
+
+    .sidebar-body {
+      .sidebar-link > a {
+        color: var(--gray-100);
+      }
+
+      .sidebar-link > a:hover,
+      .sidebar-link.active > a {
+        background-color: var(--gray-600);
+        color: var(--gray-100);
+      }
+    }
+
+    .sidebar-footer {
+      background-color: var(--gray-800);
+
+      &:hover {
+        background-color: var(--gray-600);
+      }
+
+      .user-profile {
+        h3,
+        p {
+          color: var(--gray-100);
+        }
+      }
+
+      .user-options {
+        background-color: var(--gray-800);
+        border-color: var(--gray-600);
+
+        .option-item > a {
+          color: var(--gray-100);
+
+          &:hover {
+            background-color: var(--gray-600);
+          }
+        }
+      }
+    }
+  }
+
+  .backdrop {
+    background-color: #374151cc;
+  }
+
+  .content {
+    background-color: var(--gray-800);
+    color: var(--gray-100);
+  }
+
+  .search-table {
+    .search-input {
+      color: var(--gray-100);
+      border: 1px solid var(--gray-400);
+    }
+  }
+
+  .table {
+    .table-head {
+      background-color: var(--gray-600);
+    }
+
+    .table-body {
+      .table-row {
+        background-color: var(--gray-800);
+
+        &:hover {
+          background-color: var(--gray-700);
+        }
+
+        td {
+          border-bottom-color: var(--gray-500);
+        }
+
+        .table-details {
+          & h3 {
+            color: var(--gray-100);
+          }
+
+          & span {
+            /* display: none; */
+            color: var(--gray-400);
+          }
+        }
+      }
+    }
+  }
+}

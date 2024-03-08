@@ -1,9 +1,25 @@
-document.addEventListener('DOMContentLoaded', () => {
-  const $ = selector => document.querySelector(selector);
-  const $$ = selector => document.querySelectorAll(selector);
+const $ = selector => document.querySelector(selector);
+const $$ = selector => document.querySelectorAll(selector);
 
+/* Start - Fetch ################################################################### */
+const dataFetch = async (url, dataForm) => {
+  try {
+    const opciones = {
+      method: 'POST',
+      body: dataForm,
+    };
+    const res = await fetch(url, opciones);
+    const data = await res.json();
+    return data;
+  } catch (error) {
+    console.error(error);
+  }
+};
+/* Start - Fetch ################################################################### */
+
+document.addEventListener('DOMContentLoaded', () => {
   /* Start - SideBar ################################################################# */
-  function sidebarToggle () {
+  function sidebarToggle() {
     const sidebar = $('.sidebar').classList;
     const contentMain = $('.content').classList;
     const btnOpen = $('.btn-sidebar-open').classList;
@@ -26,7 +42,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   $('#sidebar-toggle').addEventListener('click', sidebarToggle);
-  $('#backdrop').addEventListener('click', sidebarToggle)
+  $('#backdrop').addEventListener('click', sidebarToggle);
 
   // $('.sidebar .sidebar-footer').addEventListener('click', () => $('.user-options').classList.toggle('hidden'));
 
@@ -55,7 +71,6 @@ document.addEventListener('DOMContentLoaded', () => {
   /* End - DarkMode ################################################################## */
 
   /* Start - Modal ################################################################### */
-  
 
   /* End - Modal ##################################################################### */
 });

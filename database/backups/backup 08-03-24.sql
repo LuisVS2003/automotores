@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.1
+-- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
--- Servidor: 127.0.0.1:3306
--- Tiempo de generación: 07-03-2024 a las 21:25:46
--- Versión del servidor: 8.2.0
--- Versión de PHP: 8.2.13
+-- Servidor: 127.0.0.1
+-- Tiempo de generación: 08-03-2024 a las 14:53:47
+-- Versión del servidor: 10.4.27-MariaDB
+-- Versión de PHP: 8.2.0
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -25,7 +25,6 @@ DELIMITER $$
 --
 -- Procedimientos
 --
-DROP PROCEDURE IF EXISTS `listarAlmacenes`$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `listarAlmacenes` ()   BEGIN
     SELECT
 		id,
@@ -37,7 +36,6 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `listarAlmacenes` ()   BEGIN
     WHERE inactive_at IS NULL;
 END$$
 
-DROP PROCEDURE IF EXISTS `listarCategorias`$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `listarCategorias` ()   BEGIN
     SELECT
 		id, nombre
@@ -45,7 +43,6 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `listarCategorias` ()   BEGIN
     WHERE inactive_at IS NULL;
 END$$
 
-DROP PROCEDURE IF EXISTS `listarClientes`$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `listarClientes` ()   BEGIN
     SELECT
         id,
@@ -57,7 +54,6 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `listarClientes` ()   BEGIN
     WHERE inactive_at IS NULL;
 END$$
 
-DROP PROCEDURE IF EXISTS `listarCompras`$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `listarCompras` ()   BEGIN
     SELECT
 		id,
@@ -66,7 +62,6 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `listarCompras` ()   BEGIN
     WHERE inactive_at IS NULL;
 END$$
 
-DROP PROCEDURE IF EXISTS `listarDetallesCompras`$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `listarDetallesCompras` ()   BEGIN
     SELECT
 		id,
@@ -77,7 +72,6 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `listarDetallesCompras` ()   BEGIN
     WHERE inactive_at IS NULL;
 END$$
 
-DROP PROCEDURE IF EXISTS `listarDetallesVentas`$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `listarDetallesVentas` ()   BEGIN
     SELECT
 		id,
@@ -88,7 +82,6 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `listarDetallesVentas` ()   BEGIN
     WHERE inactive_at IS NULL;
 END$$
 
-DROP PROCEDURE IF EXISTS `listarEmpleados`$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `listarEmpleados` ()   BEGIN
     SELECT
         EMP.id,
@@ -104,7 +97,6 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `listarEmpleados` ()   BEGIN
     WHERE EMP.inactive_at IS NULL;
 END$$
 
-DROP PROCEDURE IF EXISTS `listarKardex`$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `listarKardex` ()   BEGIN
     SELECT
 		id,
@@ -116,7 +108,6 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `listarKardex` ()   BEGIN
     WHERE inactive_at IS NULL;
 END$$
 
-DROP PROCEDURE IF EXISTS `listarMarcas`$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `listarMarcas` ()   BEGIN
     SELECT
 		id, nombre
@@ -124,7 +115,6 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `listarMarcas` ()   BEGIN
     WHERE inactive_at IS NULL;
 END$$
 
-DROP PROCEDURE IF EXISTS `listarMovimientos`$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `listarMovimientos` ()   BEGIN
     SELECT
 		id,
@@ -136,7 +126,6 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `listarMovimientos` ()   BEGIN
     WHERE inactive_at IS NULL;
 END$$
 
-DROP PROCEDURE IF EXISTS `listarProductos`$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `listarProductos` ()   BEGIN
     SELECT 
 		PRO.id,
@@ -157,7 +146,6 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `listarProductos` ()   BEGIN
         AND MAR.inactive_at IS NULL;
 END$$
 
-DROP PROCEDURE IF EXISTS `listarProveedores`$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `listarProveedores` ()   BEGIN
     SELECT
 		id,
@@ -170,14 +158,12 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `listarProveedores` ()   BEGIN
     WHERE inactive_at IS NULL;
 END$$
 
-DROP PROCEDURE IF EXISTS `listarRoles`$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `listarRoles` ()   BEGIN
     SELECT
 		id, nombre
     FROM roles;
 END$$
 
-DROP PROCEDURE IF EXISTS `listarVentas`$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `listarVentas` ()   BEGIN
     SELECT
 		id,
@@ -187,7 +173,6 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `listarVentas` ()   BEGIN
     WHERE inactive_at IS NULL;
 END$$
 
-DROP PROCEDURE IF EXISTS `registrarAlmacen`$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `registrarAlmacen` (IN `_direccion` VARCHAR(255), IN `_referencia` VARCHAR(255), IN `_latitud` VARCHAR(15), IN `_longitud` VARCHAR(15))   BEGIN
     INSERT INTO almacen
 		(direccion, referencia, latitud, longitud)
@@ -197,7 +182,6 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `registrarAlmacen` (IN `_direccion` 
     SELECT LAST_INSERT_ID() 'id';
 END$$
 
-DROP PROCEDURE IF EXISTS `registrarCategoria`$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `registrarCategoria` (IN `_nombre` VARCHAR(50))   BEGIN
     INSERT INTO categorias(nombre)
     VALUES (_nombre);
@@ -205,7 +189,6 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `registrarCategoria` (IN `_nombre` V
     SELECT LAST_INSERT_ID() 'id';
 END$$
 
-DROP PROCEDURE IF EXISTS `registrarCliente`$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `registrarCliente` (IN `_nombres` VARCHAR(50), IN `_apellidos` VARCHAR(50), IN `_dni` CHAR(8), IN `_correo` VARCHAR(120), IN `_clave` VARCHAR(60))   BEGIN
     INSERT INTO clientes
 		(nombres, apellidos, dni, correo, clave)
@@ -215,17 +198,13 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `registrarCliente` (IN `_nombres` VA
     SELECT LAST_INSERT_ID() 'id';
 END$$
 
-DROP PROCEDURE IF EXISTS `registrarCompra`$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `registrarCompra` (IN `_proveedor_id` INT)   BEGIN
-    INSERT INTO compras
-		(proveedor_id, fecha)
-    VALUES
-		(_proveedor_id, _fecha);
+    INSERT INTO compras (proveedor_id)
+    VALUES (_proveedor_id);
         
     SELECT LAST_INSERT_ID() 'id';
 END$$
 
-DROP PROCEDURE IF EXISTS `registrarDetalleCompra`$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `registrarDetalleCompra` (IN `_compra_id` INT, IN `_producto_id` INT, IN `_cantidad` SMALLINT)   BEGIN
     INSERT INTO detalles_compras
 		(compra_id, producto_id, cantidad)
@@ -235,7 +214,6 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `registrarDetalleCompra` (IN `_compr
     SELECT LAST_INSERT_ID() 'id';
 END$$
 
-DROP PROCEDURE IF EXISTS `registrarDetalleVenta`$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `registrarDetalleVenta` (IN `_venta_id` INT, IN `_producto_id` INT, IN `_cantidad` SMALLINT)   BEGIN
     INSERT INTO detalles_ventas
 		(_venta_id, producto_id, cantidad)
@@ -245,7 +223,6 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `registrarDetalleVenta` (IN `_venta_
     SELECT LAST_INSERT_ID() 'id';
 END$$
 
-DROP PROCEDURE IF EXISTS `registrarEmpleado`$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `registrarEmpleado` (IN `_rol_id` INT, IN `_nombres` VARCHAR(50), IN `_apellidos` VARCHAR(50), IN `_dni` CHAR(8), IN `_correo` VARCHAR(120), IN `_clave` VARCHAR(60), IN `_direccion` VARCHAR(255), IN `_salario` DECIMAL(9,2))   BEGIN
     INSERT INTO empleados
 		(rol_id, nombres, apellidos, dni, correo, clave, direccion, salario)
@@ -255,7 +232,6 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `registrarEmpleado` (IN `_rol_id` IN
     SELECT LAST_INSERT_ID() 'id';
 END$$
 
-DROP PROCEDURE IF EXISTS `registrarKardex`$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `registrarKardex` (IN `_producto_id` INT, IN `_almacen_id` INT, IN `_minimo` SMALLINT, IN `_maximo` SMALLINT)   BEGIN
     INSERT INTO kardex
 		(producto_id, almacen_id, minimo, maximo)
@@ -265,7 +241,6 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `registrarKardex` (IN `_producto_id`
     SELECT LAST_INSERT_ID() 'id';
 END$$
 
-DROP PROCEDURE IF EXISTS `registrarMarca`$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `registrarMarca` (IN `_nombre` VARCHAR(50))   BEGIN
     INSERT INTO marcas(nombre)
     VALUES (_nombre);
@@ -273,7 +248,6 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `registrarMarca` (IN `_nombre` VARCH
     SELECT LAST_INSERT_ID() 'id';
 END$$
 
-DROP PROCEDURE IF EXISTS `registrarMovimiento`$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `registrarMovimiento` (IN `_kardexId` INT, IN `_cantidad` SMALLINT, IN `_saldo` SMALLINT, IN `_tipo` CHAR(1))   BEGIN
     INSERT INTO movimientos
 		(kardex_id, cantidad, saldo, tipo)
@@ -283,7 +257,6 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `registrarMovimiento` (IN `_kardexId
     SELECT LAST_INSERT_ID() 'id';
 END$$
 
-DROP PROCEDURE IF EXISTS `registrarProducto`$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `registrarProducto` (IN `_categoria_id` INT, IN `_marca_id` INT, IN `_nombre` VARCHAR(120), IN `_codigo` VARCHAR(20), IN `_descripcion` TEXT, IN `_precio` DECIMAL(7,2), IN `_imagen` VARCHAR(60))   BEGIN
     INSERT INTO productos
 		(categoria_id, marca_id, nombre, codigo, descripcion, precio, imagen)
@@ -293,7 +266,6 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `registrarProducto` (IN `_categoria_
     SELECT LAST_INSERT_ID() 'id';
 END$$
 
-DROP PROCEDURE IF EXISTS `registrarProveedor`$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `registrarProveedor` (IN `_nombre` VARCHAR(80), IN `_telefono` VARCHAR(9), IN `_correo` VARCHAR(120), IN `_ruc` CHAR(11), IN `_direccion` VARCHAR(255))   BEGIN
     INSERT INTO proveedores
 		(nombre, telefono, correo, ruc, direccion)
@@ -303,7 +275,6 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `registrarProveedor` (IN `_nombre` V
     SELECT LAST_INSERT_ID() 'id';
 END$$
 
-DROP PROCEDURE IF EXISTS `registrarRol`$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `registrarRol` (IN `_nombre` VARCHAR(20))   BEGIN
     INSERT INTO roles (nombre)
     VALUES (_nombre);
@@ -311,12 +282,9 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `registrarRol` (IN `_nombre` VARCHAR
     SELECT LAST_INSERT_ID() 'id';
 END$$
 
-DROP PROCEDURE IF EXISTS `registrarVenta`$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `registrarVenta` (IN `_cliente_id` INT, IN `_empleado_id` INT)   BEGIN
-    INSERT INTO ventas
-		(_cliente_id, fecha)
-    VALUES
-		(_cliente_id, _fecha);
+    INSERT INTO ventas (cliente_id, empleado_id)
+    VALUES (_cliente_id, _empleado_id);
         
     SELECT LAST_INSERT_ID() 'id';
 END$$
@@ -329,18 +297,16 @@ DELIMITER ;
 -- Estructura de tabla para la tabla `almacen`
 --
 
-DROP TABLE IF EXISTS `almacen`;
-CREATE TABLE IF NOT EXISTS `almacen` (
-  `id` int NOT NULL AUTO_INCREMENT,
+CREATE TABLE `almacen` (
+  `id` int(11) NOT NULL,
   `direccion` varchar(255) NOT NULL,
   `referencia` varchar(255) DEFAULT NULL,
   `latitud` varchar(15) DEFAULT NULL,
   `longitud` varchar(15) DEFAULT NULL,
-  `create_at` datetime DEFAULT CURRENT_TIMESTAMP,
+  `create_at` datetime DEFAULT current_timestamp(),
   `update_at` datetime DEFAULT NULL,
-  `inactive_at` datetime DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `inactive_at` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -348,29 +314,27 @@ CREATE TABLE IF NOT EXISTS `almacen` (
 -- Estructura de tabla para la tabla `categorias`
 --
 
-DROP TABLE IF EXISTS `categorias`;
-CREATE TABLE IF NOT EXISTS `categorias` (
-  `id` int NOT NULL AUTO_INCREMENT,
+CREATE TABLE `categorias` (
+  `id` int(11) NOT NULL,
   `nombre` varchar(50) NOT NULL,
-  `create_at` datetime DEFAULT CURRENT_TIMESTAMP,
+  `create_at` datetime DEFAULT current_timestamp(),
   `update_at` datetime DEFAULT NULL,
-  `inactive_at` datetime DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `inactive_at` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `categorias`
 --
 
 INSERT INTO `categorias` (`id`, `nombre`, `create_at`, `update_at`, `inactive_at`) VALUES
-(1, 'Filtro de aceite', '2024-03-07 16:17:12', NULL, NULL),
-(2, 'Bujias', '2024-03-07 16:17:12', NULL, NULL),
-(3, 'Pastillas de freno', '2024-03-07 16:17:12', NULL, NULL),
-(4, 'Bomba de agua', '2024-03-07 16:17:12', NULL, NULL),
-(5, 'Correa de distribución', '2024-03-07 16:17:12', NULL, NULL),
-(6, 'Batería', '2024-03-07 16:17:12', NULL, NULL),
-(7, 'Rotor de freno', '2024-03-07 16:17:12', NULL, NULL),
-(8, 'Alternador', '2024-03-07 16:17:12', NULL, NULL);
+(1, 'Filtro de aceite', '2024-03-08 08:53:24', NULL, NULL),
+(2, 'Bujias', '2024-03-08 08:53:24', NULL, NULL),
+(3, 'Pastillas de freno', '2024-03-08 08:53:24', NULL, NULL),
+(4, 'Bomba de agua', '2024-03-08 08:53:24', NULL, NULL),
+(5, 'Correa de distribución', '2024-03-08 08:53:24', NULL, NULL),
+(6, 'Batería', '2024-03-08 08:53:24', NULL, NULL),
+(7, 'Rotor de freno', '2024-03-08 08:53:24', NULL, NULL),
+(8, 'Alternador', '2024-03-08 08:53:24', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -378,30 +342,28 @@ INSERT INTO `categorias` (`id`, `nombre`, `create_at`, `update_at`, `inactive_at
 -- Estructura de tabla para la tabla `clientes`
 --
 
-DROP TABLE IF EXISTS `clientes`;
-CREATE TABLE IF NOT EXISTS `clientes` (
-  `id` int NOT NULL AUTO_INCREMENT,
+CREATE TABLE `clientes` (
+  `id` int(11) NOT NULL,
   `nombres` varchar(50) DEFAULT NULL,
   `apellidos` varchar(50) DEFAULT NULL,
   `dni` char(8) DEFAULT NULL,
   `correo` varchar(120) DEFAULT NULL,
   `clave` varchar(60) DEFAULT NULL,
-  `create_at` datetime DEFAULT CURRENT_TIMESTAMP,
+  `create_at` datetime DEFAULT current_timestamp(),
   `update_at` datetime DEFAULT NULL,
-  `inactive_at` datetime DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `inactive_at` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `clientes`
 --
 
 INSERT INTO `clientes` (`id`, `nombres`, `apellidos`, `dni`, `correo`, `clave`, `create_at`, `update_at`, `inactive_at`) VALUES
-(1, 'Alejandra Flores Velasco', NULL, NULL, NULL, NULL, '2024-03-07 16:17:12', NULL, NULL),
-(2, 'Manuel Díaz Torres', NULL, NULL, NULL, NULL, '2024-03-07 16:17:12', NULL, NULL),
-(3, 'Patricia Gómez Sánchez', NULL, NULL, NULL, NULL, '2024-03-07 16:17:12', NULL, NULL),
-(4, 'Ricardo López Herrera', NULL, NULL, NULL, NULL, '2024-03-07 16:17:12', NULL, NULL),
-(5, 'Laura Martínez Ramírez', NULL, NULL, NULL, NULL, '2024-03-07 16:17:12', NULL, NULL);
+(1, 'Alejandra Flores Velasco', NULL, NULL, NULL, NULL, '2024-03-08 08:53:24', NULL, NULL),
+(2, 'Manuel Díaz Torres', NULL, NULL, NULL, NULL, '2024-03-08 08:53:24', NULL, NULL),
+(3, 'Patricia Gómez Sánchez', NULL, NULL, NULL, NULL, '2024-03-08 08:53:24', NULL, NULL),
+(4, 'Ricardo López Herrera', NULL, NULL, NULL, NULL, '2024-03-08 08:53:24', NULL, NULL),
+(5, 'Laura Martínez Ramírez', NULL, NULL, NULL, NULL, '2024-03-08 08:53:24', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -409,17 +371,13 @@ INSERT INTO `clientes` (`id`, `nombres`, `apellidos`, `dni`, `correo`, `clave`, 
 -- Estructura de tabla para la tabla `compras`
 --
 
-DROP TABLE IF EXISTS `compras`;
-CREATE TABLE IF NOT EXISTS `compras` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `proveedor_id` int NOT NULL,
-  `fecha` datetime NOT NULL,
-  `create_at` datetime DEFAULT CURRENT_TIMESTAMP,
+CREATE TABLE `compras` (
+  `id` int(11) NOT NULL,
+  `proveedor_id` int(11) NOT NULL,
+  `create_at` datetime DEFAULT current_timestamp(),
   `update_at` datetime DEFAULT NULL,
-  `inactive_at` datetime DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `fk_proveedor_com` (`proveedor_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `inactive_at` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -427,19 +385,15 @@ CREATE TABLE IF NOT EXISTS `compras` (
 -- Estructura de tabla para la tabla `detalles_compras`
 --
 
-DROP TABLE IF EXISTS `detalles_compras`;
-CREATE TABLE IF NOT EXISTS `detalles_compras` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `compra_id` int NOT NULL,
-  `producto_id` int NOT NULL,
-  `cantidad` smallint NOT NULL,
-  `create_at` datetime DEFAULT CURRENT_TIMESTAMP,
+CREATE TABLE `detalles_compras` (
+  `id` int(11) NOT NULL,
+  `compra_id` int(11) NOT NULL,
+  `producto_id` int(11) NOT NULL,
+  `cantidad` smallint(6) NOT NULL,
+  `create_at` datetime DEFAULT current_timestamp(),
   `update_at` datetime DEFAULT NULL,
-  `inactive_at` datetime DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `fk_compra_d_c` (`compra_id`),
-  KEY `fk_producto_d_c` (`producto_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `inactive_at` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -447,19 +401,15 @@ CREATE TABLE IF NOT EXISTS `detalles_compras` (
 -- Estructura de tabla para la tabla `detalles_ventas`
 --
 
-DROP TABLE IF EXISTS `detalles_ventas`;
-CREATE TABLE IF NOT EXISTS `detalles_ventas` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `venta_id` int NOT NULL,
-  `producto_id` int NOT NULL,
-  `cantidad` smallint NOT NULL,
-  `create_at` datetime DEFAULT CURRENT_TIMESTAMP,
+CREATE TABLE `detalles_ventas` (
+  `id` int(11) NOT NULL,
+  `venta_id` int(11) NOT NULL,
+  `producto_id` int(11) NOT NULL,
+  `cantidad` smallint(6) NOT NULL,
+  `create_at` datetime DEFAULT current_timestamp(),
   `update_at` datetime DEFAULT NULL,
-  `inactive_at` datetime DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `fk_venta_d_v` (`venta_id`),
-  KEY `fk_producto_d_v` (`producto_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `inactive_at` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -467,10 +417,9 @@ CREATE TABLE IF NOT EXISTS `detalles_ventas` (
 -- Estructura de tabla para la tabla `empleados`
 --
 
-DROP TABLE IF EXISTS `empleados`;
-CREATE TABLE IF NOT EXISTS `empleados` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `rol_id` int NOT NULL,
+CREATE TABLE `empleados` (
+  `id` int(11) NOT NULL,
+  `rol_id` int(11) NOT NULL,
   `nombres` varchar(50) NOT NULL,
   `apellidos` varchar(50) NOT NULL,
   `dni` char(8) NOT NULL,
@@ -478,21 +427,19 @@ CREATE TABLE IF NOT EXISTS `empleados` (
   `clave` varchar(60) NOT NULL,
   `direccion` varchar(255) DEFAULT NULL,
   `salario` decimal(9,2) DEFAULT NULL,
-  `create_at` datetime DEFAULT CURRENT_TIMESTAMP,
+  `create_at` datetime DEFAULT current_timestamp(),
   `update_at` datetime DEFAULT NULL,
-  `inactive_at` datetime DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `fk_rol_emp` (`rol_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `inactive_at` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `empleados`
 --
 
 INSERT INTO `empleados` (`id`, `rol_id`, `nombres`, `apellidos`, `dni`, `correo`, `clave`, `direccion`, `salario`, `create_at`, `update_at`, `inactive_at`) VALUES
-(1, 1, 'Juan', 'Pérez', '12345678', 'juan@example.com', 'clave123', 'Calle 123', 2000.00, '2024-03-07 16:17:12', NULL, NULL),
-(2, 2, 'María', 'González', '87654321', 'maria@example.com', 'clave456', 'Avenida 456', 2500.00, '2024-03-07 16:17:12', NULL, NULL),
-(3, 3, 'Carlos', 'Martínez', '23456789', 'carlos@example.com', 'clave789', 'Plaza 789', 1800.00, '2024-03-07 16:17:12', NULL, NULL);
+(1, 1, 'Juan', 'Pérez', '12345678', 'juan@example.com', 'clave123', 'Calle 123', '2000.00', '2024-03-08 08:53:24', NULL, NULL),
+(2, 2, 'María', 'González', '87654321', 'maria@example.com', 'clave456', 'Avenida 456', '2500.00', '2024-03-08 08:53:24', NULL, NULL),
+(3, 3, 'Carlos', 'Martínez', '23456789', 'carlos@example.com', 'clave789', 'Plaza 789', '1800.00', '2024-03-08 08:53:24', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -500,20 +447,16 @@ INSERT INTO `empleados` (`id`, `rol_id`, `nombres`, `apellidos`, `dni`, `correo`
 -- Estructura de tabla para la tabla `kardex`
 --
 
-DROP TABLE IF EXISTS `kardex`;
-CREATE TABLE IF NOT EXISTS `kardex` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `producto_id` int NOT NULL,
-  `almacen_id` int NOT NULL,
-  `minimo` smallint DEFAULT NULL,
-  `maximo` smallint DEFAULT NULL,
-  `create_at` datetime DEFAULT CURRENT_TIMESTAMP,
+CREATE TABLE `kardex` (
+  `id` int(11) NOT NULL,
+  `producto_id` int(11) NOT NULL,
+  `almacen_id` int(11) NOT NULL,
+  `minimo` smallint(6) DEFAULT NULL,
+  `maximo` smallint(6) DEFAULT NULL,
+  `create_at` datetime DEFAULT current_timestamp(),
   `update_at` datetime DEFAULT NULL,
-  `inactive_at` datetime DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `fk_producto_kar` (`producto_id`),
-  KEY `fk_almacen_kar` (`almacen_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `inactive_at` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -521,48 +464,46 @@ CREATE TABLE IF NOT EXISTS `kardex` (
 -- Estructura de tabla para la tabla `marcas`
 --
 
-DROP TABLE IF EXISTS `marcas`;
-CREATE TABLE IF NOT EXISTS `marcas` (
-  `id` int NOT NULL AUTO_INCREMENT,
+CREATE TABLE `marcas` (
+  `id` int(11) NOT NULL,
   `nombre` varchar(50) NOT NULL,
-  `create_at` datetime DEFAULT CURRENT_TIMESTAMP,
+  `create_at` datetime DEFAULT current_timestamp(),
   `update_at` datetime DEFAULT NULL,
-  `inactive_at` datetime DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `inactive_at` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `marcas`
 --
 
 INSERT INTO `marcas` (`id`, `nombre`, `create_at`, `update_at`, `inactive_at`) VALUES
-(1, 'Bosch', '2024-03-07 16:17:12', NULL, NULL),
-(2, 'Fram', '2024-03-07 16:17:12', NULL, NULL),
-(3, 'Purolator', '2024-03-07 16:17:12', NULL, NULL),
-(4, 'NGK', '2024-03-07 16:17:12', NULL, NULL),
-(5, 'Denso', '2024-03-07 16:17:12', NULL, NULL),
-(6, 'Champion', '2024-03-07 16:17:12', NULL, NULL),
-(7, 'Brembo', '2024-03-07 16:17:12', NULL, NULL),
-(8, 'Wagner', '2024-03-07 16:17:12', NULL, NULL),
-(9, 'Akebono', '2024-03-07 16:17:12', NULL, NULL),
-(10, 'Monroe', '2024-03-07 16:17:12', NULL, NULL),
-(11, 'KYB', '2024-03-07 16:17:12', NULL, NULL),
-(12, 'Bilstein', '2024-03-07 16:17:12', NULL, NULL),
-(13, 'Gates', '2024-03-07 16:17:12', NULL, NULL),
-(14, 'ACDelco', '2024-03-07 16:17:12', NULL, NULL),
-(15, 'GMB', '2024-03-07 16:17:12', NULL, NULL),
-(16, 'Gates', '2024-03-07 16:17:12', NULL, NULL),
-(17, 'Continental', '2024-03-07 16:17:12', NULL, NULL),
-(18, 'Dayco', '2024-03-07 16:17:12', NULL, NULL),
-(19, 'Interstate', '2024-03-07 16:17:12', NULL, NULL),
-(20, 'Optima', '2024-03-07 16:17:12', NULL, NULL),
-(21, 'AC Delco', '2024-03-07 16:17:12', NULL, NULL),
-(22, 'K&N', '2024-03-07 16:17:12', NULL, NULL),
-(23, 'Fram', '2024-03-07 16:17:12', NULL, NULL),
-(24, 'Wagner', '2024-03-07 16:17:12', NULL, NULL),
-(25, 'ACDelco', '2024-03-07 16:17:12', NULL, NULL),
-(26, 'Bosch', '2024-03-07 16:17:12', NULL, NULL),
-(27, 'Denso', '2024-03-07 16:17:12', NULL, NULL);
+(1, 'Bosch', '2024-03-08 08:53:24', NULL, NULL),
+(2, 'Fram', '2024-03-08 08:53:24', NULL, NULL),
+(3, 'Purolator', '2024-03-08 08:53:24', NULL, NULL),
+(4, 'NGK', '2024-03-08 08:53:24', NULL, NULL),
+(5, 'Denso', '2024-03-08 08:53:24', NULL, NULL),
+(6, 'Champion', '2024-03-08 08:53:24', NULL, NULL),
+(7, 'Brembo', '2024-03-08 08:53:24', NULL, NULL),
+(8, 'Wagner', '2024-03-08 08:53:24', NULL, NULL),
+(9, 'Akebono', '2024-03-08 08:53:24', NULL, NULL),
+(10, 'Monroe', '2024-03-08 08:53:24', NULL, NULL),
+(11, 'KYB', '2024-03-08 08:53:24', NULL, NULL),
+(12, 'Bilstein', '2024-03-08 08:53:24', NULL, NULL),
+(13, 'Gates', '2024-03-08 08:53:24', NULL, NULL),
+(14, 'ACDelco', '2024-03-08 08:53:24', NULL, NULL),
+(15, 'GMB', '2024-03-08 08:53:24', NULL, NULL),
+(16, 'Gates', '2024-03-08 08:53:24', NULL, NULL),
+(17, 'Continental', '2024-03-08 08:53:24', NULL, NULL),
+(18, 'Dayco', '2024-03-08 08:53:24', NULL, NULL),
+(19, 'Interstate', '2024-03-08 08:53:24', NULL, NULL),
+(20, 'Optima', '2024-03-08 08:53:24', NULL, NULL),
+(21, 'AC Delco', '2024-03-08 08:53:24', NULL, NULL),
+(22, 'K&N', '2024-03-08 08:53:24', NULL, NULL),
+(23, 'Fram', '2024-03-08 08:53:24', NULL, NULL),
+(24, 'Wagner', '2024-03-08 08:53:24', NULL, NULL),
+(25, 'ACDelco', '2024-03-08 08:53:24', NULL, NULL),
+(26, 'Bosch', '2024-03-08 08:53:24', NULL, NULL),
+(27, 'Denso', '2024-03-08 08:53:24', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -570,19 +511,16 @@ INSERT INTO `marcas` (`id`, `nombre`, `create_at`, `update_at`, `inactive_at`) V
 -- Estructura de tabla para la tabla `movimientos`
 --
 
-DROP TABLE IF EXISTS `movimientos`;
-CREATE TABLE IF NOT EXISTS `movimientos` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `kardex_id` int NOT NULL,
-  `cantidad` smallint NOT NULL,
-  `saldo` smallint NOT NULL,
+CREATE TABLE `movimientos` (
+  `id` int(11) NOT NULL,
+  `kardex_id` int(11) NOT NULL,
+  `cantidad` smallint(6) NOT NULL,
+  `saldo` smallint(6) NOT NULL,
   `tipo` char(1) NOT NULL,
-  `create_at` datetime DEFAULT CURRENT_TIMESTAMP,
+  `create_at` datetime DEFAULT current_timestamp(),
   `update_at` datetime DEFAULT NULL,
-  `inactive_at` datetime DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `fk_kardex_mov` (`kardex_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `inactive_at` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -590,34 +528,30 @@ CREATE TABLE IF NOT EXISTS `movimientos` (
 -- Estructura de tabla para la tabla `productos`
 --
 
-DROP TABLE IF EXISTS `productos`;
-CREATE TABLE IF NOT EXISTS `productos` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `categoria_id` int NOT NULL,
-  `marca_id` int DEFAULT NULL,
+CREATE TABLE `productos` (
+  `id` int(11) NOT NULL,
+  `categoria_id` int(11) NOT NULL,
+  `marca_id` int(11) DEFAULT NULL,
   `nombre` varchar(120) NOT NULL,
   `codigo` varchar(20) NOT NULL,
-  `descripcion` text,
+  `descripcion` text DEFAULT NULL,
   `precio` decimal(7,2) NOT NULL,
   `imagen` varchar(60) DEFAULT NULL,
-  `create_at` datetime DEFAULT CURRENT_TIMESTAMP,
+  `create_at` datetime DEFAULT current_timestamp(),
   `update_at` datetime DEFAULT NULL,
-  `inactive_at` datetime DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `fk_categoria_prod` (`categoria_id`),
-  KEY `fk_marca_prod` (`marca_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `inactive_at` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `productos`
 --
 
 INSERT INTO `productos` (`id`, `categoria_id`, `marca_id`, `nombre`, `codigo`, `descripcion`, `precio`, `imagen`, `create_at`, `update_at`, `inactive_at`) VALUES
-(1, 1, 2, 'Filtro de aceite Fram XYZ', 'COD000000002', 'Filtro de aceite de alta calidad', 15.99, 'imagen2.jpg', '2024-03-07 16:17:12', NULL, NULL),
-(2, 2, 5, 'Bujía Denso ABC', 'COD000000003', 'Bujía de platino para un mejor rendimiento', 8.50, 'imagen3.jpg', '2024-03-07 16:17:12', NULL, NULL),
-(3, 3, 7, 'Pastillas de freno Brembo 123', 'COD000000004', 'Pastillas de freno de cerámica para un frenado suave', 45.75, 'imagen4.jpg', '2024-03-07 16:17:12', NULL, NULL),
-(4, 4, 10, 'Bomba de agua Monroe XYZ', 'COD000000005', 'Bomba de agua de alta eficiencia', 65.30, 'imagen5.jpg', '2024-03-07 16:17:12', NULL, NULL),
-(5, 5, 4, 'Correa de distribución NGK 567', 'COD000000006', 'Correa de distribución resistente y duradera', 25.99, 'imagen6.jpg', '2024-03-07 16:17:12', NULL, NULL);
+(1, 1, 2, 'Filtro de aceite Fram XYZ', 'COD000000002', 'Filtro de aceite de alta calidad', '15.99', 'imagen2.jpg', '2024-03-08 08:53:24', NULL, NULL),
+(2, 2, 5, 'Bujía Denso ABC', 'COD000000003', 'Bujía de platino para un mejor rendimiento', '8.50', 'imagen3.jpg', '2024-03-08 08:53:24', NULL, NULL),
+(3, 3, 7, 'Pastillas de freno Brembo 123', 'COD000000004', 'Pastillas de freno de cerámica para un frenado suave', '45.75', 'imagen4.jpg', '2024-03-08 08:53:24', NULL, NULL),
+(4, 4, 10, 'Bomba de agua Monroe XYZ', 'COD000000005', 'Bomba de agua de alta eficiencia', '65.30', 'imagen5.jpg', '2024-03-08 08:53:24', NULL, NULL),
+(5, 5, 4, 'Correa de distribución NGK 567', 'COD000000006', 'Correa de distribución resistente y duradera', '25.99', 'imagen6.jpg', '2024-03-08 08:53:24', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -625,19 +559,17 @@ INSERT INTO `productos` (`id`, `categoria_id`, `marca_id`, `nombre`, `codigo`, `
 -- Estructura de tabla para la tabla `proveedores`
 --
 
-DROP TABLE IF EXISTS `proveedores`;
-CREATE TABLE IF NOT EXISTS `proveedores` (
-  `id` int NOT NULL AUTO_INCREMENT,
+CREATE TABLE `proveedores` (
+  `id` int(11) NOT NULL,
   `nombre` varchar(80) NOT NULL,
   `telefono` varchar(9) NOT NULL,
   `correo` varchar(120) DEFAULT NULL,
   `ruc` char(11) NOT NULL,
   `direccion` varchar(255) DEFAULT NULL,
-  `create_at` datetime DEFAULT CURRENT_TIMESTAMP,
+  `create_at` datetime DEFAULT current_timestamp(),
   `update_at` datetime DEFAULT NULL,
-  `inactive_at` datetime DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `inactive_at` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -645,12 +577,10 @@ CREATE TABLE IF NOT EXISTS `proveedores` (
 -- Estructura de tabla para la tabla `roles`
 --
 
-DROP TABLE IF EXISTS `roles`;
-CREATE TABLE IF NOT EXISTS `roles` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `nombre` varchar(20) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+CREATE TABLE `roles` (
+  `id` int(11) NOT NULL,
+  `nombre` varchar(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `roles`
@@ -669,18 +599,203 @@ INSERT INTO `roles` (`id`, `nombre`) VALUES
 -- Estructura de tabla para la tabla `ventas`
 --
 
-DROP TABLE IF EXISTS `ventas`;
-CREATE TABLE IF NOT EXISTS `ventas` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `cliente_id` int NOT NULL,
-  `empleado_id` int NOT NULL,
-  `create_at` datetime DEFAULT CURRENT_TIMESTAMP,
+CREATE TABLE `ventas` (
+  `id` int(11) NOT NULL,
+  `cliente_id` int(11) NOT NULL,
+  `empleado_id` int(11) NOT NULL,
+  `create_at` datetime DEFAULT current_timestamp(),
   `update_at` datetime DEFAULT NULL,
-  `inactive_at` datetime DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `fk_cliente_ven` (`cliente_id`),
-  KEY `fk_empleado_ven` (`empleado_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `inactive_at` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Índices para tablas volcadas
+--
+
+--
+-- Indices de la tabla `almacen`
+--
+ALTER TABLE `almacen`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `categorias`
+--
+ALTER TABLE `categorias`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `clientes`
+--
+ALTER TABLE `clientes`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `compras`
+--
+ALTER TABLE `compras`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_proveedor_com` (`proveedor_id`);
+
+--
+-- Indices de la tabla `detalles_compras`
+--
+ALTER TABLE `detalles_compras`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_compra_d_c` (`compra_id`),
+  ADD KEY `fk_producto_d_c` (`producto_id`);
+
+--
+-- Indices de la tabla `detalles_ventas`
+--
+ALTER TABLE `detalles_ventas`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_venta_d_v` (`venta_id`),
+  ADD KEY `fk_producto_d_v` (`producto_id`);
+
+--
+-- Indices de la tabla `empleados`
+--
+ALTER TABLE `empleados`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_rol_emp` (`rol_id`);
+
+--
+-- Indices de la tabla `kardex`
+--
+ALTER TABLE `kardex`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_producto_kar` (`producto_id`),
+  ADD KEY `fk_almacen_kar` (`almacen_id`);
+
+--
+-- Indices de la tabla `marcas`
+--
+ALTER TABLE `marcas`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `movimientos`
+--
+ALTER TABLE `movimientos`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_kardex_mov` (`kardex_id`);
+
+--
+-- Indices de la tabla `productos`
+--
+ALTER TABLE `productos`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_categoria_prod` (`categoria_id`),
+  ADD KEY `fk_marca_prod` (`marca_id`);
+
+--
+-- Indices de la tabla `proveedores`
+--
+ALTER TABLE `proveedores`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `roles`
+--
+ALTER TABLE `roles`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `ventas`
+--
+ALTER TABLE `ventas`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_cliente_ven` (`cliente_id`),
+  ADD KEY `fk_empleado_ven` (`empleado_id`);
+
+--
+-- AUTO_INCREMENT de las tablas volcadas
+--
+
+--
+-- AUTO_INCREMENT de la tabla `almacen`
+--
+ALTER TABLE `almacen`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `categorias`
+--
+ALTER TABLE `categorias`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
+-- AUTO_INCREMENT de la tabla `clientes`
+--
+ALTER TABLE `clientes`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT de la tabla `compras`
+--
+ALTER TABLE `compras`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `detalles_compras`
+--
+ALTER TABLE `detalles_compras`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `detalles_ventas`
+--
+ALTER TABLE `detalles_ventas`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `empleados`
+--
+ALTER TABLE `empleados`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT de la tabla `kardex`
+--
+ALTER TABLE `kardex`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `marcas`
+--
+ALTER TABLE `marcas`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+
+--
+-- AUTO_INCREMENT de la tabla `movimientos`
+--
+ALTER TABLE `movimientos`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `productos`
+--
+ALTER TABLE `productos`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT de la tabla `proveedores`
+--
+ALTER TABLE `proveedores`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `roles`
+--
+ALTER TABLE `roles`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT de la tabla `ventas`
+--
+ALTER TABLE `ventas`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- Restricciones para tablas volcadas

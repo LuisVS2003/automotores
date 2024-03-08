@@ -85,7 +85,7 @@ CREATE TABLE proveedores (
 -- Campos calculados: total, subtotal, igv
 CREATE TABLE compras (
 	id	INT AUTO_INCREMENT PRIMARY KEY,
-    proveedor_id	INT				NOT NULL
+    proveedor_id	INT				NOT NULL,
     create_at		DATETIME		DEFAULT NOW(),
     update_at		DATETIME		NULL,
     inactive_at		DATETIME		NULL,

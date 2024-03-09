@@ -11,28 +11,24 @@ document.addEventListener('DOMContentLoaded', e => {
     console.log(data);
     tablaDetalleVenta.innerHTML = '';
     let detalleVenta = '';
+		let num = 1;
     data.forEach(itemDetalleVenta => {
-      const { producto, categoria, marca, descripcion, precio } = itemDetalleVenta;
+      const { venta_id, producto_id, cantidad } = itemDetalleVenta;
 
       detalleVenta += `
 				<tr class="table-row">
 					<td class="table-details">
-						<h3>${producto}</h3>
-						<div>
-							<span>${categoria}</span> |
-							<span>${marca}</span>
-						</div>
+						<h3>${num}</h3>
 					</td>
-
-					<td class="table-description">
-						${descripcion}
+					<td class="table-details">
+						<h3>${venta_id}</h3>
 					</td>
-
-					<td class="text-center">
-						${Math.floor(Math.random() * 100)}
+					<td class="table-details">
+						<h3>${producto_id}</h3>
 					</td>
-
-					<td class="text-end">${precio}</td>
+					<td class="table-details">
+						<h3>${cantidad}</h3>
+					</td>
 
 					<td>
 						<div class="table-cell-action">
@@ -44,6 +40,7 @@ document.addEventListener('DOMContentLoaded', e => {
 			`;
     });
 
+		num++;
     tablaDetalleVenta.innerHTML = detalleVenta;
   };
 

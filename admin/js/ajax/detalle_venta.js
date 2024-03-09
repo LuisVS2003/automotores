@@ -1,3 +1,4 @@
+// console.log('hiool');
 document.addEventListener('DOMContentLoaded', e => {
 	const tablaDetalleVenta = $('#table-detalle_venta tbody');
   const URL_DETALLE_VENTA = '../controllers/DetalleVentaController.php';
@@ -8,7 +9,6 @@ document.addEventListener('DOMContentLoaded', e => {
 		
     const data = await dataFetch(URL_DETALLE_VENTA, dataForm);
     console.log(data);
-		// console.log('hiool');
     tablaDetalleVenta.innerHTML = '';
     let detalleVenta = '';
     data.forEach(itemDetalleVenta => {

@@ -30,7 +30,12 @@
 	</div>
 
 	<script src="./js/app.js"></script>
-	<script src="./js/ajax/detalle_venta.js"></script>
+	<script src='./js/ajax/detalle_venta.js'>
+	</script>
+	<script>
+		console.log("hola");
+	</script>
+	<!-- <script src="./js/ajax/detalle_venta.js"></script> -->
 </body>
 
 </html>

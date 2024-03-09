@@ -81,6 +81,12 @@ ol {
   list-style: none;
 }
 
+input[type='number']::-webkit-inner-spin-button,
+input[type='number']::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
 .hidden {
   display: none;
 }
@@ -629,7 +635,7 @@ ol {
       background-color: var(--gray-500);
 
       span {
-        font-size: .9rem;
+        font-size: 0.9rem;
       }
     }
   }

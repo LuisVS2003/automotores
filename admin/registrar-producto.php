@@ -45,10 +45,10 @@
 				reader.readAsDataURL(imgInput.files[0]);
 			});
 
-			formProducto.addEventListener('submit', (e) => {
+			$('#form-producto').addEventListener('submit', e => {
 				e.preventDefault();
-				console.log('Echo');
-			})
+				addProductos();
+			});
 		})
 	</script>
 </body>

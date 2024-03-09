@@ -79,3 +79,20 @@ const getMarcas = async () => {
     marcas.appendChild(tagOption);
   });
 };
+
+const addProductos = async () => {
+  const dataForm = new FormData();
+  dataForm.append('operacion', 'registrarProducto');
+  dataForm.append('categoria_id', $('#form-producto-categoria').value);
+  dataForm.append('marca_id', $('#form-producto-marca').value);
+  dataForm.append('nombre', $('#form-producto-nombre').value);
+  dataForm.append('codigo', $('#form-producto-codigo').value);
+  dataForm.append('descripcion', $('#form-producto-descripcion').value);
+  dataForm.append('precio', $('#form-producto-precio').value);
+  dataForm.append('imagen', $('#form-producto-imagen').files[0]);
+
+  const data = await dataFetch(URL_PRODUCTO, dataForm);
+  console.log(data);
+};
+
+

@@ -2,20 +2,19 @@
 document.addEventListener('DOMContentLoaded', e => {
   const tablaClientes = $('#table-clientes tbody');
 
-  const URL_CLIENTES = '../controllers/ClienteController.php';
+  const URL_CLIENTE = '../controllers/ClienteController.php';
 
   const dataClientes = async () => {
     const dataForm = new FormData();
-    dataForm.append('operacion', 'listarClientes');
+    dataForm.append('operacion', 'listarCliente');
 
-    const data = await dataFetch(URL_CLIENTES, dataForm);
-    console.log(data);
+    const data = await dataFetch(URL_CLIENTE, dataForm);
     tablaClientes.innerHTML = '';
     let clientes = '';
-    data.forEach(itemClientes => {
-      const {nombres, apellidos, dni, correo} = itemEmpleados;
 
-			
+    data.forEach(itemCliente => {
+      const { nombres, apellidos, dni, correo } = itemCliente;
+
       clientes += `
 				<tr class="table-row">
 

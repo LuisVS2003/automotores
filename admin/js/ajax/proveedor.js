@@ -6,14 +6,14 @@ document.addEventListener('DOMContentLoaded', e => {
 
   const dataProveedores = async () => {
     const dataForm = new FormData();
-    dataForm.append('operacion', 'listarProveedores');
+    dataForm.append('operacion', 'listarProveedor');
 
-    const data = await dataFetch(URL_PROVEEDORES, dataForm);
+    const data = await dataFetch(URL_PROVEEDOR, dataForm);
     console.log(data);
     tablaProveedores.innerHTML = '';
     let proveedores = '';
-    data.forEach(itemProveedores => {
-      const { nombre, telefono, correo, ruc, direccion } = itemProveedores;
+    data.forEach(itemProveedor => {
+      const { nombre, telefono, correo, ruc, direccion } = itemProveedor;
 
 			
       proveedores += `

@@ -2,20 +2,19 @@
 document.addEventListener('DOMContentLoaded', e => {
   const tablaEmpleados = $('#table-empleados tbody');
 
-  const URL_EMPLEADOS = '../controllers/EmpleadoController.php';
+  const URL_EMPLEADO = '../controllers/EmpleadoController.php';
 
   const dataEmpleados = async () => {
     const dataForm = new FormData();
-    dataForm.append('operacion', 'listarEmpleados');
+    dataForm.append('operacion', 'listarEmpleado');
 
-    const data = await dataFetch(URL_EMPLEADOS, dataForm);
-    console.log(data);
+    const data = await dataFetch(URL_EMPLEADO, dataForm);
     tablaEmpleados.innerHTML = '';
     let empleados = '';
-    data.forEach(itemEmpleados => {
-      const { rol, nombres, apellidos, dni, correo, direccion, salario } = itemEmpleados;
 
-			
+    data.forEach(itemEmpleado => {
+      const { rol, nombres, apellidos, dni, correo, direccion, salario } = itemEmpleado;
+
       empleados += `
 				<tr class="table-row">
 

@@ -93,6 +93,14 @@ ol {
   text-align: end;
 }
 
+.section {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .button {
   background-color: var(--primary);
   color: var(--gray-100);
@@ -590,6 +598,66 @@ ol {
   .modal-footer {
     padding: var(--distance-5);
   }
+}
+
+#form-producto {
+  width: fit-content;
+  height: fit-content;
+  margin-inline: auto;
+  display: flex;
+  column-gap: 8px;
+
+  .form-image {
+    width: 220px;
+    height: 220px;
+
+    img {
+      aspect-ratio: 1;
+      border: 1px solid var(--gray-500);
+      border-radius: 8px;
+      object-fit: cover;
+      object-position: center;
+      margin-bottom: 10px;
+    }
+
+    .button {
+      display: flex;
+      align-items: center;
+      column-gap: 5px;
+      margin-inline: auto;
+      padding-inline: 12px;
+      background-color: var(--gray-500);
+
+      span {
+        font-size: .9rem;
+      }
+    }
+  }
+
+  .form-inputs {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: repeat(4, min-content);
+    gap: 10px;
+
+    .form-input:nth-child(1),
+    .form-textarea {
+      grid-column: span 2;
+    }
+
+    .form-input {
+      grid-column: span 1;
+    }
+  }
+}
+
+.form-input,
+.form-select,
+.form-textarea {
+  padding: 8px;
+  background-color: transparent;
+  border: 1px solid var(--gray-500);
+  border-radius: 8px;
 }
 
 @media screen and (width >= 1440px) {

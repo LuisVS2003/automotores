@@ -4,15 +4,8 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Dashboard - Automotores</title>
-	<link rel="stylesheet" href="./css/app.css">
-	<link rel="stylesheet" href="./css/appdark.css">
-
-	<script>
-		const darkMode = document.querySelector('html')
-		if (localStorage.getItem('theme') === 'dark' || localStorage.length === 0) darkMode.classList.add('dark')
-		else darkMode.classList.remove('dark');
-	</script>
+	<title>Detalle Venta</title>
+	<?php require_once './layouts/link-css.html'; ?>
 </head>
 
 <body>
@@ -29,7 +22,8 @@
 		</div>
 	</div>
 
-	<script src="./js/app.js"></script>
+	<?php require_once './layouts/script-js.html'; ?>
+
 	<script src="./js/ajax/detalle_venta.js"></script>
 </body>
 

@@ -114,7 +114,7 @@ input[type='number']::-webkit-outer-spin-button {
   padding: 7px;
 
   &:hover {
-    scale: 1.05;
+    scale: 1.03;
   }
 
   &.edit {
@@ -123,6 +123,10 @@ input[type='number']::-webkit-outer-spin-button {
   }
   &.delete {
     background-color: var(--error);
+  }
+
+  &.secondary {
+    background-color: var(--gray-500);
   }
 }
 
@@ -607,36 +611,27 @@ input[type='number']::-webkit-outer-spin-button {
 }
 
 #form-producto {
-  width: fit-content;
-  height: fit-content;
+  --distance: 10px;
+  max-width: 550px;
   margin-inline: auto;
-  display: flex;
-  column-gap: 8px;
+  padding-block: var(--distance);
 
   .form-image {
-    width: 220px;
-    height: 220px;
+    width: fit-content;
+    height: 200px;
+    display: flex;
+    align-items: center;
+    column-gap: var(--distance);
+    margin-inline: auto;
+    margin-bottom: var(--distance);
 
     img {
-      aspect-ratio: 1;
+      height: 100%;
+      aspect-ratio: 1/1;
       border: 1px solid var(--gray-500);
       border-radius: 8px;
       object-fit: cover;
       object-position: center;
-      margin-bottom: 10px;
-    }
-
-    .button {
-      display: flex;
-      align-items: center;
-      column-gap: 5px;
-      margin-inline: auto;
-      padding-inline: 12px;
-      background-color: var(--gray-500);
-
-      span {
-        font-size: 0.9rem;
-      }
     }
   }
 
@@ -644,7 +639,7 @@ input[type='number']::-webkit-outer-spin-button {
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-template-rows: repeat(4, min-content);
-    gap: 10px;
+    gap: var(--distance);
 
     .form-input:nth-child(1),
     .form-textarea {
@@ -655,6 +650,29 @@ input[type='number']::-webkit-outer-spin-button {
       grid-column: span 1;
     }
   }
+
+  .button {
+    box-sizing: border-box;
+    width: 140px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    column-gap: 5px;
+
+    span {
+      white-space: nowrap;
+      font-size: 0.85rem;
+    }
+  }
+
+  .button + .button {
+    margin-top: var(--distance);
+  }
+
+  .button[type='submit'] {
+    margin-top: var(--distance);
+    margin-left: auto;
+  }
 }
 
 .form-input,
@@ -663,7 +681,7 @@ input[type='number']::-webkit-outer-spin-button {
   padding: 8px;
   background-color: transparent;
   border: 1px solid var(--gray-500);
-  border-radius: 8px;
+  border-radius: 6px;
 }
 
 @media screen and (width >= 1440px) {

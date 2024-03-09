@@ -1,0 +1,8 @@
+<link rel="stylesheet" href="./css/app.css">
+<link rel="stylesheet" href="./css/appdark.css">
+
+<script>
+	const darkMode = document.querySelector('html')
+	if (localStorage.getItem('theme') === 'dark' || localStorage.length === 0) darkMode.classList.add('dark')
+	else darkMode.classList.remove('dark');
+</script>

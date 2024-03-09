@@ -1,20 +1,21 @@
-document.addEventListener('DOMContentLoaded', e => {
-  const tablaProducto = $('#table-productos tbody');
+const tablaProducto = $('#table-productos tbody');
 
-  const URL_PRODUCTOS = '../controllers/ProductoController.php';
+const URL_PRODUCTO = '../controllers/ProductoController.php';
+const URL_CATEGORIA = '../controllers/CategoriaController.php';
+const URL_MARCA = '../controllers/MarcaController.php';
 
-  const dataProductos = async () => {
-    const dataForm = new FormData();
-    dataForm.append('operacion', 'listarProducto');
+const dataProductos = async () => {
+  const dataForm = new FormData();
+  dataForm.append('operacion', 'listarProducto');
 
-    const data = await dataFetch(URL_PRODUCTOS, dataForm);
-    console.log(data);
-    tablaProducto.innerHTML = '';
-    let productos = '';
-    data.forEach(itemProducto => {
-      const { producto, categoria, marca, descripcion, precio } = itemProducto;
+  const data = await dataFetch(URL_PRODUCTO, dataForm);
 
-      productos += `
+  tablaProducto.innerHTML = '';
+  let productos = '';
+  data.forEach(itemProducto => {
+    const { producto, categoria, marca, descripcion, precio } = itemProducto;
+
+    productos += `
 				<tr class="table-row">
 					<td class="table-details">
 						<h3>${producto}</h3>
@@ -42,10 +43,39 @@ document.addEventListener('DOMContentLoaded', e => {
 					</td>
 				</tr>
 			`;
-    });
+  });
 
-    tablaProducto.innerHTML = productos;
-  };
+  tablaProducto.innerHTML = productos;
+};
 
-  dataProductos();
-});
+const getCategorias = async () => {
+  const categoria = $('#form-producto-categoria');
+
+  const dataForm = new FormData();
+  dataForm.append('operacion', 'listarCategoria');
+
+  const data = await dataFetch(URL_CATEGORIA, dataForm);
+
+  data.forEach(item => {
+    let tagOption = document.createElement('option');
+    tagOption.value = item.id;
+    tagOption.textContent = item.nombre;
+    categoria.appendChild(tagOption);
+  });
+};
+
+const getMarcas = async () => {
+  const marcas = $('#form-producto-marca');
+
+  const dataForm = new FormData();
+  dataForm.append('operacion', 'listarMarca');
+
+  const data = await dataFetch(URL_MARCA, dataForm);
+
+  data.forEach(item => {
+    let tagOption = document.createElement('option');
+    tagOption.value = item.id;
+    tagOption.textContent = item.nombre;
+    marcas.appendChild(tagOption);
+  });
+};

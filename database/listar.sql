@@ -22,7 +22,8 @@ BEGIN
     SELECT
 		id, nombre
     FROM categorias
-    WHERE inactive_at IS NULL;
+    WHERE inactive_at IS NULL
+    ORDER BY nombre;
 END$$
 
 -- ###################################################################
@@ -32,7 +33,8 @@ BEGIN
     SELECT
 		id, nombre
     FROM marcas
-    WHERE inactive_at IS NULL;
+    WHERE inactive_at IS NULL
+    ORDER BY nombre;
 END$$
 
 -- ###################################################################
@@ -55,7 +57,8 @@ BEGIN
 	INNER JOIN marcas MAR ON MAR.id = PRO.marca_id
     WHERE PRO.inactive_at IS NULL
         AND CAT.inactive_at IS NULL
-        AND MAR.inactive_at IS NULL;
+        AND MAR.inactive_at IS NULL
+	ORDER BY PRO.nombre;
 END$$
 
 -- ###################################################################
@@ -114,7 +117,8 @@ BEGIN
         ruc,
         direccion
     FROM proveedores
-    WHERE inactive_at IS NULL;
+    WHERE inactive_at IS NULL
+    ORDER BY nombre;
 END$$
 
 -- ###################################################################
@@ -158,7 +162,8 @@ BEGIN
         dni,
 		correo
     FROM clientes
-    WHERE inactive_at IS NULL;
+    WHERE inactive_at IS NULL
+    ORDER BY nombres;
 END $$
 
 -- ###################################################################
@@ -200,7 +205,8 @@ CREATE PROCEDURE listarRoles()
 BEGIN
     SELECT
 		id, nombre
-    FROM roles;
+    FROM roles
+    ORDER BY nombre;
 END $$
 
 -- ###################################################################
@@ -210,7 +216,7 @@ BEGIN
     SELECT
         EMP.id,
         EMP.rol_id,
-        CONCAT(EMP.apellidos, ", ", EMP.nombres) AS 'nombre_completo',
+        CONCAT(EMP.apellidos, ", ", EMP.nombres) AS nombre_completo,
         ROL.nombre AS rol,
         EMP.dni,
         EMP.correo,
@@ -218,5 +224,6 @@ BEGIN
         EMP.salario
     FROM empleados EMP
 	INNER JOIN roles ROL ON ROL.id = EMP.rol_id
-    WHERE EMP.inactive_at IS NULL;
+    WHERE EMP.inactive_at IS NULL
+    ORDER BY nombre_completo;
 END $$

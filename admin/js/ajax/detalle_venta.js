@@ -1,17 +1,19 @@
-// console.log('hiool');
+const URL_DETALLE_VENTA = '../controllers/DetalleVentaController.php';
+const URL_VENTA = '../controllers/VentaController.php';
+const URL_PRODUCTO = '../controllers/ProductoController.php';
+
 document.addEventListener('DOMContentLoaded', e => {
-	const tablaDetalleVenta = $('#table-detalle_venta tbody');
-  const URL_DETALLE_VENTA = '../controllers/DetalleVentaController.php';
-	
+  const tablaDetalleVenta = $('#table-detalle_venta tbody');
+
   const dataDetalleVenta = async () => {
-		const dataForm = new FormData();
+    const dataForm = new FormData();
     dataForm.append('operacion', 'listarDetalleVenta');
-		
+
     const data = await dataFetch(URL_DETALLE_VENTA, dataForm);
-    console.log(data);
+    // console.log(data);
     tablaDetalleVenta.innerHTML = '';
     let detalleVenta = '';
-		let num = 1;
+    let num = 1;
     data.forEach(itemDetalleVenta => {
       const { venta_id, producto_id, cantidad } = itemDetalleVenta;
 
@@ -40,9 +42,57 @@ document.addEventListener('DOMContentLoaded', e => {
 			`;
     });
 
-		num++;
+    num++;
     tablaDetalleVenta.innerHTML = detalleVenta;
   };
 
+  // Llamamos a la funciones
   dataDetalleVenta();
 });
+
+const getVenta = async () => {
+  const marcas = $('#form-detalle-venta-venta');
+
+  const dataForm = new FormData();
+  dataForm.append('operacion', 'listarVenta');
+
+  const data = await dataFetch(URL_VENTA, dataForm);
+
+  let num = 1;
+  let venta = 'venta' + num;
+  data.forEach(item => {
+    // console.log(item);
+    let tagOption = document.createElement('option');
+    tagOption.value = item.id;
+    tagOption.textContent = venta;
+    marcas.appendChild(tagOption);
+    num++;
+  });
+};
+const getProducto = async () => {
+  const categoria = $('#form-detalle-venta-producto');
+
+  const dataForm = new FormData();
+  dataForm.append('operacion', 'listarProducto');
+
+  const data = await dataFetch(URL_PRODUCTO, dataForm);
+
+  data.forEach(item => {
+    // console.log(item);
+    let tagOption = document.createElement('option');
+    tagOption.value = item.id;
+    tagOption.textContent = item.producto;
+    categoria.appendChild(tagOption);
+  });
+};
+
+const addDetalleVenta = async () => {
+  const dataForm = new FormData();
+  dataForm.append('operacion', 'registrarDetalleVenta');
+  dataForm.append('venta_id', $('#form-detalle-venta-venta').value);
+  dataForm.append('producto_id', $('#form-detalle-venta-producto').value);
+  dataForm.append('cantidad', $('#form-detalle-venta-cantidad').value);
+
+  const data = await dataFetch(URL_DETALLE_VENTA, dataForm);
+  console.log(data);
+};

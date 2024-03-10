@@ -25,6 +25,11 @@
 	<?php require_once './layouts/script-js.html'; ?>
 
 	<script src="./js/ajax/detalle_venta.js"></script>
+	<script>
+		document.addEventListener('DOMContentLoaded', () => {
+			dataDetalleVenta();
+		})
+	</script>
 </body>
 
 </html>

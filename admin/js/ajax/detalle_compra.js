@@ -3,27 +3,26 @@ const URL_PRODUCTO = '../controllers/ProductoController.php';
 const URL_DETALLE_COMPRA = '../controllers/DetalleCompraController.php';
 // console.log("itemDetalleCompras");
 
-document.addEventListener('DOMContentLoaded', e => {
-  const tablaDetalleCompras = $('#table-detalle_compras tbody');
+const tablaDetalleCompras = $('#table-detalle_compras tbody');
 
-  const dataDetalleCompra = async () => {
-    const dataForm = new FormData();
-    dataForm.append('operacion', 'listarDetalleCompra');
+const dataDetalleCompra = async () => {
+  const dataForm = new FormData();
+  dataForm.append('operacion', 'listarDetalleCompra');
 
-    const data = await dataFetch(URL_DETALLE_COMPRA, dataForm);
-    // console.log(data);
-    if (tablaDetalleCompras.length) {
-      tablaDetalleCompras.innerHTML = '';
-    } else {
-      console.error('La tabla no fue encontrada.');
-    }
+  const data = await dataFetch(URL_DETALLE_COMPRA, dataForm);
+  // console.log(data);
+  if (tablaDetalleCompras.length) {
+    tablaDetalleCompras.innerHTML = '';
+  } else {
+    console.error('La tabla no fue encontrada.');
+  }
 
-    let detalleCompras = '';
-    let num = 1;
-    data.forEach(itemDetalleCompras => {
-      const { compra_id, producto_id, cantidad } = itemDetalleCompras;
+  let detalleCompras = '';
+  let num = 1;
+  data.forEach(itemDetalleCompras => {
+    const { compra_id, producto_id, cantidad } = itemDetalleCompras;
 
-      detalleCompras += `
+    detalleCompras += `
 				<tr class="table-row">
 					<td class="table-details">
 						<h3>${num}</h3>
@@ -46,14 +45,11 @@ document.addEventListener('DOMContentLoaded', e => {
 					</td>
 				</tr>
 			`;
-    });
+  });
 
-    num++;
-    tablaDetalleCompras.innerHTML = detalleCompras;
-  };
-
-  dataDetalleCompra();
-});
+  num++;
+  tablaDetalleCompras.innerHTML = detalleCompras;
+};
 
 const getCompra = async () => {
   const marcas = $('#form-detalle-compra-compra');

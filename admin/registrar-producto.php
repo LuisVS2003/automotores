@@ -31,10 +31,12 @@
 
 			const formProducto = $('#form-producto');
 			const image = $('.form-image img');
-			const imgInput = $('.form-image input');
-			const imgButton = $('.form-image button');
+			const imgInput = $('#form-producto-imagen');
+			const imgLoad = $('.form-image .load');
+			const imgDelete = $('.form-image .delete');
+			console.log(imgDelete);
 
-			imgButton.addEventListener('click', () => imgInput.click());
+			imgLoad.addEventListener('click', () => imgInput.click());
 
 			imgInput.addEventListener('change', () => {
 				const reader = new FileReader();
@@ -43,6 +45,13 @@
 					image.src = reader.result;
 				});
 				reader.readAsDataURL(imgInput.files[0]);
+			});
+
+			imgDelete.addEventListener('click', () => {
+				console.log(imgInput.files[0]);
+				imgInput.value = '';
+				image.src = './img/no-disponible.jpg';
+				console.log(imgInput.files[0]);
 			});
 
 			$('#form-producto').addEventListener('submit', e => {

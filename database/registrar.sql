@@ -5,7 +5,8 @@ DROP PROCEDURE IF EXISTS registrarMarca;
 DROP PROCEDURE IF EXISTS registrarProducto;
 DROP PROCEDURE IF EXISTS registrarAlmacen;
 DROP PROCEDURE IF EXISTS registrarKardex;
-DROP PROCEDURE IF EXISTS registrarMovimiento;
+DROP PROCEDURE IF EXISTS registrarMovimientoCompra;
+DROP PROCEDURE IF EXISTS registrarMovimientoVenta;
 DROP PROCEDURE IF EXISTS registrarProveedor;
 DROP PROCEDURE IF EXISTS registrarCompra;
 DROP PROCEDURE IF EXISTS registrarDetalleCompra;
@@ -14,7 +15,6 @@ DROP PROCEDURE IF EXISTS registrarVenta;
 DROP PROCEDURE IF EXISTS registrarDetalleVenta;
 DROP PROCEDURE IF EXISTS registrarRol;
 DROP PROCEDURE IF EXISTS registrarEmpleado;
-
 -- ###################################################################
 DELIMITER $$
 CREATE PROCEDURE registrarCategoria(
@@ -95,20 +95,53 @@ END$$
 
 -- ###################################################################
 DELIMITER $$
-CREATE PROCEDURE registrarMovimiento(
-    IN _kardexId	INT,
-    IN _cantidad	SMALLINT,
-    IN _saldo		SMALLINT,
-    IN _tipo		CHAR(1)
+CREATE PROCEDURE registrarMovimientoCompra (
+    IN _kardex_id	INT,
+    IN _cantidad	SMALLINT
 )
 BEGIN
+	DECLARE _saldo_actual SMALLINT;
+    
+    SET _saldo_actual = (
+		SELECT saldo
+        FROM movimientos
+        WHERE kardex_id = _kardex_id
+        ORDER BY id DESC
+        LIMIT 1
+	);
+    
     INSERT INTO movimientos
 		(kardex_id, cantidad, saldo, tipo)
     VALUES
-		(_kardexId, _cantidad, _saldo, _tipo);
+		(_kardex_id, _cantidad, (_saldo_actual + _cantidad), 'E');
         
     SELECT LAST_INSERT_ID() 'id';
-END$$
+END $$
+
+-- ###################################################################
+DELIMITER $$
+CREATE PROCEDURE registrarMovimientoVenta (
+    IN _kardex_id	INT,
+    IN _cantidad	SMALLINT
+)
+BEGIN
+	DECLARE _saldo_actual SMALLINT;
+    
+    SET _saldo_actual = (
+		SELECT saldo
+        FROM movimientos
+        WHERE kardex_id = _kardex_id
+        ORDER BY id DESC
+        LIMIT 1
+	);
+    
+    INSERT INTO movimientos
+		(kardex_id, cantidad, saldo, tipo)
+    VALUES
+		(_kardex_id, _cantidad, (_saldo_actual - _cantidad), 'S');
+        
+    SELECT LAST_INSERT_ID() 'id';
+END $$
 
 -- ###################################################################
 DELIMITER $$
@@ -139,7 +172,6 @@ BEGIN
         
     SELECT LAST_INSERT_ID() 'id';
 END$$
-
 
 -- ###################################################################
 DELIMITER $$
@@ -236,4 +268,3 @@ BEGIN
 
     SELECT LAST_INSERT_ID() 'id';
 END $$
-

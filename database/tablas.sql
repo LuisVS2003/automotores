@@ -107,11 +107,9 @@ CREATE TABLE detalles_compras (
 
 CREATE TABLE clientes (
 	id	INT AUTO_INCREMENT PRIMARY KEY,
-    nombres		VARCHAR(50)		NULL,
+    nombres		VARCHAR(50)		NOT NULL,
     apellidos	VARCHAR(50)		NULL,
     dni			CHAR(8)			NULL,
-    correo		VARCHAR(120)	NULL,
-    clave		VARCHAR(60)		NULL,
     create_at	DATETIME		DEFAULT NOW(),
     update_at	DATETIME		NULL,
     inactive_at	DATETIME		NULL
@@ -119,7 +117,10 @@ CREATE TABLE clientes (
 
 CREATE TABLE roles (
 	id INT AUTO_INCREMENT PRIMARY KEY,
-    nombre		VARCHAR(20)		NOT NULL
+    nombre		VARCHAR(20)		NOT NULL,
+    create_at	DATETIME		DEFAULT NOW(),
+    update_at	DATETIME		NULL,
+    inactive_at	DATETIME		NULL
 ) ENGINE = InnoDB;
 
 CREATE TABLE empleados (

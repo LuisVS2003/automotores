@@ -41,24 +41,7 @@ END$$
 DELIMITER $$
 CREATE PROCEDURE listarProductos()
 BEGIN
-    SELECT 
-		PRO.id,
-        PRO.categoria_id,
-        PRO.marca_id,
-        PRO.nombre AS producto,
-        CAT.nombre AS categoria,
-        MAR.nombre AS marca,
-        PRO.codigo,
-        PRO.descripcion,
-        PRO.precio,
-        PRO.imagen
-    FROM productos PRO
-	INNER JOIN categorias CAT ON CAT.id = PRO.categoria_id
-	INNER JOIN marcas MAR ON MAR.id = PRO.marca_id
-    WHERE PRO.inactive_at IS NULL
-        AND CAT.inactive_at IS NULL
-        AND MAR.inactive_at IS NULL
-	ORDER BY PRO.nombre;
+    SELECT * FROM vw_producto;
 END$$
 
 -- ###################################################################
@@ -109,16 +92,7 @@ END$$
 DELIMITER $$
 CREATE PROCEDURE listarProveedores()
 BEGIN
-    SELECT
-		id,
-        nombre,
-        telefono,
-        correo,
-        ruc,
-        direccion
-    FROM proveedores
-    WHERE inactive_at IS NULL
-    ORDER BY nombre;
+    SELECT * FROM vw_proveedor;
 END$$
 
 -- ###################################################################
@@ -155,15 +129,7 @@ END$$
 DELIMITER $$
 CREATE PROCEDURE listarClientes()
 BEGIN
-    SELECT
-        id,
-        nombres,
-        apellidos,
-        dni,
-		correo
-    FROM clientes
-    WHERE inactive_at IS NULL
-    ORDER BY nombres;
+    SELECT * FROM clientes;
 END $$
 
 -- ###################################################################
@@ -213,17 +179,5 @@ END $$
 DELIMITER $$
 CREATE PROCEDURE listarEmpleados()
 BEGIN
-    SELECT
-        EMP.id,
-        EMP.rol_id,
-        CONCAT(EMP.apellidos, ", ", EMP.nombres) AS nombre_completo,
-        ROL.nombre AS rol,
-        EMP.dni,
-        EMP.correo,
-        EMP.direccion,
-        EMP.salario
-    FROM empleados EMP
-	INNER JOIN roles ROL ON ROL.id = EMP.rol_id
-    WHERE EMP.inactive_at IS NULL
-    ORDER BY nombre_completo;
+    SELECT * FROM vw_empleado;
 END $$

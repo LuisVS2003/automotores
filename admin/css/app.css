@@ -34,6 +34,12 @@ body {
   color: var(--gray-900);
 }
 
+input[type='number']::-webkit-inner-spin-button,
+input[type='number']::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
 .hidden {
   display: none;
 }
@@ -74,11 +80,31 @@ body {
 .form-input,
 .form-select,
 .form-textarea {
+  width: 100%;
   color: var(--gray-100);
   padding: 8px;
   background-color: transparent;
   border: 1px solid var(--border-color);
   border-radius: 8px;
+}
+
+.label-input {
+  width: fit-content;
+  display: flex;
+  align-items: end;
+  column-gap: 4px;
+
+  .form-input {
+    padding-inline: 4px;
+    padding-bottom: 0;
+    border: none;
+    border-bottom: 1px solid var(--border-color);
+    border-radius: 0;
+
+    &:focus {
+      outline: none;
+    }
+  }
 }
 
 .form-select {
@@ -372,9 +398,9 @@ body {
       padding: 16px;
     }
 
-    th:nth-child(n + 2):nth-child(-n + 4) {
+    /* th:nth-child(n + 2):nth-child(-n + 4) {
       display: none;
-    }
+    } */
 
     /* th:nth-child(1) {
       border-top-left-radius: 8px;
@@ -385,7 +411,8 @@ body {
     } */
   }
 
-  .table-body {
+  .table-body,
+  .table-foot {
     /* .table-row:nth-child(even) {
       background-color: var(--gray-100);
     } */
@@ -403,9 +430,9 @@ body {
         min-width: 40px;
       }
 
-      td:nth-child(n + 2):nth-child(-n + 4) {
+      /* td:nth-child(n + 2):nth-child(-n + 4) {
         display: none;
-      }
+      } */
 
       .table-details {
         & h3 {
@@ -581,6 +608,59 @@ body {
   .button[type='submit'] {
     margin-top: var(--distance);
     margin-left: auto;
+  }
+}
+
+.invoice {
+  max-width: 720px;
+  margin-top: 24px;
+  margin-inline: auto;
+
+  .invoice-header form {
+    display: flex;
+    justify-content: space-between;
+    column-gap: 24px;
+    margin-bottom: 24px;
+
+    .label-input {
+      flex-grow: 1;
+      flex-basis: 0;
+    }
+  }
+
+  .invoice-body .table-row {
+    &:hover {
+      background-color: transparent;
+    }
+
+    .form-input {
+      text-align: center;
+    }
+
+    .form-input {
+      padding: 0;
+      padding-inline: 4px;
+      border: none;
+      border-bottom: 1px solid transparent;
+      border-radius: 0;
+
+      &:focus,
+      &:placeholder-shown {
+        outline: none;
+        border-color: var(--border-color);
+      }
+    }
+  }
+
+  .table-foot .table-row {
+    td:nth-child(1) {
+      border-color: transparent;
+    }
+
+    td:nth-child(2) {
+      text-transform: uppercase;
+      font-weight: bold;
+    }
   }
 }
 

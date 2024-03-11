@@ -82,29 +82,6 @@ CREATE TABLE proveedores (
     inactive_at	DATETIME		NULL
 ) ENGINE = InnoDB;
 
--- Campos calculados: total, subtotal, igv
-CREATE TABLE compras (
-	id	INT AUTO_INCREMENT PRIMARY KEY,
-    proveedor_id	INT				NOT NULL,
-    create_at		DATETIME		DEFAULT NOW(),
-    update_at		DATETIME		NULL,
-    inactive_at		DATETIME		NULL,
-    CONSTRAINT fk_proveedor_com FOREIGN KEY (proveedor_id) REFERENCES proveedores(id)
-) ENGINE = InnoDB;
-
--- Campos calculados: subtotal -> precio del producto * cantidad
-CREATE TABLE detalles_compras (
-	id	INT AUTO_INCREMENT PRIMARY KEY,
-    compra_id	INT				NOT NULL,
-    producto_id	INT				NOT NULL,
-    cantidad	SMALLINT		NOT NULL,
-    create_at	DATETIME		DEFAULT NOW(),
-    update_at	DATETIME		NULL,
-    inactive_at	DATETIME		NULL,
-    CONSTRAINT fk_compra_d_c FOREIGN KEY (compra_id) REFERENCES compras(id),
-    CONSTRAINT fk_producto_d_c FOREIGN KEY (producto_id) REFERENCES productos(id)
-) ENGINE = InnoDB;
-
 CREATE TABLE clientes (
 	id	INT AUTO_INCREMENT PRIMARY KEY,
     nombres		VARCHAR(50)		NOT NULL,
@@ -140,9 +117,33 @@ CREATE TABLE empleados (
 ) ENGINE = InnoDB;
 
 -- Campos calculados: total, subtotal, igv
+CREATE TABLE compras (
+	id	INT AUTO_INCREMENT PRIMARY KEY,
+    proveedor_id	INT				NOT NULL,
+    empleado_id		INT				NOT NULL,
+    create_at		DATETIME		DEFAULT NOW(),
+    update_at		DATETIME		NULL,
+    inactive_at		DATETIME		NULL,
+    CONSTRAINT fk_proveedor_com FOREIGN KEY (proveedor_id) REFERENCES proveedores(id)
+) ENGINE = InnoDB;
+
+-- Campos calculados: subtotal -> precio del producto * cantidad
+CREATE TABLE detalles_compras (
+	id	INT AUTO_INCREMENT PRIMARY KEY,
+    compra_id	INT				NOT NULL,
+    producto_id	INT				NOT NULL,
+    cantidad	SMALLINT		NOT NULL,
+    create_at	DATETIME		DEFAULT NOW(),
+    update_at	DATETIME		NULL,
+    inactive_at	DATETIME		NULL,
+    CONSTRAINT fk_compra_d_c FOREIGN KEY (compra_id) REFERENCES compras(id),
+    CONSTRAINT fk_producto_d_c FOREIGN KEY (producto_id) REFERENCES productos(id)
+) ENGINE = InnoDB;
+
+-- Campos calculados: total, subtotal, igv
 CREATE TABLE ventas (
 	id	INT AUTO_INCREMENT PRIMARY KEY,
-    cliente_id	INT			NOT NULL,
+    cliente_id	INT			NULL,
     empleado_id	INT			NOT NULL,
     create_at	DATETIME	DEFAULT NOW(),
     update_at	DATETIME	NULL,

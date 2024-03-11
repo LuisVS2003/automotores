@@ -15,6 +15,7 @@ DROP PROCEDURE IF EXISTS registrarVenta;
 DROP PROCEDURE IF EXISTS registrarDetalleVenta;
 DROP PROCEDURE IF EXISTS registrarRol;
 DROP PROCEDURE IF EXISTS registrarEmpleado;
+
 -- ###################################################################
 DELIMITER $$
 CREATE PROCEDURE registrarCategoria(

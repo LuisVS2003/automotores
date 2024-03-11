@@ -78,14 +78,16 @@ INSERT INTO proveedores(nombre, telefono, correo, ruc, direccion) VALUES
 
 -- ALMACEN #################################################################################
 INSERT INTO almacen (direccion) VALUES
-	('Lima');
+	('Lima'),
+    ('Chincha');
 
 -- KARDEX ##################################################################################
 INSERT INTO kardex (producto_id, almacen_id) VALUES
 	(1,1),
     (2,1),
-    (3,1),
-    (4,1);
+    (1,2),
+    (3,2),
+    (4,2);
 
 -- MOVIMIENTO ##############################################################################
 INSERT INTO movimientos (kardex_id, cantidad, saldo, tipo) VALUES
@@ -98,8 +100,8 @@ INSERT INTO movimientos (kardex_id, cantidad, saldo, tipo) VALUES
 INSERT INTO ventas (cliente_id, empleado_id) VALUES
 	(1, 1),
     (2, 1),
-    (3, 1),
-    (4, 1);
+    (NULL, 2),
+    (NULL, 3);
     
 -- DETALLE VENTA ###########################################################################
 INSERT INTO detalles_ventas (venta_id, producto_id, cantidad) VALUES
@@ -112,11 +114,11 @@ INSERT INTO detalles_ventas (venta_id, producto_id, cantidad) VALUES
     (4, 1, 10);
     
 -- COMPRA ###################################################################################
-INSERT INTO compras (proveedor_id) VALUES
-	(1),
-    (2),
-    (3),
-    (1);
+INSERT INTO compras (proveedor_id, empleado_id) VALUES
+	(1, 2),
+    (2, 1),
+    (3, 3),
+    (1, 2);
     
 -- DETALLE VENTA ###########################################################################
 INSERT INTO detalles_compras (compra_id, producto_id, cantidad) VALUES

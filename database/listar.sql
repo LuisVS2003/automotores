@@ -143,7 +143,7 @@ BEGIN
         CLI.nombres AS cliente,
         CONCAT(EMP.apellidos, ", ", EMP.nombres) AS empleado
     FROM ventas VEN
-    INNER JOIN clientes CLI ON CLI.id = VEN.cliente_id
+    LEFT JOIN clientes CLI ON CLI.id = VEN.cliente_id
     INNER JOIN empleados EMP ON EMP.id = VEN.empleado_id
     WHERE VEN.inactive_at IS NULL;
 END$$

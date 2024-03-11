@@ -616,15 +616,22 @@ input[type='number']::-webkit-outer-spin-button {
   margin-top: 24px;
   margin-inline: auto;
 
-  .invoice-header form {
+  .invoice-header {
     display: flex;
-    justify-content: space-between;
-    column-gap: 24px;
+    align-items: center;
+    column-gap: 8px;
     margin-bottom: 24px;
 
-    .label-input {
+    form {
       flex-grow: 1;
-      flex-basis: 0;
+      display: flex;
+      justify-content: space-between;
+      column-gap: 8px;
+
+      .label-input {
+        flex-grow: 1;
+        flex-basis: 0;
+      }
     }
   }
 

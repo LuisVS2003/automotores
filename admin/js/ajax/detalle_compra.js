@@ -1,4 +1,6 @@
 const URL_COMPRA = '../controllers/CompraController.php';
+const URL_PROVEEDOR = '../controllers/ProveedorController.php';
+const URL_EMPLEADO = '../controllers/EmpleadoController.php';
 const URL_PRODUCTO = '../controllers/ProductoController.php';
 const URL_DETALLE_COMPRA = '../controllers/DetalleCompraController.php';
 // console.log("itemDetalleCompras");
@@ -51,49 +53,44 @@ const dataDetalleCompra = async () => {
   tablaDetalleCompras.innerHTML = detalleCompras;
 };
 
-const getCompra = async () => {
-  const marcas = $('#form-detalle-compra-compra');
-
+const getProveedor = async () => {
   const dataForm = new FormData();
-  dataForm.append('operacion', 'listarCompra');
+  dataForm.append('operacion', 'listarProveedor');
 
-  const data = await dataFetch(URL_COMPRA, dataForm);
-
-  let num = 1;
-  let compra = 'compra' + num;
-  data.forEach(item => {
-    // console.log(item);
-    let tagOption = document.createElement('option');
-    tagOption.value = item.id;
-    tagOption.textContent = compra;
-    marcas.appendChild(tagOption);
-    num++;
-  });
+  const data = await dataFetch(URL_PROVEEDOR, dataForm);
+  console.log(data);
 };
-const getProducto = async () => {
-  const categoria = $('#form-detalle-compra-producto');
 
+const getEmpleado = async () => {
   const dataForm = new FormData();
-  dataForm.append('operacion', 'listarProducto');
+  dataForm.append('operacion', 'listarEmpleado');
+
+  const data = await dataFetch(URL_EMPLEADO, dataForm);
+  console.log(data);
+};
+
+const getProductos = async nombre => {
+  const dataForm = new FormData();
+  dataForm.append('operacion', 'buscarProducto');
+  dataForm.append('nombre', nombre);
 
   const data = await dataFetch(URL_PRODUCTO, dataForm);
-
-  data.forEach(item => {
-    // console.log(item);
-    let tagOption = document.createElement('option');
-    tagOption.value = item.id;
-    tagOption.textContent = item.producto;
-    categoria.appendChild(tagOption);
-  });
-};
-
-const addDetalleCompra = async () => {
-  const dataForm = new FormData();
-  dataForm.append('operacion', 'registrarDetalleCompra');
-  dataForm.append('compra_id', $('#form-detalle-compra-compra').value);
-  dataForm.append('producto_id', $('#form-detalle-compra-producto').value);
-  dataForm.append('cantidad', $('#form-detalle-compra-cantidad').value);
-
-  const data = await dataFetch(URL_DETALLE_COMPRA, dataForm);
   console.log(data);
+
+  $('#input-producto + .options-list').innerHTML = '';
+  let productos = '';
+
+  data.forEach(itemProducto => {
+    productos += `
+      <li>
+        <button data-producto-id="${itemProducto.id}" type="button">${itemProducto.producto}</button>
+      </li>
+    `;
+  });
+
+  if (data.length === 0) {
+    productos = '<li disabled>No se encontraron resultados</li>';
+  }
+
+  $('#input-producto + .options-list').innerHTML = productos;
 };

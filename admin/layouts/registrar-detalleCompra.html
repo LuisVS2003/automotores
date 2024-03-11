@@ -15,17 +15,17 @@
 
 <section class="invoice">
   <div class="invoice-header">
-    <form action="" method="post">
+    <form action="" method="post" id="form-compra">
       <div class="label-input">
-        <label for="" class="form-label">Señor(es):</label>
-        <input type="text" class="form-input">
+        <label for="input-comprador" class="form-label">Señor(es):</label>
+        <input id="input-comprador" type="text" class="form-input">
       </div>
       <div class="label-input">
-        <label for="" class="form-label">Vendedor:</label>
-        <input type="text" class="form-input">
+        <label for="input-proveedor" class="form-label">Proveedor:</label>
+        <input id="input-proveedor" type="text" class="form-input">
       </div>
     </form>
-    <button type="button" class="button">
+    <button id="input-add" type="button" class="button" aria-label="Agregar detalle compra">
       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
         stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
         <path stroke="none" d="M0 0h24v24H0z" fill="none" />
@@ -36,7 +36,7 @@
   </div>
 
   <div class="invoice-body">
-    <form action="" method="post">
+    <form action="" method="post" id="input-detalle-compra">
       <table class="table">
         <colgroup>
           <col width="100px">
@@ -71,10 +71,21 @@
               </button>
             </td>
             <td>
-              <input type="number" class="form-input" placeholder="1" step="1" />
+              <input id="input-cantidad" type="number" class="form-input text-center" placeholder="1" step="1" />
             </td>
-            <td>
-              <input type="text" class="form-input" placeholder="Producto A" />
+            <td style="position: relative;">
+              <input id="input-producto" data-producto-id="" type="text" class="form-input" placeholder="Producto A" />
+              <ul class="options-list">
+                <li>
+                  <button type="button">Producto 1</button>
+                </li>
+                <li>
+                  <button type="button">Producto 2</button>
+                </li>
+                <li>
+                  <button type="button">Producto 3</button>
+                </li>
+              </ul>
             </td>
             <td class="text-end">
               111.00

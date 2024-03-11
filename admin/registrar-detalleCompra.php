@@ -26,15 +26,28 @@
 	<script src="./js/ajax/detalle_compra.js"></script>
 	<script>
 		document.addEventListener('DOMContentLoaded', () => {
-			getCompra();
-			getProducto();
-
 			const formProducto = $('#form-producto');
 
 			$('#form-detalle-compra').addEventListener('submit', e => {
 				e.preventDefault();
 				addDetalleCompra();
 			});
+
+			let time;
+			let inputContent;
+			$('#input-producto').addEventListener('input', e => {
+				clearTimeout(time);
+				time = setTimeout(() => {
+					if (inputContent !== e.target.value) {
+						inputContent = e.target.value;
+						getProductos(inputContent)
+					}
+				}, 500);
+			});
+
+			$('#input-producto + .options-list').addEventListener('click', e => {
+				console.log(e.target.closest('button'));
+			})
 		})
 	</script>
 </body>

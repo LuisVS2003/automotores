@@ -32,6 +32,11 @@ if (isset($_POST['operacion'])) {
 			echo json_encode($producto->eliminarProducto($id));
 			break;
 
+		case 'buscarProducto':
+			$nombre = $_POST['nombre'];
+			echo json_encode($producto->buscarProducto($nombre));
+			break;
+
 		default:
 			$operacion = $_POST['operacion'];
 			echo "La operacion $operacion no existe";

@@ -72,4 +72,20 @@ class Producto extends Conexion
 			die($e->getMessage());
 		}
 	}
+
+	public function buscarProducto($nombre)
+	{
+		try {
+			$consulta = $this->conexion->prepare('CALL buscarProducto(?)');
+			$consulta->execute(
+				array(
+					$nombre
+				)
+			);
+
+			return $consulta->fetchAll(PDO::FETCH_ASSOC);
+		} catch (Exception $e) {
+			die($e->getMessage());
+		}
+	}
 }

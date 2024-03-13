@@ -59,6 +59,14 @@ const getProveedor = async () => {
 
   const data = await dataFetch(URL_PROVEEDOR, dataForm);
   console.log(data);
+
+  data.forEach(itemProveedor => {
+    const tagOption = document.createElement('option');
+    tagOption.value = itemProveedor.id;
+    tagOption.textContent = itemProveedor.nombre;
+
+    $('#input-proveedor').appendChild(tagOption);
+  });
 };
 
 const getEmpleado = async () => {
@@ -67,6 +75,14 @@ const getEmpleado = async () => {
 
   const data = await dataFetch(URL_EMPLEADO, dataForm);
   console.log(data);
+
+  data.forEach(itemEmpleado => {
+    const tagOption = document.createElement('option');
+    tagOption.value = itemEmpleado.id;
+    tagOption.textContent = itemEmpleado.nombre_completo;
+
+    $('#input-comprador').appendChild(tagOption);
+  });
 };
 
 /* const getProductos = async nombre => {

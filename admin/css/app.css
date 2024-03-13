@@ -637,6 +637,17 @@ input[type='number']::-webkit-outer-spin-button {
         flex-grow: 1;
         flex-basis: 0;
       }
+
+      .form-select {
+        border: none;
+        border-bottom: 1px solid var(--border-color);
+        border-radius: 0;
+        padding-bottom: 0;
+
+        &:focus {
+          outline: none;
+        }
+      }
     }
   }
 
@@ -697,6 +708,16 @@ input[type='number']::-webkit-outer-spin-button {
       text-transform: uppercase;
       border-bottom: 1px solid var(--border-color);
     }
+
+    .button {
+      margin-inline: auto;
+    }
+  }
+
+  .button[type="submit"] {
+    margin-top: 20px;
+    margin-left: auto;
+    padding: 10px 16px;
   }
 }
 

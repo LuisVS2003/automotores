@@ -3,11 +3,17 @@
     <form action="" method="post" id="form-compra">
       <div class="label-input">
         <label for="input-comprador" class="form-label">Señor(es):</label>
-        <input id="input-comprador" type="text" class="form-input">
+        <!-- <input id="input-comprador" type="text" class="form-input"> -->
+        <select id="input-comprador" class="form-select">
+          <option value="">Seleccione</option>
+        </select>
       </div>
       <div class="label-input">
         <label for="input-proveedor" class="form-label">Proveedor:</label>
-        <input id="input-proveedor" type="text" class="form-input">
+        <!-- <input id="input-proveedor" type="text" class="form-input"> -->
+        <select id="input-proveedor" class="form-select">
+          <option value="">Seleccione</option>
+        </select>
       </div>
     </form>
   </div>
@@ -68,7 +74,7 @@
         </tbody>
         <tfoot class="table-foot">
           <tr class="table-row">
-            <td class="table-cell-action">
+            <td rowspan="2">
               <button id="input-add" type="button" class="button" aria-label="Agregar detalle compra">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
                   stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -83,12 +89,13 @@
             <td class="text-end">222.00</td>
           </tr>
           <tr class="table-row">
-            <td colspan="3"></td>
+            <td colspan="2"></td>
             <td class="text-end">Total:</td>
             <td class="text-end">222.00</td>
           </tr>
         </tfoot>
       </table>
     </form>
+    <button type="submit" class="button">Registrar</button>
   </div>
 </section>

@@ -135,6 +135,8 @@
 				$('#form-detalle-compra .table-body').appendChild(rowCompra);
 			});
 
+			getProveedor();
+			getEmpleado();
 		})
 	</script>
 </body>

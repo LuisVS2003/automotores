@@ -69,7 +69,7 @@ const getEmpleado = async () => {
   console.log(data);
 };
 
-const getProductos = async nombre => {
+/* const getProductos = async nombre => {
   const dataForm = new FormData();
   dataForm.append('operacion', 'buscarProducto');
   dataForm.append('nombre', nombre);
@@ -94,3 +94,4 @@ const getProductos = async nombre => {
 
   $('#input-producto + .options-list').innerHTML = productos;
 };
+ */

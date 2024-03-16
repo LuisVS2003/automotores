@@ -17,7 +17,106 @@
 
 		<div class="content sidebar-toggle">
 			<main class="content-main">
-				<?php require_once './layouts/registrar-detalleCompra.html'; ?>
+				<section class="invoice">
+					<form id="form-detalle-compra" action="" method="post">
+						<div class="invoice-header">
+							<div class="label-input">
+								<label for="input-empleado" class="form-label">Señor(es):</label>
+								<select id="input-empleado" required class="form-select">
+									<option value="">Seleccione</option>
+								</select>
+							</div>
+							<div class="label-input">
+								<label for="input-proveedor" class="form-label">Proveedor:</label>
+								<select id="input-proveedor" required class="form-select">
+									<option value="">Seleccione</option>
+								</select>
+							</div>
+							<div class="label-input">
+								<label for="input-almacen" class="form-label">Almacen:</label>
+								<select id="input-almacen" class="form-select">
+									<option value="">Seleccione</option>
+								</select>
+							</div>
+						</div>
+
+						<div class="invoice-body">
+							<table class="table">
+								<colgroup>
+									<col width="100px">
+									<col width="120px">
+									<col width="">
+									<col width="120px">
+									<col width="120px">
+								</colgroup>
+								<thead class="table-head">
+									<tr>
+										<th>Quitar</th>
+										<th>Cantidad</th>
+										<th>Descripción</th>
+										<th>Precio</th>
+										<th>Importe</th>
+									</tr>
+								</thead>
+								<tbody class="table-body">
+									<tr class="table-row">
+										<td class="table-cell-action">
+											<button class="button delete" type="button" aria-label="Eliminar">
+												<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+													<path stroke="none" d="M0 0h24v24H0z" fill="none" />
+													<path d="M4 7l16 0" />
+													<path d="M10 11l0 6" />
+													<path d="M14 11l0 6" />
+													<path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12" />
+													<path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3" />
+												</svg>
+											</button>
+										</td>
+
+										<td>
+											<input required type="number" class="input-cantidad form-input text-center" placeholder="0" step="1" />
+										</td>
+
+										<td style="position: relative;">
+											<input required data-producto-id="" type="text" class="input-producto form-input" placeholder="Ingrese 3 letras..." />
+											<ul class="options-list hidden"></ul>
+										</td>
+
+										<td class="text-end">
+											111.00
+										</td>
+
+										<td class="text-end">
+											222.00
+										</td>
+									</tr>
+								</tbody>
+								<tfoot class="table-foot">
+									<tr class="table-row">
+										<td rowspan="2">
+											<button id="input-add" type="button" class="button" aria-label="Agregar detalle compra">
+												<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+													<path stroke="none" d="M0 0h24v24H0z" fill="none" />
+													<path d="M12 5l0 14" />
+													<path d="M5 12l14 0" />
+												</svg>
+											</button>
+										</td>
+										<td colspan="2"></td>
+										<td class="text-end">SubTotal:</td>
+										<td class="text-end">222.00</td>
+									</tr>
+									<tr class="table-row">
+										<td colspan="2"></td>
+										<td class="text-end">Total:</td>
+										<td class="text-end">222.00</td>
+									</tr>
+								</tfoot>
+							</table>
+							<button type="submit" class="button">Registrar</button>
+						</div>
+					</form>
+				</section>
 			</main>
 		</div>
 	</div>
@@ -28,73 +127,19 @@
 		document.addEventListener('DOMContentLoaded', () => {
 			const formProducto = $('#form-producto');
 
-			$('#form-detalle-compra').addEventListener('submit', e => {
+			$('#form-detalle-compra').addEventListener('submit', async e => {
 				e.preventDefault();
-				addDetalleCompra();
+
+				const tableProducto = $('#form-detalle-compra .table-body').children;
+				const compraId = await addCompra();
+
+				for (let i = 0; i < tableProducto.length; i++) {
+					let inputCantidadValue = tableProducto[i].querySelector('.input-cantidad').value;
+					let inputProductoValue = tableProducto[i].querySelector('.input-producto').getAttribute('data-producto-id');
+
+					addDetalleCompra(compraId, inputProductoValue, inputCantidadValue);
+				}
 			});
-
-			/* Con este evento evitamos que la función getProductos se ejecute cada vez que se escriba */
-			let time;
-			let inputContent;
-
-			async function optionsProducto(e) {
-				const inputProducto = e.target;
-				const optionsList = inputProducto.nextElementSibling;
-
-				clearTimeout(time);
-				time = setTimeout(async () => {
-					if (inputContent !== inputProducto.value && inputProducto.value.length >= 3) {
-						inputContent = inputProducto.value;
-
-						const dataForm = new FormData();
-						dataForm.append('operacion', 'buscarProducto');
-						dataForm.append('nombre', inputContent);
-
-						const data = await dataFetch(URL_PRODUCTO, dataForm);
-
-						optionsList.innerHTML = '';
-						let productos = '';
-
-
-						data.forEach(itemProducto => {
-							productos += `
-								<li>
-									<button data-producto-id="${itemProducto.id}" type="button">${itemProducto.producto}</button>
-								</li>
-							`;
-						});
-
-						if (data.length === 0) productos = '<li disabled>No se encontraron resultados</li>';
-
-						optionsList.innerHTML = productos;
-
-						if (inputProducto.value.length >= 3) optionsList.classList.remove('hidden');
-					}
-				}, 500);
-			}
-
-			async function optionsProductoVisible(event) {
-				const inputProducto = event.target;
-				const optionsList = inputProducto.nextElementSibling;
-				let optionsListValues;
-
-				if (inputProducto.value.length >= 3) optionsList.classList.remove('hidden');
-
-				inputProducto.addEventListener('input', await optionsProducto);
-
-				document.addEventListener('click', e => {
-					if (e.target !== inputProducto) optionsList.classList.add('hidden');
-				});
-
-				optionsList.addEventListener('click', e => {
-					const optionButton = e.target;
-					if (optionButton.tagName === 'BUTTON') {
-						const productoId = optionButton.getAttribute('data-producto-id');
-						inputProducto.setAttribute('data-producto-id', productoId)
-						inputProducto.value = optionButton.textContent;
-					}
-				});
-			}
 
 			$('#form-detalle-compra').addEventListener('click', async event => {
 				const objetivo = event.target;
@@ -115,7 +160,6 @@
 				if (objetivo.classList.contains('input-producto')) {
 					const inputProducto = event.target;
 					const optionsList = inputProducto.nextElementSibling;
-					let optionsListValues;
 
 					if (inputProducto.value.length >= 3) optionsList.classList.remove('hidden');
 
@@ -183,11 +227,11 @@
 					<td class="table-cell-action">${botonEliminar}</td>
 
 					<td>
-						<input id="input-cantidad" type="number" class="form-input text-center" placeholder="0" step="1" />
+						<input type="number" class="input-cantidad form-input text-center" placeholder="0" step="1" />
 					</td>
 
 					<td style="position: relative;">
-						<input id="input-producto" data-producto-id="" type="text" class="form-input input-producto"
+						<input data-producto-id="" type="text" class="input-producto form-input"
 							placeholder="Ingrese 3 letras..." />
 						<ul class="options-list hidden"></ul>
 					</td>
@@ -202,6 +246,7 @@
 
 			getProveedor();
 			getEmpleado();
+			getAlmacen();
 		})
 	</script>
 </body>

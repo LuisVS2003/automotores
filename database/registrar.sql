@@ -165,11 +165,12 @@ END$$
 -- ###################################################################
 DELIMITER $$
 CREATE PROCEDURE registrarCompra(
-    IN _proveedor_id INT
+    IN _proveedor_id	INT,
+    IN _empleado_id		INT
 )
 BEGIN
-    INSERT INTO compras (proveedor_id)
-    VALUES (_proveedor_id);
+    INSERT INTO compras (proveedor_id, empleado_id)
+    VALUES (_proveedor_id, _empleado_id);
         
     SELECT LAST_INSERT_ID() 'id';
 END$$

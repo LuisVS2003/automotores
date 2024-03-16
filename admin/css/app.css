@@ -627,26 +627,19 @@ input[type='number']::-webkit-outer-spin-button {
     column-gap: 8px;
     margin-bottom: 24px;
 
-    form {
+    .label-input {
       flex-grow: 1;
-      display: flex;
-      justify-content: space-between;
-      column-gap: 8px;
+      flex-basis: 0;
+    }
 
-      .label-input {
-        flex-grow: 1;
-        flex-basis: 0;
-      }
+    .form-select {
+      border: none;
+      border-bottom: 1px solid var(--border-color);
+      border-radius: 0;
+      padding-bottom: 0;
 
-      .form-select {
-        border: none;
-        border-bottom: 1px solid var(--border-color);
-        border-radius: 0;
-        padding-bottom: 0;
-
-        &:focus {
-          outline: none;
-        }
+      &:focus {
+        outline: none;
       }
     }
   }
@@ -714,7 +707,7 @@ input[type='number']::-webkit-outer-spin-button {
     }
   }
 
-  .button[type="submit"] {
+  .button[type='submit'] {
     margin-top: 20px;
     margin-left: auto;
     padding: 10px 16px;

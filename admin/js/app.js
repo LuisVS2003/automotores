@@ -1,7 +1,16 @@
 const $ = selector => document.querySelector(selector);
 const $$ = selector => document.querySelectorAll(selector);
 
-/* Start - Fetch ################################################################### */
+/* Start - Controllers ############################################################### */
+const URL_COMPRA = '../controllers/CompraController.php';
+const URL_PROVEEDOR = '../controllers/ProveedorController.php';
+const URL_EMPLEADO = '../controllers/EmpleadoController.php';
+const URL_PRODUCTO = '../controllers/ProductoController.php';
+const URL_DETALLE_COMPRA = '../controllers/DetalleCompraController.php';
+const URL_ALMACEN = '../controllers/AlmacenController.php';
+/* End - Controllers ################################################################# */
+
+/* Start - Funciones de uso inmediado ################################################ */
 const dataFetch = async (url, dataForm) => {
   try {
     const opciones = {
@@ -14,6 +23,16 @@ const dataFetch = async (url, dataForm) => {
   } catch (error) {
     console.error(error);
   }
+};
+
+const addTagOptions = (indentifition, data, textOption) => {
+  data.forEach(item => {
+    const tagOption = document.createElement('option');
+    tagOption.value = item.id;
+    tagOption.textContent = item[textOption];
+
+    indentifition.appendChild(tagOption);
+  });
 };
 
 const botonEliminar = `
@@ -43,7 +62,7 @@ const botonEditar = `
     </svg>
   </button>
 `;
-/* Start - Fetch ################################################################### */
+/* Start - Funciones de uso inmediado ################################################ */
 
 document.addEventListener('DOMContentLoaded', () => {
   /* Start - SideBar ################################################################# */
@@ -71,9 +90,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
   $('#sidebar-toggle').addEventListener('click', sidebarToggle);
   $('#backdrop').addEventListener('click', sidebarToggle);
-
-  // $('.sidebar .sidebar-footer').addEventListener('click', () => $('.user-options').classList.toggle('hidden'));
-
   /* End - SideBar ################################################################### */
 
   /* Start - DarkMode ################################################################ */
@@ -98,7 +114,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
   /* End - DarkMode ################################################################## */
 
-  /* Start - Modal ################################################################### */
+  /* Start - Funciones ############################################################### */
 
-  /* End - Modal ##################################################################### */
+  /* End - Funciones ################################################################# */
 });

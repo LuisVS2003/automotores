@@ -102,9 +102,11 @@ BEGIN
     SELECT
 		COM.id,
         COM.proveedor_id,
-        PRO.nombre AS proveedor
+        PRO.nombre AS proveedor,
+        CONCAT(EMP.apellidos, ", ", EMP.nombres) AS empleado
     FROM compras COM
     INNER JOIN proveedores PRO ON PRO.id = COM.proveedor_id
+    INNER JOIN empleados EMP ON EMP.id = COM.empleado_id
     WHERE COM.inactive_at IS NULL;
 END$$
 

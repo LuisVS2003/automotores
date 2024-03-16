@@ -58,7 +58,7 @@ const getProveedor = async () => {
   dataForm.append('operacion', 'listarProveedor');
 
   const data = await dataFetch(URL_PROVEEDOR, dataForm);
-  console.log(data);
+  /* console.log(data); */
 
   data.forEach(itemProveedor => {
     const tagOption = document.createElement('option');
@@ -74,7 +74,7 @@ const getEmpleado = async () => {
   dataForm.append('operacion', 'listarEmpleado');
 
   const data = await dataFetch(URL_EMPLEADO, dataForm);
-  console.log(data);
+  /* console.log(data); */
 
   data.forEach(itemEmpleado => {
     const tagOption = document.createElement('option');
@@ -84,30 +84,3 @@ const getEmpleado = async () => {
     $('#input-comprador').appendChild(tagOption);
   });
 };
-
-/* const getProductos = async nombre => {
-  const dataForm = new FormData();
-  dataForm.append('operacion', 'buscarProducto');
-  dataForm.append('nombre', nombre);
-
-  const data = await dataFetch(URL_PRODUCTO, dataForm);
-  console.log(data);
-
-  $('#input-producto + .options-list').innerHTML = '';
-  let productos = '';
-
-  data.forEach(itemProducto => {
-    productos += `
-      <li>
-        <button data-producto-id="${itemProducto.id}" type="button">${itemProducto.producto}</button>
-      </li>
-    `;
-  });
-
-  if (data.length === 0) {
-    productos = '<li disabled>No se encontraron resultados</li>';
-  }
-
-  $('#input-producto + .options-list').innerHTML = productos;
-};
- */

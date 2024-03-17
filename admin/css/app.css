@@ -18,6 +18,7 @@
   --background: var(--gray-800);
   --background-hover: var(--gray-600);
   --border-color: var(--gray-500);
+  --transition-duration: 0.25s;
 }
 
 body {
@@ -149,7 +150,7 @@ input[type='number']::-webkit-outer-spin-button {
   .nav-item {
     background-color: transparent;
     color: var(--color);
-    transition: 0.35s ease-in-out;
+    transition: var(--transition-duration) ease-in-out;
 
     &:hover,
     &:focus {
@@ -176,7 +177,7 @@ input[type='number']::-webkit-outer-spin-button {
   position: fixed;
   background-color: var(--background);
   border-right: 1px solid var(--border-color);
-  transition: transform 0.35s linear;
+  transition: transform var(--transition-duration) linear;
   z-index: 30;
 
   &.sidebar-toggle {
@@ -202,7 +203,7 @@ input[type='number']::-webkit-outer-spin-button {
         column-gap: 15px;
         padding: 8px;
         border-radius: 8px;
-        transition: background 0.35s;
+        transition: background var(--transition-duration);
       }
 
       .sidebar-link.active > a,
@@ -232,7 +233,7 @@ input[type='number']::-webkit-outer-spin-button {
     }
 
     &:not(:hover) > .user-options {
-      transition-delay: 0.35s;
+      transition-delay: var(--transition-duration);
     }
 
     .user-profile {
@@ -291,7 +292,7 @@ input[type='number']::-webkit-outer-spin-button {
           column-gap: 8px;
           padding: 8px 12px;
           border-radius: 8px;
-          transition: background 0.35s;
+          transition: background var(--transition-duration);
 
           &:hover {
             background-color: var(--background-hover);
@@ -321,7 +322,7 @@ input[type='number']::-webkit-outer-spin-button {
   position: relative;
   background-color: var(--background);
   color: var(--color);
-  transition: padding 0.35s linear;
+  transition: padding var(--transition-duration) linear;
   overflow-y: auto;
 
   .content-main {
@@ -454,7 +455,7 @@ input[type='number']::-webkit-outer-spin-button {
         }
       }
 
-      .table-description {
+      .table-text {
         font-size: 0.9rem;
       }
     }
@@ -534,7 +535,7 @@ input[type='number']::-webkit-outer-spin-button {
       padding: 8px;
       color: var(--gray-100);
       border-radius: 50%;
-      transition: background 0.35s ease-in-out;
+      transition: background var(--transition-duration) ease-in-out;
     }
     .modal-close:hover {
       background-color: var(--gray-700);
@@ -747,7 +748,7 @@ input[type='number']::-webkit-outer-spin-button {
 
   .content {
     padding-left: 0;
-    transition: padding 0.35s linear;
+    transition: padding var(--transition-duration) linear;
 
     &.sidebar-toggle {
       padding-left: 240px;

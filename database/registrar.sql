@@ -180,16 +180,38 @@ DELIMITER $$
 CREATE PROCEDURE registrarDetalleCompra(
     IN _compra_id	INT,
     IN _producto_id	INT,
-    IN _cantidad	SMALLINT
+    IN _cantidad	SMALLINT,
+    IN _almacen_id	TINYINT
 )
 BEGIN
+	DECLARE _kardex_id		INT;
+    DECLARE _saldo_actual	INT;
+
     INSERT INTO detalles_compras
 		(compra_id, producto_id, cantidad)
     VALUES
 		(_compra_id, _producto_id, _cantidad);
         
     SELECT LAST_INSERT_ID() 'id';
-END$$
+    
+	SET _kardex_id = (
+		SELECT id FROM kardex
+        WHERE producto_id = _producto_id AND almacen_id = _almacen_id
+    );
+    
+    SET _saldo_actual = (
+		SELECT saldo FROM movimientos
+        WHERE kardex_id = _kardex_id
+		ORDER BY id DESC
+		LIMIT 1
+    );
+    
+    INSERT INTO movimientos
+		(kardex_id, cantidad, saldo, tipo)
+    VALUES
+		(_kardex_id, _cantidad, (_saldo_actual + cantidad), 'E');
+    
+END $$
 
 -- ###################################################################
 DELIMITER $$

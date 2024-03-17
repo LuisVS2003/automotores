@@ -79,14 +79,21 @@ DELIMITER $$
 CREATE PROCEDURE listarMovimientos()
 BEGIN
     SELECT
-		id,
-        kardex_id,
-        cantidad,
-        saldo,
-        tipo
-    FROM movimientos
-    WHERE inactive_at IS NULL;
-END$$
+		MOV.id,
+        MOV.kardex_id,
+        KAR.producto_id,
+        KAR.almacen_id,
+        MOV.cantidad,
+        MOV.saldo,
+        MOV.tipo,
+        PRO.nombre AS producto,
+        ALM.direccion AS almacen
+    FROM movimientos MOV
+    INNER JOIN kardex KAR ON KAR.id = MOV.kardex_id
+    INNER JOIN productos PRO ON PRO.id = KAR.producto_id
+    INNER JOIN almacen ALM ON ALM.id = KAR.almacen_id
+    WHERE MOV.inactive_at IS NULL;
+END $$
 
 -- ###################################################################
 DELIMITER $$

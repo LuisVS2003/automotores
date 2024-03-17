@@ -8,6 +8,12 @@ const URL_EMPLEADO = '../controllers/EmpleadoController.php';
 const URL_PRODUCTO = '../controllers/ProductoController.php';
 const URL_DETALLE_COMPRA = '../controllers/DetalleCompraController.php';
 const URL_ALMACEN = '../controllers/AlmacenController.php';
+const URL_CATEGORIA = '../controllers/CategoriaController.php';
+const URL_MARCA = '../controllers/MarcaController.php';
+const URL_DETALLE_VENTA = '../controllers/DetalleVentaController.php';
+const URL_VENTA = '../controllers/VentaController.php';
+const URL_CLIENTE = '../controllers/ClienteController.php';
+
 /* End - Controllers ################################################################# */
 
 /* Start - Funciones de uso inmediado ################################################ */

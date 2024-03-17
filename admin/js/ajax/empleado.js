@@ -2,7 +2,6 @@
 document.addEventListener('DOMContentLoaded', e => {
   const tablaEmpleados = $('#table-empleados tbody');
 
-  const URL_EMPLEADO = '../controllers/EmpleadoController.php';
 
   const dataEmpleados = async () => {
     const dataForm = new FormData();

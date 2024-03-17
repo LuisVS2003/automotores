@@ -91,7 +91,8 @@ INSERT INTO kardex (producto_id, almacen_id) VALUES
 
 -- MOVIMIENTO ##############################################################################
 INSERT INTO movimientos (kardex_id, cantidad, saldo, tipo) VALUES
-	(1, 10, 10, 'E'),
+	(1, 15, 15, 'E'),
+	(1, 15, 30, 'E'),
     (2, 20, 20, 'E'),
     (3, 30, 30, 'E'),
     (4, 40, 40, 'E');

@@ -1,7 +1,3 @@
-const URL_DETALLE_VENTA = '../controllers/DetalleVentaController.php';
-const URL_VENTA = '../controllers/VentaController.php';
-const URL_PRODUCTO = '../controllers/ProductoController.php';
-
 const tablaDetalleVenta = $('#table-detalle_venta tbody');
 
 const dataDetalleVenta = async () => {
@@ -9,7 +5,7 @@ const dataDetalleVenta = async () => {
   dataForm.append('operacion', 'listarDetalleVenta');
 
   const data = await dataFetch(URL_DETALLE_VENTA, dataForm);
-  // console.log(data);
+  console.log(data);
   tablaDetalleVenta.innerHTML = '';
   let detalleVenta = '';
   let num = 1;

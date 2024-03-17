@@ -1,9 +1,5 @@
 const tablaProducto = $('#table-productos tbody');
 
-const URL_PRODUCTO = '../controllers/ProductoController.php';
-const URL_CATEGORIA = '../controllers/CategoriaController.php';
-const URL_MARCA = '../controllers/MarcaController.php';
-
 const dataProductos = async () => {
   const dataForm = new FormData();
   dataForm.append('operacion', 'listarProducto');

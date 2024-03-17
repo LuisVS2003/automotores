@@ -2,8 +2,6 @@
 document.addEventListener('DOMContentLoaded', e => {
   const tablaProveedores = $('#table-proveedores tbody');
 
-  const URL_PROVEEDOR = '../controllers/ProveedorController.php';
-
   const dataProveedores = async () => {
     const dataForm = new FormData();
     dataForm.append('operacion', 'listarProveedor');

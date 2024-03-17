@@ -12,3 +12,4 @@ BEGIN
 	WHERE producto LIKE CONCAT('%', _producto, '%')
     LIMIT 5;
 END $$
+

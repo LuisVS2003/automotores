@@ -34,7 +34,7 @@
 							</div>
 							<div class="label-input">
 								<label for="input-almacen" class="form-label">Almacen:</label>
-								<select id="input-almacen" class="form-select">
+								<select id="input-almacen" required class="form-select">
 									<option value="">Seleccione</option>
 								</select>
 							</div>
@@ -132,12 +132,13 @@
 
 				const tableProducto = $('#form-detalle-compra .table-body').children;
 				const compraId = await addCompra();
+				const almacenId = $('#input-almacen').value;
 
 				for (let i = 0; i < tableProducto.length; i++) {
 					let inputCantidadValue = tableProducto[i].querySelector('.input-cantidad').value;
 					let inputProductoValue = tableProducto[i].querySelector('.input-producto').getAttribute('data-producto-id');
 
-					addDetalleCompra(compraId, inputProductoValue, inputCantidadValue);
+					addDetalleCompra(compraId, inputProductoValue, inputCantidadValue, almacenId);
 				}
 			});
 
@@ -153,72 +154,6 @@
 					if (tableProducto.childElementCount > 1) $('#form-detalle-compra .table-body').removeChild(rowProducto);
 				}
 			});
-
-			/* $('#form-detalle-compra').addEventListener('click', async event => {
-				const objetivo = event.target;
-
-				if (objetivo.classList.contains('input-producto')) {
-					const inputProducto = event.target;
-					const optionsList = inputProducto.nextElementSibling;
-
-					if (inputProducto.value.length >= 3) optionsList.classList.remove('hidden');
-
-					inputProducto.addEventListener('input', e => {
-						clearTimeout(time);
-						time = setTimeout(async () => {
-							if (inputContent !== e.target.value && e.target.value.length >= 3) {
-								inputContent = e.target.value;
-
-								const dataForm = new FormData();
-								dataForm.append('operacion', 'buscarProducto');
-								dataForm.append('nombre', inputContent);
-
-								const data = await dataFetch(URL_PRODUCTO, dataForm);
-
-								optionsList.innerHTML = '';
-								let productos = '';
-
-
-								data.forEach(itemProducto => {
-									productos += `
-										<li>
-											<button data-producto-id="${itemProducto.id}" type="button">${itemProducto.producto}</button>
-										</li>
-									`;
-								});
-
-								if (data.length === 0) productos = '<li disabled>No se encontraron resultados</li>';
-
-								optionsList.innerHTML = productos;
-
-								if (inputProducto.value.length >= 3) optionsList.classList.remove('hidden');
-							}
-						}, 500);
-
-					});
-
-
-					document.addEventListener('click', e => {
-						if (e.target !== inputProducto) optionsList.classList.add('hidden');
-					});
-
-					optionsList.addEventListener('click', e => {
-						const optionButton = e.target;
-						if (optionButton.tagName === 'BUTTON') {
-							const productoId = optionButton.getAttribute('data-producto-id');
-							inputProducto.setAttribute('data-producto-id', productoId)
-							inputProducto.value = optionButton.textContent;
-						}
-					});
-				}
-
-				if (objetivo.parentElement.classList.contains('delete') || objetivo.classList.contains('delete')) {
-					const rowProducto = objetivo.closest('.table-row');
-					const tableProducto = $('#form-detalle-compra .table-body');
-
-					if (tableProducto.childElementCount > 1) $('#form-detalle-compra .table-body').removeChild(rowProducto);
-				}
-			}); */
 
 			$('#input-add').addEventListener('click', e => {
 				const rowCompra = document.createElement('tr');

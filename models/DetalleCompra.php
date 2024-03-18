@@ -26,12 +26,13 @@ class DetalleCompra extends Conexion
 	public function registrarDetalleCompra($data = [])
 	{
 		try {
-			$consulta = $this->conexion->prepare('CALL registrarDetalleCompra(?,?,?)');
+			$consulta = $this->conexion->prepare('CALL registrarDetalleCompra(?,?,?,?)');
 			$consulta->execute(
 				array(
 					$data['compra_id'],
 					$data['producto_id'],
-					$data['cantidad']
+					$data['cantidad'],
+					$data['almacen_id']
 				)
 			);
 

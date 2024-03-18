@@ -26,14 +26,12 @@ class Cliente extends Conexion
 	public function registrarCliente($data = [])
 	{
 		try {
-			$consulta = $this->conexion->prepare('CALL registrarCliente(?,?,?,?,?)');
+			$consulta = $this->conexion->prepare('CALL registrarCliente(?,?,?)');
 			$consulta->execute(
 				array(
 					$data['nombres'],
 					$data['apellidos'],
 					$data['dni'],
-					$data['correo'],
-					$data['clave']
 				)
 			);
 

@@ -17,7 +17,24 @@
 
 		<div class="content sidebar-toggle">
 			<main class="content-main">
-				<?php require_once './layouts/registrar-cliente.html'; ?>
+				<section>
+					<h3 class="title">Registrar Cliente</h3>
+					<form id="form-cliente" action="" method="post" class="form-md">
+						<div class="label-input">
+							<label for="input-nombres" class="form-label">Nombres:</label>
+							<input id="input-nombres" type="text" class="form-input" />
+						</div>
+						<div class="label-input">
+							<label for="input-apellidos" class="form-label">Apellidos:</label>
+							<input id="input-apellidos" type="text" class="form-input" />
+						</div>
+						<div class="label-input">
+							<label for="input-dni" class="form-label">DNI:</label>
+							<input id="input-dni" type="text" class="form-input" />
+						</div>
+						<button type="submit" class="button">Registrar</button>
+					</form>
+				</section>
 			</main>
 		</div>
 	</div>
@@ -26,11 +43,6 @@
 	<script src="./js/ajax/cliente.js"></script>
 	<script>
 		document.addEventListener('DOMContentLoaded', () => {
-			getNombre();
-			getApellidos();
-
-			const formProducto = $('#form-producto');
-
 			$('#form-cliente').addEventListener('submit', e => {
 				e.preventDefault();
 				addCliente();

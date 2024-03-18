@@ -64,6 +64,11 @@
 	<?php require_once './layouts/script-js.html'; ?>
 
 	<script src="./js/ajax/cliente.js"></script>
+	<script>
+		document.addEventListener('DOMContentLoaded', () => {
+			dataClientes();
+		});
+	</script>
 </body>
 
 </html>

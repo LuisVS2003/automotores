@@ -17,7 +17,33 @@
 
 		<div class="content sidebar-toggle">
 			<main class="content-main">
-				<?php require_once './layouts/empleado.html'; ?>
+				<div class="search-table">
+					<form action="" method="get" autocomplete="off" class="search-form">
+						<input type="text" name="search" placeholder="Buscar..." class="search-input" />
+					</form>
+					<a href="#" aria-label="Añadir empleado" class="button">
+						<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-plus" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+							<path stroke="none" d="M0 0h24v24H0z" fill="none" />
+							<path d="M12 5l0 14" />
+							<path d="M5 12l14 0" />
+						</svg>
+					</a>
+				</div>
+
+				<table id="table-empleados" class="table">
+					<thead class="table-head">
+						<tr>
+							<th>Apellidos y nombres</th>
+							<th>Rol</th>
+							<th>DNI</th>
+							<th>Correo</th>
+							<th>Acciones</th>
+						</tr>
+					</thead>
+					<tbody class="table-body">
+						<!-- Datos generados dinamicamente -->
+					</tbody>
+				</table>
 			</main>
 		</div>
 	</div>
@@ -25,6 +51,11 @@
 	<?php require_once './layouts/script-js.html'; ?>
 
 	<script src="./js/ajax/empleado.js"></script>
+	<script>
+		document.addEventListener('DOMContentLoaded', () => {
+			dataEmpleados();
+		})
+	</script>
 </body>
 
 </html>

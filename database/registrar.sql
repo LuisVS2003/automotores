@@ -218,15 +218,13 @@ DELIMITER $$
 CREATE PROCEDURE registrarCliente(
     IN _nombres		VARCHAR(50),
     IN _apellidos	VARCHAR(50),
-    IN _dni			CHAR(8),
-    IN _correo		VARCHAR(120),
-    IN _clave		VARCHAR(60)
+    IN _dni			CHAR(8)
 )
 BEGIN
     INSERT INTO clientes
-		(nombres, apellidos, dni, correo, clave)
+		(nombres, apellidos, dni)
     VALUES
-		(_nombres, _apellidos, _dni, _correo, _clave);
+		(_nombres, _apellidos, _dni);
 
     SELECT LAST_INSERT_ID() 'id';
 END $$

@@ -143,12 +143,13 @@ const addCompra = async () => {
   return data.id;
 };
 
-const addDetalleCompra = async (compraId, productoId, cantidad) => {
+const addDetalleCompra = async (compraId, productoId, cantidad, almacenId) => {
   const dataForm = new FormData();
   dataForm.append('operacion', 'registrarDetalleCompra');
   dataForm.append('compra_id', compraId);
   dataForm.append('producto_id', productoId);
   dataForm.append('cantidad', cantidad);
+  dataForm.append('almacen_id', almacenId);
 
   const data = await dataFetch(URL_DETALLE_COMPRA, dataForm);
   console.log('Detalle de Compra Registrada' + data.id);

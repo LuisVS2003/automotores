@@ -1,62 +1,45 @@
-// console.log("itemEmpleados");
-document.addEventListener('DOMContentLoaded', e => {
-  const tablaEmpleados = $('#table-empleados tbody');
+const tablaEmpleados = $('#table-empleados tbody');
 
+const dataEmpleados = async () => {
+  const dataForm = new FormData();
+  dataForm.append('operacion', 'listarEmpleado');
 
-  const dataEmpleados = async () => {
-    const dataForm = new FormData();
-    dataForm.append('operacion', 'listarEmpleado');
+  const data = await dataFetch(URL_EMPLEADO, dataForm);
 
-    const data = await dataFetch(URL_EMPLEADO, dataForm);
-    tablaEmpleados.innerHTML = '';
-    let empleados = '';
+  tablaEmpleados.innerHTML = '';
+  let empleados = '';
 
-    data.forEach(itemEmpleado => {
-      const { rol, nombres, apellidos, dni, correo, direccion, salario } = itemEmpleado;
+  data.forEach(itemEmpleado => {
+    const { nombre_completo, rol, dni, correo, direccion, salario } = itemEmpleado;
 
-      empleados += `
-				<tr class="table-row">
+    empleados += `
+      <tr class="table-row">
+        
+        <td class="table-text">${nombre_completo}</td>
 
-					<td class="table-description">
-						${rol}
-					</td>
-          
-          <td class="table-description">
-						${nombres}
-					</td>
+        <td class="table-text">${rol}</td>
 
-          <td class="table-description">
-						${apellidos}
-					</td>
+        <td class="table-text">${dni}</td>
 
-          <td class="table-description">
-						${dni}
-					</td>
+        <td class="table-text">${correo}</td>
 
-          <td class="table-description">
-						${correo}
-					</td>
+        <td>
+          <div class="table-cell-action">
+            ${botonEditar}
+            ${botonEliminar}
+          </div>
+        </td>
+      </tr>
+    `;
+  });
 
-          <td class="table-description">
-						${direccion}
-					</td>
+  tablaEmpleados.innerHTML = empleados;
+};
 
-          <td class="table-description">
-						${salario}
-					</td>
+const getRol = async () => {
+  const dataForm = new FormData();
+  dataForm.append('operacion', 'listarRol');
 
-					<td>
-						<div class="table-cell-action">
-							${botonEditar}
-							${botonEliminar}
-						</div>
-					</td>
-				</tr>
-			`;
-    });
-
-    tablaEmpleados.innerHTML = empleados;
-  };
-
-  dataEmpleados();
-});
+  const data = await dataFetch(URL_ROL, dataForm);
+  addTagOptions($('#select-rol'), data, 'nombre');
+};

@@ -14,8 +14,6 @@ if (isset($_POST['operacion'])) {
 				'nombres'		=> $_POST['nombres'],
 				'apellidos'	=> $_POST['apellidos'],
 				'dni'				=> $_POST['dni'],
-				'correo'		=> $_POST['correo'],
-				'clave'			=> $_POST['clave']
 			];
 			echo json_encode($cliente->registrarCliente($data));
 			break;

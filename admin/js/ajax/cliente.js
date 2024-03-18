@@ -1,40 +1,46 @@
-// console.log("itemClientes");
-document.addEventListener('DOMContentLoaded', e => {
-  const tablaClientes = $('#table-clientes .table-body');
+const tablaClientes = $('#table-clientes .table-body');
 
-  const dataClientes = async () => {
-    const dataForm = new FormData();
-    dataForm.append('operacion', 'listarCliente');
+const dataClientes = async () => {
+  const dataForm = new FormData();
+  dataForm.append('operacion', 'listarCliente');
 
-    const data = await dataFetch(URL_CLIENTE, dataForm);
+  const data = await dataFetch(URL_CLIENTE, dataForm);
 
-    data.forEach(itemCliente => {
-      const { id, nombres, apellidos, dni } = itemCliente;
+  data.forEach(itemCliente => {
+    const { id, nombres, apellidos, dni } = itemCliente;
 
-      // Clonar el template para cada fila
-      const trTemplate = $('#table-row-cliente').content.cloneNode(true);
+    // Clonar el template para cada fila
+    const trTemplate = $('#table-row-cliente').content.cloneNode(true);
 
-      // Seleccionar elementos dentro del template clonado
-      const tr = trTemplate.querySelector('.table-row');
-      const tdNombre = tr.querySelector('.cliente-nombres');
-      const tdApellidos = tr.querySelector('.cliente-apellidos');
-      const tdDni = tr.querySelector('.cliente-dni');
-      const tdAcciones = tr.querySelector('.table-cell-action');
+    // Seleccionar elementos dentro del template clonado
+    const tr = trTemplate.querySelector('.table-row');
+    const tdNombre = tr.querySelector('.cliente-nombres');
+    const tdApellidos = tr.querySelector('.cliente-apellidos');
+    const tdDni = tr.querySelector('.cliente-dni');
+    const tdAcciones = tr.querySelector('.table-cell-action');
 
-      // Asignar valores a los elementos
-      tr.setAttribute('data-cliente-id', id);
-      tdNombre.textContent = nombres;
-      tdApellidos.textContent = apellidos;
-      tdDni.textContent = dni;
-      tdAcciones.innerHTML = `
+    // Asignar valores a los elementos
+    tr.setAttribute('data-cliente-id', id);
+    tdNombre.textContent = nombres;
+    tdApellidos.textContent = apellidos;
+    tdDni.textContent = dni;
+    tdAcciones.innerHTML = `
         ${botonEditar}
         ${botonEliminar}
       `;
 
-      // Agregar el template clonado al DOM
-      tablaClientes.appendChild(trTemplate);
-    });
-  };
+    // Agregar el template clonado al DOM
+    tablaClientes.appendChild(trTemplate);
+  });
+};
 
-  dataClientes();
-});
+const addCliente = async () => {
+  const dataForm = new FormData();
+  dataForm.append('operacion', 'registrarCliente');
+  dataForm.append('nombres', $('#input-nombres').value);
+  dataForm.append('apellidos', $('#input-apellidos').value);
+  dataForm.append('dni', $('#input-dni').value);
+
+  const data = await dataFetch(URL_CLIENTE, dataForm);
+  console.log(data);
+};

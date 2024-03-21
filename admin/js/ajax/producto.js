@@ -12,33 +12,33 @@ const dataProductos = async () => {
     const { producto, categoria, marca, descripcion, precio } = itemProducto;
 
     productos += `
-				<tr class="table-row">
-					<td class="table-details">
-						<h3>${producto}</h3>
-						<div>
-							<span>${categoria}</span> |
-							<span>${marca}</span>
-						</div>
-					</td>
+      <tr class="table-row">
+        <td class="table-details">
+          <h3>${producto}</h3>
+          <div>
+            <span>${categoria}</span> |
+            <span>${marca}</span>
+          </div>
+        </td>
 
-					<td class="table-description">
-						${descripcion}
-					</td>
+        <td class="table-text">
+          ${descripcion}
+        </td>
 
-					<td class="text-center">
-						${Math.floor(Math.random() * 100)}
-					</td>
+        <td class="text-center">
+          ${Math.floor(Math.random() * 100)}
+        </td>
 
-					<td class="text-end">${precio}</td>
+        <td class="text-end">${precio}</td>
 
-					<td>
-						<div class="table-cell-action">
-							${botonEditar}
-							${botonEliminar}
-						</div>
-					</td>
-				</tr>
-			`;
+        <td>
+          <div class="table-cell-action">
+            ${botonEditar}
+            ${botonEliminar}
+          </div>
+        </td>
+      </tr>
+    `;
   });
 
   tablaProducto.innerHTML = productos;

@@ -213,6 +213,7 @@ BEGIN
     
 END $$
 
+SELECT * FROM kardex;
 -- ###################################################################
 DELIMITER $$
 CREATE PROCEDURE registrarCliente(

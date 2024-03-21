@@ -287,8 +287,6 @@ input[type='number']::-webkit-outer-spin-button {
       border: 1px solid var(--border-color);
       border-radius: 8px;
       padding: 6px 10px;
-      transform: translateX(-150%);
-      transition: transform 0.25s linear;
 
       .options-list {
         .option-item + .option-item {

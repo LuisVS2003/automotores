@@ -74,7 +74,7 @@ const botonEditar = `
 document.addEventListener('DOMContentLoaded', () => {
   /* Start - SideBar ################################################################# */
   function sidebarToggle() {
-    const sidebar = $('.sidebar').classList;
+    const sidebar = $('#sidebar').classList;
     const contentMain = $('.content').classList;
     const btnOpen = $('.btn-sidebar-open').classList;
     const btnClose = $('.btn-sidebar-close').classList;
@@ -121,7 +121,18 @@ document.addEventListener('DOMContentLoaded', () => {
   }
   /* End - DarkMode ################################################################## */
 
-  /* Start - Funciones ############################################################### */
+  /* Start - User Options ############################################################ */
+  $('#sidebar .sidebar-footer').addEventListener('click', () => {
+    const userOptions = $('#sidebar .sidebar-footer .user-options');
+    userOptions.classList.toggle('hidden');
+  });
 
-  /* End - Funciones ################################################################# */
+  document.addEventListener('click', e => {
+    const sidebarFooter = e.target.closest('.sidebar-footer');
+    if (sidebarFooter === null) {
+      const userOptions = $('#sidebar .sidebar-footer .user-options');
+      userOptions.classList.add('hidden');
+    }
+  });
+  /* End - User Options ############################################################## */
 });

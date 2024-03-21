@@ -14,10 +14,8 @@ const URL_DETALLE_VENTA = '../controllers/DetalleVentaController.php';
 const URL_VENTA = '../controllers/VentaController.php';
 const URL_CLIENTE = '../controllers/ClienteController.php';
 const URL_ROL = '../controllers/RolController.php';
-
 /* End - Controllers ################################################################# */
-
-/* Start - Funciones de uso inmediado ################################################ */
+/* Start - Funciones ################################################ */
 const dataFetch = async (url, dataForm) => {
   try {
     const opciones = {
@@ -32,15 +30,38 @@ const dataFetch = async (url, dataForm) => {
   }
 };
 
-const addTagOptions = (indentifition, data, textOption) => {
+const addTagOptions = (indentification, data, textOption) => {
   data.forEach(item => {
     const tagOption = document.createElement('option');
     tagOption.value = item.id;
     tagOption.textContent = item[textOption];
 
-    indentifition.appendChild(tagOption);
+    indentification.appendChild(tagOption);
   });
 };
+
+/* Start - Modal ################################################################### */
+const modalVisible = (modal, buttonOpen) => {
+  $(buttonOpen).addEventListener('click', () => {
+    const modalContent = $(`${modal}`);
+    const modalClose = $(`${modal} .modal-close`);
+    const backdropModal = $(`#backdrop-modal`);
+
+    modalContent.classList.remove('hidden');
+    backdropModal.classList.remove('hidden');
+
+    backdropModal.addEventListener('click', e => {
+      modalContent.classList.add('hidden');
+      backdropModal.classList.add('hidden');
+    });
+
+    modalClose.addEventListener('click', e => {
+      modalContent.classList.add('hidden');
+      backdropModal.classList.add('hidden');
+    });
+  });
+};
+/* End - Modal ########33########################################################### */
 
 const botonEliminar = `
   <button class="button delete" type="button" aria-label="Eliminar">
@@ -69,7 +90,7 @@ const botonEditar = `
     </svg>
   </button>
 `;
-/* Start - Funciones de uso inmediado ################################################ */
+/* End - Funciones ################################################## */
 
 document.addEventListener('DOMContentLoaded', () => {
   /* Start - SideBar ################################################################# */
@@ -98,7 +119,6 @@ document.addEventListener('DOMContentLoaded', () => {
   $('#sidebar-toggle').addEventListener('click', sidebarToggle);
   $('#backdrop').addEventListener('click', sidebarToggle);
   /* End - SideBar ################################################################### */
-
   /* Start - DarkMode ################################################################ */
   const dark = $('.icon-moon').classList;
   const light = $('.icon-sun').classList;
@@ -120,7 +140,6 @@ document.addEventListener('DOMContentLoaded', () => {
     light.remove('hidden');
   }
   /* End - DarkMode ################################################################## */
-
   /* Start - User Options ############################################################ */
   $('#sidebar .sidebar-footer').addEventListener('click', () => {
     const userOptions = $('#sidebar .sidebar-footer .user-options');
@@ -135,4 +154,5 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
   /* End - User Options ############################################################## */
+  
 });

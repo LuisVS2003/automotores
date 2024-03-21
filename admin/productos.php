@@ -11,7 +11,6 @@
 <body>
 	<?php require_once './layouts/navbar.html'; ?>
 	<!-- <div id="backdrop-modal" class="backdrop hidden" style="z-index:100;"></div> -->
-
 	<div class="container">
 		<?php require_once './layouts/sidebar.html'; ?>
 
@@ -56,7 +55,7 @@
 					</tbody>
 				</table>
 
-				<section id="modal-producto-add" class="modal hidden">
+				<section id="modal-producto-add" class="modal-producto modal hidden">
 					<div class="modal-header">
 						<h3 class="modal-title">Registrar producto</h3>
 						<button type="button" class="modal-close">
@@ -122,8 +121,49 @@
 						</button>
 					</div>
 				</section>
-				<div id="backdrop-modal" class="backdrop hidden" style="z-index: 99;"></div>
 
+				<section id="modal-producto-update" class="modal-producto modal hidden">
+					<div class="modal-header">
+						<h3 class="modal-title">Actualizar producto</h3>
+						<button type="button" class="modal-close">
+							<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-x">
+								<path stroke="none" d="M0 0h24v24H0z" fill="none" />
+								<path d="M18 6l-12 12" />
+								<path d="M6 6l12 12" />
+							</svg>
+						</button>
+					</div>
+					<div class="modal-body">
+						<form id="form-producto-update" action="" method="post" autocomplete="off">
+							<div class="form-inputs">
+								<input id="update-input-nombre" required type="text" placeholder="Nombre del producto" class="form-input">
+								<input id="update-input-codigo" required type="text" placeholder="Código" class="form-input">
+								<input id="update-input-precio" required type="number" placeholder="Precio" class="form-input" step="0.01">
+								<select id="update-input-categoria" required class="form-select">
+									<option value="">Categoría</option>
+								</select>
+								<select id="update-input-marca" required class="form-select">
+									<option value="">Marca</option>
+								</select>
+								<textarea id="update-input-descripcion" placeholder="Descripción" rows="5" class="form-textarea"></textarea>
+							</div>
+						</form>
+					</div>
+					<div class="modal-footer">
+						<button type="submit" form="form-producto-update" class="button">
+							<span>Actualizar</span>
+							<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clipboard-plus" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+								<path stroke="none" d="M0 0h24v24H0z" fill="none" />
+								<path d="M9 5h-2a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-12a2 2 0 0 0 -2 -2h-2" />
+								<path d="M9 3m0 2a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v0a2 2 0 0 1 -2 2h-2a2 2 0 0 1 -2 -2z" />
+								<path d="M10 14h4" />
+								<path d="M12 12v4" />
+							</svg>
+						</button>
+					</div>
+				</section>
+
+				<div id="backdrop-modal" class="backdrop hidden" style="z-index: 99;"></div>
 			</main>
 		</div>
 	</div>
@@ -132,11 +172,6 @@
 	<script src="./js/ajax/producto.js"></script>
 	<script>
 		document.addEventListener('DOMContentLoaded', () => {
-			dataProductos();
-			modalVisible('#modal-producto-add', '#button-add-producto');
-			getCategorias();
-			getMarcas();
-
 			const formProducto = $('#form-producto');
 			const image = $('.form-image img');
 			const imgInput = $('#form-producto-imagen');
@@ -162,17 +197,14 @@
 			$('#form-producto-add').addEventListener('submit', e => {
 				e.preventDefault();
 				addProductos();
-				console.log(e.target.closest('.modal'));
 			});
 
-			$('button[type="submit"]').addEventListener('click', e => {
-				console.log(e.target.closest('.modal'));
-				const modalContent = e.target.closest('.modal');
-				const backdropModal = $(`#backdrop-modal`);
-
-				modalContent.classList.add('hidden');
-				backdropModal.classList.add('hidden');
-			});
+			modalVisible('#modal-producto-add', '#button-add-producto');
+			dataProductos();
+			getCategorias('#form-producto-categoria');
+			getMarcas('#form-producto-marca');
+			getCategorias('#update-input-categoria');
+			getMarcas('#update-input-marca');
 		})
 	</script>
 </body>

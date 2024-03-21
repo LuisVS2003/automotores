@@ -23,6 +23,22 @@ class Producto extends Conexion
 		}
 	}
 
+	public function obtenerProducto($data = [])
+	{
+		try {
+			$consulta = $this->conexion->prepare('CALL listarProductoId(?)');
+			$consulta->execute(
+				array(
+					$data['id']
+				)
+			);
+
+			return $consulta->fetch(PDO::FETCH_ASSOC);
+		} catch (Exception $e) {
+			die($e->getMessage());
+		}
+	}
+
 	public function registrarProducto($data = [])
 	{
 		try {

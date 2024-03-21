@@ -9,6 +9,11 @@ if (isset($_POST['operacion'])) {
 			echo json_encode($producto->listarProducto());
 			break;
 
+		case 'obtenerProducto':
+			$data = ['id' => $_POST['id']];
+			echo json_encode($producto->obtenerProducto($data));
+			break;
+
 		case 'registrarProducto':
 			$date = date('Y-m-d H:i:s');
 			$imgName = sha1($date);

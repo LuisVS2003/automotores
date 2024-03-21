@@ -45,19 +45,19 @@ const modalVisible = (modal, buttonOpen) => {
   $(buttonOpen).addEventListener('click', () => {
     const modalContent = $(`${modal}`);
     const modalClose = $(`${modal} .modal-close`);
-    const backdropModal = $(`#backdrop-modal`);
+    const modalBackdrop = $(`#backdrop-modal`);
 
     modalContent.classList.remove('hidden');
-    backdropModal.classList.remove('hidden');
+    modalBackdrop.classList.remove('hidden');
 
-    backdropModal.addEventListener('click', e => {
+    modalBackdrop.addEventListener('click', e => {
       modalContent.classList.add('hidden');
-      backdropModal.classList.add('hidden');
+      modalBackdrop.classList.add('hidden');
     });
 
     modalClose.addEventListener('click', e => {
       modalContent.classList.add('hidden');
-      backdropModal.classList.add('hidden');
+      modalBackdrop.classList.add('hidden');
     });
   });
 };

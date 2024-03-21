@@ -47,7 +47,7 @@ input[type='number']::-webkit-outer-spin-button {
 }
 
 .hidden {
-  display: none !important;
+  display: none;
 }
 
 .text-center {
@@ -179,6 +179,7 @@ input[type='number']::-webkit-outer-spin-button {
 
     &:hover,
     &:focus {
+      scale: 1;
       background-color: var(--background-hover);
     }
   }
@@ -331,12 +332,12 @@ input[type='number']::-webkit-outer-spin-button {
   height: 100%;
   top: 0;
   left: 0;
-  position: fixed;
+  position: absolute;
   background-color: #37415199;
   backdrop-filter: blur(4px);
   display: block;
 
-  &.sidebar-toggle {
+  &.sidebar-toggle, &.hidden {
     display: none;
   }
 }
@@ -351,6 +352,7 @@ input[type='number']::-webkit-outer-spin-button {
   overflow-y: auto;
 
   .content-main {
+    overflow-y: scroll;
     position: relative;
     width: 100%;
     height: 100%;
@@ -432,26 +434,10 @@ input[type='number']::-webkit-outer-spin-button {
       text-transform: uppercase;
       padding: 16px;
     }
-
-    /* th:nth-child(n + 2):nth-child(-n + 4) {
-      display: none;
-    } */
-
-    /* th:nth-child(1) {
-      border-top-left-radius: 8px;
-    }
-
-    th:nth-last-child(1) {
-      border-top-right-radius: 8px;
-    } */
   }
 
   .table-body,
   .table-foot {
-    /* .table-row:nth-child(even) {
-      background-color: var(--gray-100);
-    } */
-
     .table-row {
       border-bottom: 1px solid var(--border-color);
 
@@ -465,10 +451,6 @@ input[type='number']::-webkit-outer-spin-button {
       td:nth-child(1) {
         min-width: 40px;
       }
-
-      /* td:nth-child(n + 2):nth-child(-n + 4) {
-        display: none;
-      } */
 
       .table-details {
         & h3 {
@@ -580,7 +562,7 @@ input[type='number']::-webkit-outer-spin-button {
       content: '';
       display: block;
       width: 100%;
-      height: 1px;
+      height: 1.1px;
       background-image: linear-gradient(to right, transparent, var(--gray-300) 25% 75%, transparent);
     }
 
@@ -606,7 +588,7 @@ input[type='number']::-webkit-outer-spin-button {
   }
 }
 
-#form-producto-add {
+.modal .modal-body form {
   --distance: 10px;
   max-width: 550px;
   margin-inline: auto;
@@ -777,13 +759,13 @@ input[type='number']::-webkit-outer-spin-button {
       column-gap: 8px;
     }
 
-    .btn-sidebar-open:not(.hidden),
-    .btn-sidebar-close:not(.hidden) {
+    .btn-sidebar-open,
+    .btn-sidebar-close {
       display: none;
     }
 
-    .btn-sidebar-open,
-    .btn-sidebar-close {
+    .btn-sidebar-open.hidden,
+    .btn-sidebar-close.hidden {
       display: block;
     }
   }
@@ -794,10 +776,10 @@ input[type='number']::-webkit-outer-spin-button {
     &.sidebar-toggle {
       transform: translateX(0);
     }
-  }
 
-  .backdrop {
-    display: none;
+    & + .backdrop {
+      display: none;
+    }
   }
 
   .content {
@@ -810,21 +792,6 @@ input[type='number']::-webkit-outer-spin-button {
 
     .content-main {
       padding: 15px;
-    }
-  }
-
-  .table {
-    .table-head {
-      th:nth-child(n + 2):nth-child(-n + 4) {
-        display: table-cell;
-      }
-    }
-    .table-body {
-      .table-row {
-        td:nth-child(n + 2):nth-child(-n + 4) {
-          display: table-cell;
-        }
-      }
     }
   }
 }

@@ -1,5 +1,7 @@
 <?php
 
+session_start();
+
 require_once '../models/Empleado.php';
 
 if (isset($_POST['operacion'])) {
@@ -7,6 +9,35 @@ if (isset($_POST['operacion'])) {
 	switch ($_POST['operacion']) {
 		case 'listarEmpleado':
 			echo json_encode($empleado->listarEmpleado());
+			break;
+
+		case 'login':
+			$dataSend = [
+				'correo'	=> $_POST['correo']
+			];
+
+			$registro = $empleado->loginEmpleado($dataSend);
+
+			$statusLogin = [
+				"acesso"	=> false,
+				"mensaje"	=> ""
+			];
+
+			if ($registro == false) {
+				# code...
+				$_SESSION["status"] = false;
+				$statusLogin["mensaje"] = "El correo no existe";
+			} else {
+				// $_SESSION["apellidos"] = $registro["apellidos"];
+				// $_SESSION["clave"] = $registro["clave"];
+
+				$_SESSION["status"] = true;
+				$statusLogin["acesso"] = true;
+				$statusLogin["mensaje"] = "La clave y el acceso son correctos";
+			}
+
+			echo json_encode($empleado->loginEmpleado($dataSend));
+
 			break;
 
 		case 'registrarEmpleado':
@@ -20,7 +51,7 @@ if (isset($_POST['operacion'])) {
 				'direccion' => $_POST['direccion'],
 				'salario' 	=> $_POST['salario']
 			];
-			
+
 			echo json_encode($empleado->registrarEmpleado($data));
 			break;
 

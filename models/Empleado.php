@@ -11,6 +11,22 @@
 			$this->conexion = parent::getConexion();
 		}
 
+
+		public function loginEmpleado($data = [])
+		{
+			try {
+				$consulta = $this->conexion->prepare('CALL spu_empleados_login(?);');
+				$consulta->execute(
+					array(
+						$data['correo']
+					)
+				);
+
+				return $consulta->fetchAll(PDO::FETCH_ASSOC);
+			} catch (Exception $e) {
+				die($e->getMessage());
+			}
+		}
 		public function listarEmpleado()
 		{
 			try {

@@ -1,3 +1,14 @@
+<?php
+session_start();
+
+if (!isset($_SESSION["status"]) || $_SESSION["status"] == false) {
+	header("Location: ./index.php");
+	// echo "hola";
+	exit();
+}
+
+?>
+
 <!DOCTYPE html>
 <html lang="es" class="dark">
 

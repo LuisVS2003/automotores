@@ -36,7 +36,7 @@ if (isset($_POST['operacion'])) {
 				$statusLogin["mensaje"] = "La clave y el acceso son correctos";
 			}
 
-			echo json_encode($empleado->loginEmpleado($dataSend));
+			echo json_encode($statusLogin);
 
 			break;
 
@@ -68,5 +68,14 @@ if (isset($_POST['operacion'])) {
 		default:
 			$operacion = $_POST['operacion'];
 			echo "La operacion $operacion no existe";
+	}
+}
+
+if (isset($_GET['operacion'])) {
+	if ($_GET['operacion'] == 'destroy') {
+		session_destroy();
+		session_unset();
+
+		header("Location: ../index.php");
 	}
 }

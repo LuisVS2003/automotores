@@ -1,8 +1,11 @@
 <?php
+
 session_start();
 
-if (isset($_SESSION["status"]) && $_SESSION["status"] == true) {
+if (isset($_SESSION["status"])  && $_SESSION["status"] == true) {
+    # code...
     header("Location: ./admin/index.php");
+    exit();
 }
 
 ?>
@@ -88,8 +91,8 @@ if (isset($_SESSION["status"]) && $_SESSION["status"] == true) {
                 .then(respuesta => respuesta.json())
                 .then(datos => {
                     if (datos.acesso) {
-                        alert("Clave correcta");
-                        // window.location.href = './admin/index.php';
+                        // alert("Clave correcta");
+                        window.location.href = './admin/index.php';
                     } else {
                         alert(datos.mensaje);
                     }

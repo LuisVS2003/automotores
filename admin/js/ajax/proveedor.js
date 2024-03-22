@@ -13,7 +13,6 @@ document.addEventListener('DOMContentLoaded', e => {
     data.forEach(itemProveedor => {
       const { nombre, telefono, correo, ruc, direccion } = itemProveedor;
 
-			
       proveedores += `
 				<tr class="table-row">
 					

@@ -67,7 +67,8 @@ CREATE TABLE movimientos (
     create_at	DATETIME		DEFAULT NOW(),
     update_at	DATETIME		NULL,
     inactive_at	DATETIME		NULL,
-    CONSTRAINT fk_kardex_mov FOREIGN KEY (kardex_id) REFERENCES kardex(id)
+    CONSTRAINT fk_kardex_mov FOREIGN KEY (kardex_id) REFERENCES kardex(id),
+    CONSTRAINT ck_cantidad_mov CHECK (cantidad > 0)
 ) ENGINE = InnoDB;
 
 CREATE TABLE proveedores (
@@ -137,7 +138,8 @@ CREATE TABLE detalles_compras (
     update_at	DATETIME		NULL,
     inactive_at	DATETIME		NULL,
     CONSTRAINT fk_compra_d_c FOREIGN KEY (compra_id) REFERENCES compras(id),
-    CONSTRAINT fk_producto_d_c FOREIGN KEY (producto_id) REFERENCES productos(id)
+    CONSTRAINT fk_producto_d_c FOREIGN KEY (producto_id) REFERENCES productos(id),
+    CONSTRAINT ck_cantidad_com CHECK (cantidad > 0)
 ) ENGINE = InnoDB;
 
 -- Campos calculados: total, subtotal, igv
@@ -162,5 +164,6 @@ CREATE TABLE detalles_ventas (
     update_at	DATETIME	NULL,
     inactive_at	DATETIME	NULL,
     CONSTRAINT fk_venta_d_v FOREIGN KEY (venta_id) REFERENCES ventas(id),
-    CONSTRAINT fk_producto_d_v FOREIGN KEY (producto_id) REFERENCES productos(id)
+    CONSTRAINT fk_producto_d_v FOREIGN KEY (producto_id) REFERENCES productos(id),
+    CONSTRAINT ck_cantidad_ven CHECK (cantidad > 0)
 ) ENGINE = InnoDB;

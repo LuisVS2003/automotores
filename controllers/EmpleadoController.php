@@ -1,4 +1,8 @@
 <?php
+// $clave = "SENATI123";
+// $claveEncript = password_hash($clave, PASSWORD_BCRYPT);
+
+// echo $claveEncript;
 
 session_start();
 
@@ -23,20 +27,38 @@ if (isset($_POST['operacion'])) {
 				"mensaje"	=> ""
 			];
 
-			if ($registro == false) {
-				# code...
-				$_SESSION["status"] = false;
-				$statusLogin["mensaje"] = "El correo no existe";
-			} else {
-				// $_SESSION["apellidos"] = $registro["apellidos"];
-				// $_SESSION["clave"] = $registro["clave"];
+			// var_dump($registro);
 
-				$_SESSION["status"] = true;
-				$statusLogin["acesso"] = true;
-				$statusLogin["mensaje"] = "La clave y el acceso son correctos";
+			if (isset($_POST["clave"])) {
+				// Process form data
+				if ($registro == false) {
+					# code...
+					$_SESSION["status"] = false;
+					$statusLogin["mensaje"] = "El correo no existe";
+				} else {
+					$claveEnc = $registro[0]['clave'];
+					$_SESSION["nombres"] = $registro[0]['nombres'];
+					$_SESSION["apellidos"] = $registro[0]["apellidos"];
+
+					if (password_verify($_POST["clave"], $claveEnc)) {
+						# code...
+						$_SESSION["status"] = true;
+						$statusLogin["acesso"] = true;
+						$statusLogin["mensaje"] = "La clave y el acceso son correctos";
+					} else {
+						$_SESSION["status"] = true;
+						$statusLogin["mensaje"] = "Error en la clave";
+					}
+				}
+			} else {
+				// Handle case where "clave" key is missing
+				echo "Error: 'clave' key is missing in the form data.";
 			}
 
+
+
 			echo json_encode($statusLogin);
+			// echo $registro;
 
 			break;
 

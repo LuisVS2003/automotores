@@ -45,6 +45,8 @@ END $$
 SELECT * FROM clientes;
 SELECT * FROM empleados;
 
+update empleados set clave = "$2y$10$BpiD/1e639OYnxPu6iaVNuG/E2Fa2JQvXxfK.fmRHmP270Pi1Y9U6";
+
 
 CALL spu_empleados_login('maria@example.com');
 

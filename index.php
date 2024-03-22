@@ -64,9 +64,9 @@ if (isset($_SESSION["status"])  && $_SESSION["status"] == true) {
 <body>
     <form action="" id="form-login" autocomplete="off">
         <h2>Iniciar sesión</h2>
-        <label for="username">Usuario:</label>
+        <label for="correo">Correo: </label>
         <input type="text" id="correo" name="correo" required>
-        <label for="password">Contraseña:</label>
+        <label for="clave">Contraseña: </label>
         <input type="password" id="clave" name="clave" required>
         <input type="submit" value="Iniciar sesión">
     </form>
@@ -92,6 +92,7 @@ if (isset($_SESSION["status"])  && $_SESSION["status"] == true) {
                 .then(datos => {
                     if (datos.acesso) {
                         // alert("Clave correcta");
+                        // console.log(parametros);
                         window.location.href = './admin/index.php';
                     } else {
                         alert(datos.mensaje);

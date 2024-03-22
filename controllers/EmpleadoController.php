@@ -38,7 +38,8 @@ if (isset($_POST['operacion'])) {
 				} else {
 					$claveEnc = $registro[0]['clave'];
 					$_SESSION["nombres"] = $registro[0]['nombres'];
-					$_SESSION["apellidos"] = $registro[0]["apellidos"];
+					// $_SESSION["apellidos"] = $registro[0]["apellidos"];
+					$_SESSION["correo"] = $registro[0]["correo"];
 
 					if (password_verify($_POST["clave"], $claveEnc)) {
 						# code...

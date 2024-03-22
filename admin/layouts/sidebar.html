@@ -277,7 +277,7 @@
       <img class="user-avatar" src="./img/user.png" alt="Usuario" />
       <div class="user-details">
         <h3 class="user-name" title="nombre de usuario"><?= $_SESSION["nombres"] ?></h3>
-        <p class="user-email" title="correo">admin@gmail.com</p>
+        <p class="user-email" title="correo"><?= $_SESSION["correo"] ?></p>
       </div>
     </div>
 
@@ -353,4 +353,4 @@
     </div>
   </div>
 </aside>
-<div id="backdrop" class="backdrop sidebar-toggle" style="z-index: 999;"></div>
+<div id="backdrop" class="backdrop sidebar-toggle" style="z-index: 999"></div>

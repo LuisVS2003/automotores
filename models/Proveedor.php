@@ -14,7 +14,7 @@
 		public function listarProveedor()
 		{
 			try {
-				$consulta = $this->conexion->prepare('CALL listarProveedores()');
+				$consulta = $this->conexion->prepare('CALL spu_proveedor_listar()');
 				$consulta->execute();
 
 				return $consulta->fetchAll(PDO::FETCH_ASSOC);

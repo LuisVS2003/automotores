@@ -11,10 +11,10 @@
 			$this->conexion = parent::getConexion();
 		}
 
-		public function listarKardex()
+		public function spu_kardex_listar()
 		{
 			try {
-				$consulta = $this->conexion->prepare('CALL listarKardex()');
+				$consulta = $this->conexion->prepare('CALL spu_kardex_listar()');
 				$consulta->execute();
 
 				return $consulta->fetchAll(PDO::FETCH_ASSOC);

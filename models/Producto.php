@@ -14,7 +14,7 @@ class Producto extends Conexion
 	public function listarProducto()
 	{
 		try {
-			$consulta = $this->conexion->prepare('CALL listarProductos()');
+			$consulta = $this->conexion->prepare('CALL spu_producto_listar()');
 			$consulta->execute();
 
 			return $consulta->fetchAll(PDO::FETCH_ASSOC);

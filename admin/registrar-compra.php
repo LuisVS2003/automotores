@@ -122,7 +122,7 @@
 	</div>
 
 	<?php require_once './layouts/script-js.html'; ?>
-	<script src="./js/ajax/detalle_compra.js"></script>
+	<script src="./js/ajax/compra.js"></script>
 	<script>
 		document.addEventListener('DOMContentLoaded', () => {
 			const formProducto = $('#form-producto');

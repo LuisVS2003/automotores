@@ -5,8 +5,8 @@ require_once '../models/Kardex.php';
 if (isset($_POST['operacion'])) {
 	$kardex = new Kardex();
 	switch ($_POST['operacion']) {
-		case 'listarKardex':
-			echo json_encode($kardex->listarKardex());
+		case 'spu_kardex_listar':
+			echo json_encode($kardex->spu_kardex_listar());
 			break;
 
 		case 'registrarKardex':

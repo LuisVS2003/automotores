@@ -17,13 +17,26 @@
 
 		<div class="content sidebar-toggle">
 			<main class="content-main">
-				<?php require_once './layouts/registrar-detalleVenta.html'; ?>
+				<form id="form-detalle-venta" action="" method="post">
+					<div class="form-inputs">
+						<select id="form-detalle-venta-venta" name="" class="form-select">
+							<option value="">Venta</option>
+						</select>
+						<select id="form-detalle-venta-producto" name="" class="form-select">
+							<option value="">Producto</option>
+						</select>
+						<input id="form-detalle-venta-cantidad" type="number" placeholder="Catidad" class="form-input" />
+					</div>
+				</form>
+				<button id="form-detalle-venta-submit" type="submit" class="button" form="form-detalle-venta">
+					Registrar Detalle Venta
+				</button>
 			</main>
 		</div>
 	</div>
 
 	<?php require_once './layouts/script-js.html'; ?>
-	<script src="./js/ajax/detalle_venta.js"></script>
+	<script src="./js/ajax/venta.js"></script>
 	<script>
 		document.addEventListener('DOMContentLoaded', () => {
 			getVenta();

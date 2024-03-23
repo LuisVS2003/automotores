@@ -14,7 +14,7 @@
 		public function listarRol()
 		{
 			try {
-				$consulta = $this->conexion->prepare('CALL listarRoles()');
+				$consulta = $this->conexion->prepare('CALL spu_rol_listar()');
 				$consulta->execute();
 
 				return $consulta->fetchAll(PDO::FETCH_ASSOC);

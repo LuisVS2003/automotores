@@ -14,7 +14,7 @@
 		public function listarDetalleVenta()
 		{
 			try {
-				$consulta = $this->conexion->prepare('CALL listarDetallesVentas()');
+				$consulta = $this->conexion->prepare('CALL spu_detalle_venta_listar()');
 				$consulta->execute();
 
 				return $consulta->fetchAll(PDO::FETCH_ASSOC);

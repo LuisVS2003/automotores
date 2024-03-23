@@ -1,26 +1,23 @@
 USE automotores;
 
-DROP PROCEDURE IF EXISTS listarCategorias;
-DROP PROCEDURE IF EXISTS listarMarcas;
-DROP PROCEDURE IF EXISTS listarProductos;
-DROP PROCEDURE IF EXISTS listarAlmacenes;
-DROP PROCEDURE IF EXISTS listarKardex;
-DROP PROCEDURE IF EXISTS listarMovimientos;
-DROP PROCEDURE IF EXISTS listarProveedores;
-DROP PROCEDURE IF EXISTS listarCompras;
-DROP PROCEDURE IF EXISTS listarDetallesCompras;
-DROP PROCEDURE IF EXISTS listarClientes;
-DROP PROCEDURE IF EXISTS listarVentas;
-DROP PROCEDURE IF EXISTS listarDetallesVentas;
-DROP PROCEDURE IF EXISTS listarRoles;
-DROP PROCEDURE IF EXISTS listarEmpleados;
-
-CALL listarProductos
-select * from productos
+DROP PROCEDURE IF EXISTS spu_categoria_listar;
+DROP PROCEDURE IF EXISTS spu_marca_listar;
+DROP PROCEDURE IF EXISTS spu_producto_listar;
+DROP PROCEDURE IF EXISTS spu_almacen_listar;
+DROP PROCEDURE IF EXISTS spu_kardex_listar;
+DROP PROCEDURE IF EXISTS spu_movimiento_listar;
+DROP PROCEDURE IF EXISTS spu_proveedor_listar;
+DROP PROCEDURE IF EXISTS spu_compra_listar;
+DROP PROCEDURE IF EXISTS spu_detalle_compra_listar;
+DROP PROCEDURE IF EXISTS spu_cliente_listar;
+DROP PROCEDURE IF EXISTS spu_venta_listar;
+DROP PROCEDURE IF EXISTS spu_detalle_venta_listar;
+DROP PROCEDURE IF EXISTS spu_rol_listar;
+DROP PROCEDURE IF EXISTS spu_empleado_listar;
 
 -- ###################################################################
 DELIMITER $$
-CREATE PROCEDURE listarCategorias()
+CREATE PROCEDURE spu_categoria_listar()
 BEGIN
     SELECT
 		id, nombre
@@ -31,7 +28,7 @@ END$$
 
 -- ###################################################################
 DELIMITER $$
-CREATE PROCEDURE listarMarcas()
+CREATE PROCEDURE spu_marca_listar()
 BEGIN
     SELECT
 		id, nombre
@@ -42,14 +39,14 @@ END$$
 
 -- ###################################################################
 DELIMITER $$
-CREATE PROCEDURE listarProductos()
+CREATE PROCEDURE spu_producto_listar()
 BEGIN
     SELECT * FROM vw_producto;
 END$$
 
 -- ###################################################################
 DELIMITER $$
-CREATE PROCEDURE listarAlmacenes()
+CREATE PROCEDURE spu_almacen_listar()
 BEGIN
     SELECT
 		id,
@@ -63,7 +60,7 @@ END$$
 
 -- ###################################################################
 DELIMITER $$
-CREATE PROCEDURE listarKardex()
+CREATE PROCEDURE spu_kardex_listar()
 BEGIN
     SELECT
 		KAR.id,
@@ -79,7 +76,7 @@ END$$
 
 -- ###################################################################
 DELIMITER $$
-CREATE PROCEDURE listarMovimientos()
+CREATE PROCEDURE spu_movimiento_listar()
 BEGIN
     SELECT
 		MOV.id,
@@ -100,29 +97,35 @@ END $$
 
 -- ###################################################################
 DELIMITER $$
-CREATE PROCEDURE listarProveedores()
+CREATE PROCEDURE spu_proveedor_listar()
 BEGIN
     SELECT * FROM vw_proveedor;
 END$$
 
 -- ###################################################################
 DELIMITER $$
-CREATE PROCEDURE listarCompras()
+CREATE PROCEDURE spu_compra_listar()
 BEGIN
     SELECT
+		D_C.id,
 		COM.id,
         COM.proveedor_id,
-        PRO.nombre AS proveedor,
-        CONCAT(EMP.apellidos, ", ", EMP.nombres) AS empleado
-    FROM compras COM
-    INNER JOIN proveedores PRO ON PRO.id = COM.proveedor_id
-    INNER JOIN empleados EMP ON EMP.id = COM.empleado_id
-    WHERE COM.inactive_at IS NULL;
-END$$
+        COM.empleado_id,
+        PROV.nombre AS proveedor,
+        CONCAT(EMP.apellidos, ", ", EMP.nombres) AS empleado,
+        SUM(PROD.precio * D_C.cantidad) AS total
+    FROM detalles_compras D_C
+		INNER JOIN productos PROD ON PROD.id = D_C.producto_id
+		INNER JOIN compras COM ON COM.id = D_C.compra_id
+		INNER JOIN proveedores PROV ON PROV.id = COM.proveedor_id
+		INNER JOIN empleados EMP ON EMP.id = COM.empleado_id
+    WHERE COM.inactive_at IS NULL
+    GROUP BY D_C.compra_id;
+END $$
 
 -- ###################################################################
 DELIMITER $$
-CREATE PROCEDURE listarDetallesCompras()
+CREATE PROCEDURE spu_detalle_compra_listar()
 BEGIN
     SELECT
 		D_C.id,
@@ -139,30 +142,34 @@ END$$
 
 -- ###################################################################
 DELIMITER $$
-CREATE PROCEDURE listarClientes()
+CREATE PROCEDURE spu_cliente_listar()
 BEGIN
-    SELECT * FROM clientes;
+    SELECT * FROM vw_cliente;
 END $$
 
 -- ###################################################################
 DELIMITER $$
-CREATE PROCEDURE listarVentas()
+CREATE PROCEDURE spu_venta_listar()
 BEGIN
-    SELECT
+	SELECT
 		VEN.id,
         VEN.cliente_id,
         VEN.empleado_id,
-        CLI.nombres AS cliente,
-        CONCAT(EMP.apellidos, ", ", EMP.nombres) AS empleado
-    FROM ventas VEN
-    LEFT JOIN clientes CLI ON CLI.id = VEN.cliente_id
-    INNER JOIN empleados EMP ON EMP.id = VEN.empleado_id
-    WHERE VEN.inactive_at IS NULL;
-END$$
+        CONCAT(COALESCE(CLI.apellidos, ''), ", ", COALESCE(CLI.nombres, '')) AS cliente,
+        CONCAT(EMP.apellidos, ", ", EMP.nombres) AS empleado,
+        SUM(PRO.precio * D_V.cantidad) AS total
+    FROM detalles_ventas D_V
+		INNER JOIN productos PRO ON PRO.id = D_V.producto_id
+		INNER JOIN ventas VEN ON VEN.id = D_V.venta_id
+		LEFT JOIN clientes CLI ON CLI.id = VEN.cliente_id
+		INNER JOIN empleados EMP ON EMP.id = VEN.empleado_id
+    WHERE VEN.inactive_at IS NULL
+    GROUP BY D_V.venta_id;
+END $$
 
 -- ###################################################################
 DELIMITER $$
-CREATE PROCEDURE listarDetallesVentas()
+CREATE PROCEDURE spu_detalle_venta_listar()
 BEGIN
     SELECT
 		D_V.id,
@@ -179,7 +186,7 @@ END$$
 
 -- ###################################################################
 DELIMITER $$
-CREATE PROCEDURE listarRoles()
+CREATE PROCEDURE spu_rol_listar()
 BEGIN
     SELECT
 		id, nombre
@@ -189,7 +196,7 @@ END $$
 
 -- ###################################################################
 DELIMITER $$
-CREATE PROCEDURE listarEmpleados()
+CREATE PROCEDURE spu_empleado_listar()
 BEGIN
     SELECT * FROM vw_empleado;
 END $$

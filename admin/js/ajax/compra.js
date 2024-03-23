@@ -1,39 +1,23 @@
-const tablaDetalleCompras = $('#table-detalle_compras tbody');
-
-const dataDetalleCompra = async () => {
+const dataCompra = async () => {
+  const tablaDetalleCompras = $('#table-detalle_compras tbody');
   const dataForm = new FormData();
-  dataForm.append('operacion', 'listarDetalleCompra');
+  dataForm.append('operacion', 'listarCompra');
 
-  const data = await dataFetch(URL_DETALLE_COMPRA, dataForm);
-  // console.log(data);
-  if (tablaDetalleCompras.length) {
-    tablaDetalleCompras.innerHTML = '';
-  } else {
-    console.error('La tabla no fue encontrada.');
-  }
+  const data = await dataFetch(URL_COMPRA, dataForm);
+  console.log(data);
+  let compras = '';
 
-  let detalleCompras = '';
-  let num = 1;
-  data.forEach(itemDetalleCompras => {
-    const { compra_id, producto_id, cantidad } = itemDetalleCompras;
+  data.forEach(itemCompra => {
+    const { id, proveedor, empleado, total } = itemCompra;
 
-    detalleCompras += `
+    compras += `
 				<tr class="table-row">
-					<td class="table-details">
-						<h3>${num}</h3>
-					</td>
-					<td class="table-details">
-						<h3>${compra_id}</h3>
-					</td>
-					<td class="table-details">
-						<h3>${producto_id}</h3>
-					</td>
-					<td class="table-details">
-						<h3>${cantidad}</h3>
-					</td>
-					
+					<td>${proveedor}</td>
+					<td>${empleado}</td>
+					<td class="text-end">${total}</td>
 					<td>
-						<div class="table-cell-action">
+						<div data-compra-id="${id}" class="table-cell-action">
+              ${botonView}
 							${botonEditar}
 							${botonEliminar}
 						</div>
@@ -42,8 +26,15 @@ const dataDetalleCompra = async () => {
 			`;
   });
 
-  num++;
-  tablaDetalleCompras.innerHTML = detalleCompras;
+  if (data.length === 0) {
+    compras = `
+      <tr class="table-row">
+        <td colspan="4" class="text-center">No hay datos disponibles</td>
+      </tr>
+    `;
+  }
+
+  tablaDetalleCompras.innerHTML = compras;
 };
 
 const getProveedor = async () => {

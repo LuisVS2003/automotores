@@ -1,44 +1,41 @@
 const tablaDetalleVenta = $('#table-detalle_venta tbody');
 
-const dataDetalleVenta = async () => {
+const dataVenta = async () => {
   const dataForm = new FormData();
-  dataForm.append('operacion', 'listarDetalleVenta');
+  dataForm.append('operacion', 'listarVenta');
 
-  const data = await dataFetch(URL_DETALLE_VENTA, dataForm);
-  console.log(data);
-  tablaDetalleVenta.innerHTML = '';
-  let detalleVenta = '';
-  let num = 1;
-  data.forEach(itemDetalleVenta => {
-    const { venta_id, producto_id, cantidad } = itemDetalleVenta;
+  const data = await dataFetch(URL_VENTA, dataForm);
+  let ventas = '';
 
-    detalleVenta += `
-				<tr class="table-row">
-					<td class="table-details">
-						<h3>${num}</h3>
-					</td>
-					<td class="table-details">
-						<h3>${venta_id}</h3>
-					</td>
-					<td class="table-details">
-						<h3>${producto_id}</h3>
-					</td>
-					<td class="table-details">
-						<h3>${cantidad}</h3>
-					</td>
+  data.forEach(itemVenta => {
+    const { id, cliente, empleado, total } = itemVenta;
+    const clienteNull = cliente.startsWith(', ') ? cliente.slice(2) : cliente;
 
-					<td>
-						<div class="table-cell-action">
-							${botonEditar}
-							${botonEliminar}
-						</div>
-					</td>
-				</tr>
-			`;
+    ventas += `
+      <tr class="table-row">
+        <td>${clienteNull}</td>
+        <td>${empleado}</td>
+        <td class="text-end">${total}</td>
+        <td>
+          <div data-venta-id="${id}" class="table-cell-action">
+            ${botonView}
+            ${botonEditar}
+            ${botonEliminar}
+          </div>
+        </td>
+      </tr>
+    `;
   });
 
-  num++;
-  tablaDetalleVenta.innerHTML = detalleVenta;
+  if (data.length === 0) {
+    ventas = `
+      <tr class="table-row">
+        <td colspan="4">No hay datos disponibles</td>
+      </tr>
+    `;
+  }
+
+  tablaDetalleVenta.innerHTML = ventas;
 };
 
 const getVenta = async () => {

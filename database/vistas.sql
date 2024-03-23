@@ -20,7 +20,7 @@ CREATE VIEW vw_producto AS
 		PRO.precio,
 		PRO.imagen
 	FROM kardex KAR
-    RIGHT JOIN productos PRO ON PRO.id = KAR.id
+    INNER JOIN productos PRO ON PRO.id = KAR.id
 	INNER JOIN categorias CAT ON CAT.id = PRO.categoria_id
 	INNER JOIN marcas MAR ON MAR.id = PRO.marca_id
 	WHERE PRO.inactive_at IS NULL

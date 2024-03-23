@@ -4,7 +4,7 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Dashboard - Automotores</title>
+	<title>Clientes</title>
 	<?php require_once './layouts/link-css.html'; ?>
 </head>
 
@@ -13,7 +13,6 @@
 
 	<div class="container">
 		<?php require_once './layouts/sidebar.php'; ?>
-
 		<div class="content sidebar-toggle">
 			<main class="content-main">
 			</main>

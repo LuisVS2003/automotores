@@ -1,8 +1,8 @@
 <aside id="sidebar" class="sidebar sidebar-toggle" aria-label="Sidebar">
   <div class="sidebar-body">
     <ul class="sidebar-menu">
-      <li class="sidebar-link active">
-        <a href="./">
+      <li class="sidebar-link">
+        <a href="./dashboard">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             class="icon icon-tabler icon-tabler-dashboard"

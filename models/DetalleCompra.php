@@ -69,4 +69,19 @@ class DetalleCompra extends Conexion
 			die($e->getMessage());
 		}
 	}
+
+	public function imprimirDetalleCompra($id)
+	{
+		try{
+			$consulta = $this->conexion->prepare('');
+			$consulta->execute(
+				array($id)
+			);
+			
+			return true;
+		}	catch (Exception $e) {
+			die($e->getMessage());
+		}
+	}
+	
 }

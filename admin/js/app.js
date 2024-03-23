@@ -1,5 +1,10 @@
 const $ = selector => document.querySelector(selector);
 const $$ = selector => document.querySelectorAll(selector);
+$$('#sidebar .sidebar-link').forEach(link => {
+  const hrefLink = link.querySelector('a').getAttribute('href').replace('.', '');
+  const pathNav = window.location.pathname.replace(/^\/+/g, '');
+  if (pathNav.includes(hrefLink)) link.classList.add('active');
+});
 
 
 /* Link dinámico - background */
@@ -167,5 +172,4 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
   /* End - User Options ############################################################## */
-  
 });

@@ -1,21 +1,10 @@
-<?php
-session_start();
-
-if (!isset($_SESSION["status"]) || $_SESSION["status"] == false) {
-	header("Location: ./index.php");
-	// echo "hola";
-	exit();
-}
-
-?>
-
 <!DOCTYPE html>
 <html lang="es" class="dark">
 
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Sistema integrado de AutoPartes</title>
+	<title>Dashboard - Automotores</title>
 	<?php require_once './layouts/link-css.html'; ?>
 </head>
 
@@ -23,7 +12,7 @@ if (!isset($_SESSION["status"]) || $_SESSION["status"] == false) {
 	<?php require_once './layouts/navbar.html'; ?>
 
 	<div class="container">
-		<?php require_once './layouts/sidebar.php'; ?>
+		<?php require_once './layouts/sidebar.html'; ?>
 
 		<div class="content sidebar-toggle">
 			<main class="content-main">

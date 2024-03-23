@@ -15,9 +15,6 @@ DROP PROCEDURE IF EXISTS listarDetallesVentas;
 DROP PROCEDURE IF EXISTS listarRoles;
 DROP PROCEDURE IF EXISTS listarEmpleados;
 
-CALL listarProductos
-select * from productos
-
 -- ###################################################################
 DELIMITER $$
 CREATE PROCEDURE listarCategorias()

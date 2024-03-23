@@ -8,6 +8,8 @@ DROP PROCEDURE IF EXISTS listarClienteId;
 DROP PROCEDURE IF EXISTS listarVentaId;
 DROP PROCEDURE IF EXISTS listarEmpleadoId;
 
+CALL listarEmpleadoId(1)
+
 -- ###################################################################
 DELIMITER $$
 CREATE PROCEDURE listarProductoId(IN _producto_id INT)

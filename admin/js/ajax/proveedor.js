@@ -13,26 +13,27 @@ document.addEventListener('DOMContentLoaded', e => {
     data.forEach(itemProveedor => {
       const { nombre, telefono, correo, ruc, direccion } = itemProveedor;
 
+			
       proveedores += `
 				<tr class="table-row">
 					
-					<td class="table-text">
+					<td class="table-description">
 						${nombre}
 					</td>
           
-					<td class="table-text">
+					<td class="table-description">
 						${telefono}
 					</td>
 
-					<td class="table-text">
+					<td class="table-description">
 						${correo}
 					</td>
 
-					<td class="table-text">
+					<td class="table-description">
 						${ruc}
 					</td>
 
-					<td class="table-text">
+					<td class="table-description">
 						${direccion}
 					</td>
 

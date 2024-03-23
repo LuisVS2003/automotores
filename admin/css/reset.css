@@ -94,7 +94,8 @@ td {
 body {
   height: 100vh;
 }
-/* 
+
+/* Desactivamos los animations en el caso de que el usuario haya configurado el modo sin animation */
 @media (prefers-reduced-motion: reduce) {
   * {
     -webkit-animation: none !important;
@@ -102,4 +103,4 @@ body {
     -webkit-transition: none !important;
     transition: none !important;
   }
-} */
+}

@@ -47,13 +47,29 @@ INSERT INTO clientes (nombres) VALUES
 	("Laura Martínez Ramírez");
 
 -- PRODUCTO ################################################################################
-INSERT INTO productos (categoria_id, marca_id, nombre, codigo, descripcion, precio, imagen)
+INSERT INTO productos (categoria_id, marca_id, nombre, codigo, descripcion, precio)
 VALUES
-	(1, 2, "Filtro de aceite Fram XYZ", "COD000000002", "Filtro de aceite de alta calidad", 15.99, "imagen2.jpg"),
-	(2, 5, "Bujía Denso ABC", "COD000000003", "Bujía de platino para un mejor rendimiento", 8.50, "imagen3.jpg"),
-	(3, 7, "Pastillas de freno Brembo 123", "COD000000004", "Pastillas de freno de cerámica para un frenado suave", 45.75, "imagen4.jpg"),
-	(4, 10, "Bomba de agua Monroe XYZ", "COD000000005", "Bomba de agua de alta eficiencia", 65.30, "imagen5.jpg"),
-	(5, 4, "Correa de distribución NGK 567", "COD000000006", "Correa de distribución resistente y duradera", 25.99, "imagen6.jpg");
+	(1, 2, "Filtro de aceite Fram XYZ", "COD000000002", "Filtro de aceite de alta calidad. Ayuda a mantener el motor limpio y protegido.", 15.99),
+	(2, 5, "Bujía Denso ABC", "COD000000003", "Bujía de platino para un mejor rendimiento. Mejora la eficiencia de combustión.", 8.50),
+	(3, 7, "Pastillas de freno Brembo 123", "COD000000004", "Pastillas de freno de cerámica para un frenado suave. Reduce el desgaste del disco.", 45.75),
+	(4, 10, "Bomba de agua Monroe XYZ", "COD000000005", "Bomba de agua de alta eficiencia. Mantiene el motor fresco y evita el sobrecalentamiento.", 65.30),
+	(5, 4, "Correa de distribución NGK 567", "COD000000006", "Correa de distribución resistente y duradera. Transmite la potencia del motor al sistema de distribución.", 25.99),
+	(6, 8, "Sensor de oxígeno Bosch 789", "COD000000007", "Sensor de oxígeno para monitorear la mezcla de combustible y mejorar la eficiencia.", 38.50),
+	(7, 3, "Amortiguador KYB Ultra SR", "COD000000008", "Amortiguador de alta calidad para una conducción suave y segura.", 55.00),
+	(8, 6, "Alternador Denso 456", "COD000000009", "Alternador de alto rendimiento para cargar la batería del vehículo.", 120.00),
+	(1, 9, "Termostato Gates 234", "COD000000010", "Termostato para regular la temperatura del motor y prevenir el sobrecalentamiento.", 18.75),
+	(1, 1, "Aceite de motor Mobil 1", "COD000000011", "Aceite sintético de alta viscosidad para una lubricación óptima.", 42.99),
+	(1, 12, "Filtro de aire K&N 789", "COD000000012", "Filtro de aire de alto flujo para mejorar la eficiencia del motor.", 29.50),
+	(2, 11, "Radiador CSF 567", "COD000000013", "Radiador de aluminio para una disipación eficiente del calor.", 85.00),
+	(3, 14, "Kit de embrague Exedy 345", "COD000000014", "Kit completo de embrague para un cambio de marchas suave.", 120.50),
+	(4, 13, "Bomba de combustible Airtex 678", "COD000000015", "Bomba de combustible eléctrica para suministrar gasolina al motor.", 68.25),
+	(5, 15, "Bobina de encendido NGK 789", "COD000000016", "Bobina de encendido para generar chispas en las bujías.", 22.99),
+	(6, 16, "Cable de bujía Bosch 123", "COD000000017", "Cable de bujía de alta resistencia para una conducción sin problemas.", 12.75),
+	(7, 17, "Kit de frenos traseros Raybestos 456", "COD000000018", "Kit completo de frenos traseros para un frenado seguro.", 78.00),
+	(8, 18, "Correa de accesorios Gates 567", "COD000000019", "Correa de accesorios para la transmisión de energía a componentes como el alternador y la bomba de agua.", 19.99),
+	(7, 19, "Bomba de dirección hidráulica Cardone 789", "COD000000020", "Bomba de dirección para un manejo suave y preciso.", 58.50),
+	(8, 20, "Kit de juntas de motor Victor Reinz 234", "COD000000021", "Kit completo de juntas para sellar el motor y prevenir fugas.", 35.25);
+
 
 -- ROL #####################################################################################
 INSERT INTO roles (nombre) VALUES

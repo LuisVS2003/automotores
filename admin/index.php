@@ -1,10 +1,21 @@
+<?php
+session_start();
+
+if (!isset($_SESSION["status"]) || $_SESSION["status"] == false) {
+	header("Location: ./index.php");
+	// echo "hola";
+	exit();
+}
+
+?>
+
 <!DOCTYPE html>
 <html lang="es" class="dark">
 
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Dashboard - Automotores</title>
+	<title>Sistema integrado de AutoPartes</title>
 	<?php require_once './layouts/link-css.html'; ?>
 </head>
 

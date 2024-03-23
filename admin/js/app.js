@@ -1,23 +1,5 @@
 const $ = selector => document.querySelector(selector);
 const $$ = selector => document.querySelectorAll(selector);
-$$('#sidebar .sidebar-link').forEach(link => {
-  const hrefLink = link.querySelector('a').getAttribute('href').replace('.', '');
-  const pathNav = window.location.pathname.replace(/^\/+/g, '');
-  if (pathNav.includes(hrefLink)) link.classList.add('active');
-});
-
-
-/* Link dinámico - background */
-$$('#sidebar .sidebar-link').forEach(link => {
-  const hrefLink = link.querySelector('a').getAttribute('href').replace('.', '');
-  const pathNav = window.location.pathname.replace(/^\/+/g, '');
-  if (pathNav.includes(hrefLink)) link.classList.add('active');
-
-  link.addEventListener('click', () => {
-    link.classList.add('active');
-  });
-});
-
 
 /* Start - Controllers ############################################################### */
 const URL_COMPRA = '../controllers/CompraController.php';
@@ -172,4 +154,5 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
   /* End - User Options ############################################################## */
+  
 });

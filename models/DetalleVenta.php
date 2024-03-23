@@ -68,18 +68,4 @@
 				die($e->getMessage());
 			}
 		}
-
-		public function imprimirDetalleVenta($id)
-		{
-			try {
-				$consulta = $this->conexion->prepare('');
-				$consulta->execute(
-					array($id)
-				);
-
-				return true;
-			} catch (Exception $e) {
-				die($e->getMessage());
-			}
-		}
 	}

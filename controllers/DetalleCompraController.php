@@ -29,12 +29,6 @@ if (isset($_POST['operacion'])) {
 			echo json_encode($detalleCompra->eliminarDetalleCompra($id));
 			break;
 
-			//imprimir (PDF)
-		case 'imprimirDetalleCompra':
-			$id = $_POST['id'];
-			echo json_encode($detalleCompra->eliminarDetalleCompra($id));
-			break;
-
 		default:
 			$operacion = $_POST['operacion'];
 			echo "La operacion $operacion no existe";

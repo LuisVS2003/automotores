@@ -205,6 +205,12 @@
 			getMarcas('#form-producto-marca');
 			getCategorias('#update-input-categoria');
 			getMarcas('#update-input-marca');
+
+			// $$('#sidebar .sidebar-link').forEach(link => {
+			// 	link.addEventListener('click', (e) => {
+			// 		console.log(e.target.closest('.sidebar-link'));
+			// 	})
+			// })
 		})
 	</script>
 </body>

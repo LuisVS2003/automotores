@@ -233,7 +233,8 @@ input[type='number']::-webkit-outer-spin-button {
       }
 
       .sidebar-link.active > a,
-      .sidebar-link > a:hover {
+      .sidebar-link > a:hover,
+      .sidebar-link > a:active {
         background-color: var(--background-hover);
       }
     }
@@ -337,7 +338,8 @@ input[type='number']::-webkit-outer-spin-button {
   backdrop-filter: blur(4px);
   display: block;
 
-  &.sidebar-toggle, &.hidden {
+  &.sidebar-toggle,
+  &.hidden {
     display: none;
   }
 }

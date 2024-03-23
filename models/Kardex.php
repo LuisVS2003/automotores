@@ -11,7 +11,7 @@
 			$this->conexion = parent::getConexion();
 		}
 
-		public function spu_kardex_listar()
+		public function listarKardex()
 		{
 			try {
 				$consulta = $this->conexion->prepare('CALL spu_kardex_listar()');

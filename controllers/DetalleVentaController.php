@@ -28,6 +28,10 @@ if (isset($_POST['operacion'])) {
 			echo json_encode($detalleVenta->eliminarDetalleVenta($id));
 			break;
 
+		case 'imprimirDetalleVenta':
+			$id = $_POST['id'];
+			echo json_encode($detalleVenta->eliminarDetalleVenta($id));
+
 		default:
 			$operacion = $_POST['operacion'];
 			echo "La operacion $operacion no existe";

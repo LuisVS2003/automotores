@@ -19,8 +19,12 @@ const URL_DETALLE_VENTA = '../controllers/DetalleVentaController.php';
 const URL_VENTA = '../controllers/VentaController.php';
 const URL_CLIENTE = '../controllers/ClienteController.php';
 const URL_ROL = '../controllers/RolController.php';
+//(ARTURO) ticket
+const URL_TICKET= '../layouts/ticket.html';
+
 /* End - Controllers ################################################################# */
-/* Start - Funciones ################################################ */
+
+/* Start - Funciones de uso inmediado ################################################ */
 const dataFetch = async (url, dataForm) => {
   try {
     const opciones = {
@@ -35,38 +39,15 @@ const dataFetch = async (url, dataForm) => {
   }
 };
 
-const addTagOptions = (indentification, data, textOption) => {
+const addTagOptions = (indentifition, data, textOption) => {
   data.forEach(item => {
     const tagOption = document.createElement('option');
     tagOption.value = item.id;
     tagOption.textContent = item[textOption];
 
-    indentification.appendChild(tagOption);
+    indentifition.appendChild(tagOption);
   });
 };
-
-/* Start - Modal ################################################################### */
-const modalVisible = (modal, buttonOpen) => {
-  $(buttonOpen).addEventListener('click', () => {
-    const modalContent = $(`${modal}`);
-    const modalClose = $(`${modal} .modal-close`);
-    const modalBackdrop = $(`#backdrop-modal`);
-
-    modalContent.classList.remove('hidden');
-    modalBackdrop.classList.remove('hidden');
-
-    modalBackdrop.addEventListener('click', e => {
-      modalContent.classList.add('hidden');
-      modalBackdrop.classList.add('hidden');
-    });
-
-    modalClose.addEventListener('click', e => {
-      modalContent.classList.add('hidden');
-      modalBackdrop.classList.add('hidden');
-    });
-  });
-};
-/* End - Modal ########33########################################################### */
 
 const botonEliminar = `
   <button class="button delete" type="button" aria-label="Eliminar">
@@ -95,12 +76,12 @@ const botonEditar = `
     </svg>
   </button>
 `;
-/* End - Funciones ################################################## */
+/* Start - Funciones de uso inmediado ################################################ */
 
 document.addEventListener('DOMContentLoaded', () => {
   /* Start - SideBar ################################################################# */
   function sidebarToggle() {
-    const sidebar = $('#sidebar').classList;
+    const sidebar = $('.sidebar').classList;
     const contentMain = $('.content').classList;
     const btnOpen = $('.btn-sidebar-open').classList;
     const btnClose = $('.btn-sidebar-close').classList;
@@ -124,6 +105,7 @@ document.addEventListener('DOMContentLoaded', () => {
   $('#sidebar-toggle').addEventListener('click', sidebarToggle);
   $('#backdrop').addEventListener('click', sidebarToggle);
   /* End - SideBar ################################################################### */
+
   /* Start - DarkMode ################################################################ */
   const dark = $('.icon-moon').classList;
   const light = $('.icon-sun').classList;

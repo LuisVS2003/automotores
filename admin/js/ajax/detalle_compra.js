@@ -36,6 +36,7 @@ const dataDetalleCompra = async () => {
 						<div class="table-cell-action">
 							${botonEditar}
 							${botonEliminar}
+              ${botonImprimir}
 						</div>
 					</td>
 				</tr>

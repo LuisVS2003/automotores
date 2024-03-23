@@ -55,7 +55,7 @@ BEGIN
     INSERT INTO productos
 		(categoria_id, marca_id, nombre, codigo, descripcion, precio, imagen)
     VALUES
-		(_categoria_id, IFNULL(_marca_id, ''), _nombre, _codigo, _descripcion, _precio, IFNULL(_imagen, ''));
+		(_categoria_id, IFNULL(_marca_id, ''), _nombre, _codigo, _descripcion, _precio, _imagen);
         
     SELECT LAST_INSERT_ID() 'id';
 END$$
@@ -213,7 +213,6 @@ BEGIN
     
 END $$
 
-SELECT * FROM kardex;
 -- ###################################################################
 DELIMITER $$
 CREATE PROCEDURE registrarCliente(

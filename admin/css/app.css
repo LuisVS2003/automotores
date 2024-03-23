@@ -17,7 +17,6 @@
   --color: var(--gray-100);
   --background: var(--gray-800);
   --background-hover: var(--gray-600);
-  --background-filter: #11182799;
   --border-color: var(--gray-500);
   --transition-duration: 0.25s;
 }
@@ -70,8 +69,6 @@ input[type='number']::-webkit-outer-spin-button {
 
 .button {
   display: flex;
-  align-items: center;
-  column-gap: 4px;
   background-color: var(--primary);
   color: var(--color);
   border-radius: 8px;
@@ -90,10 +87,6 @@ input[type='number']::-webkit-outer-spin-button {
     background-color: var(--error);
   }
 
-  &.success {
-    background-color: var(--success);
-  }
-
   &.secondary {
     background-color: var(--gray-500);
   }
@@ -108,14 +101,6 @@ input[type='number']::-webkit-outer-spin-button {
   background-color: transparent;
   border: 1px solid var(--border-color);
   border-radius: 8px;
-
-  &:focus {
-    outline: none;
-  }
-}
-
-.form-textarea {
-  resize: none;
 }
 
 .label-input {
@@ -151,7 +136,7 @@ input[type='number']::-webkit-outer-spin-button {
   background-color: var(--background);
   border-bottom: 1px solid var(--border-color);
   padding-inline: 8px;
-  z-index: 1000;
+  z-index: 30;
 
   .navbar-brand {
     display: flex;
@@ -179,7 +164,6 @@ input[type='number']::-webkit-outer-spin-button {
 
     &:hover,
     &:focus {
-      scale: 1;
       background-color: var(--background-hover);
     }
   }
@@ -204,7 +188,7 @@ input[type='number']::-webkit-outer-spin-button {
   background-color: var(--background);
   border-right: 1px solid var(--border-color);
   transition: transform var(--transition-duration) linear;
-  z-index: 1000;
+  z-index: 30;
 
   &.sidebar-toggle {
     transform: translateX(-100%);
@@ -304,6 +288,8 @@ input[type='number']::-webkit-outer-spin-button {
       border: 1px solid var(--border-color);
       border-radius: 8px;
       padding: 6px 10px;
+      transform: translateX(-150%);
+      transition: transform 0.25s linear;
 
       .options-list {
         .option-item + .option-item {
@@ -331,12 +317,10 @@ input[type='number']::-webkit-outer-spin-button {
 .backdrop {
   width: 100%;
   height: 100%;
-  top: 0;
-  left: 0;
-  position: absolute;
-  background-color: #37415199;
-  backdrop-filter: blur(4px);
+  position: fixed;
+  background-color: #374151cc;
   display: block;
+  z-index: 10;
 
   &.sidebar-toggle,
   &.hidden {
@@ -354,7 +338,6 @@ input[type='number']::-webkit-outer-spin-button {
   overflow-y: auto;
 
   .content-main {
-    overflow-y: scroll;
     position: relative;
     width: 100%;
     height: 100%;
@@ -417,11 +400,6 @@ input[type='number']::-webkit-outer-spin-button {
     border: 1px solid var(--border-color);
     border-radius: 8px;
   }
-
-  .search-buttons {
-    display: flex;
-    column-gap: 8px;
-  }
 }
 
 .table {
@@ -436,10 +414,26 @@ input[type='number']::-webkit-outer-spin-button {
       text-transform: uppercase;
       padding: 16px;
     }
+
+    /* th:nth-child(n + 2):nth-child(-n + 4) {
+      display: none;
+    } */
+
+    /* th:nth-child(1) {
+      border-top-left-radius: 8px;
+    }
+
+    th:nth-last-child(1) {
+      border-top-right-radius: 8px;
+    } */
   }
 
   .table-body,
   .table-foot {
+    /* .table-row:nth-child(even) {
+      background-color: var(--gray-100);
+    } */
+
     .table-row {
       border-bottom: 1px solid var(--border-color);
 
@@ -454,9 +448,14 @@ input[type='number']::-webkit-outer-spin-button {
         min-width: 40px;
       }
 
+      /* td:nth-child(n + 2):nth-child(-n + 4) {
+        display: none;
+      } */
+
       .table-details {
         & h3 {
           font-weight: normal;
+          font-size: 0.95rem;
           color: var(--color);
           margin-bottom: 6px;
         }
@@ -523,74 +522,49 @@ input[type='number']::-webkit-outer-spin-button {
 }
 
 .modal {
-  --distance: 15px;
   width: 100%;
   max-width: 720px;
   position: absolute;
-  background-color: var(--gray-700);
+  background-color: var(--gray-600);
   border-radius: 10px;
-  box-shadow: 0 0 3px var(--gray-300);
+  z-index: 100;
   top: 50%;
   left: 50%;
   transform: translateX(-50%) translateY(-50%);
-  z-index: 100;
 
   .modal-header {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: var(--distance);
+    padding: 12px 20px;
 
     .modal-title {
       font-size: 1.25rem;
     }
 
-    .modal-close svg {
-      cursor: pointer;
+    .modal-close {
+      display: flex;
+      padding: 8px;
       color: var(--gray-100);
       border-radius: 50%;
-      transition: all 0.2s ease-in-out;
-
-      &:hover {
-        scale: 1.2;
-        rotate: 180deg;
-      }
+      transition: background var(--transition-duration) ease-in-out;
+    }
+    .modal-close:hover {
+      background-color: var(--gray-700);
     }
   }
 
   .modal-body {
-    &::before,
-    &::after {
-      content: '';
-      display: block;
-      width: 100%;
-      height: 1.1px;
-      background-image: linear-gradient(to right, transparent, var(--gray-300) 25% 75%, transparent);
-    }
-
-    &::before {
-      margin-bottom: var(--distance);
-    }
-
-    &::after {
-      margin-top: var(--distance);
-    }
+    padding: 20px;
+    border-block: 1px solid var(--gray-400);
   }
 
   .modal-footer {
-    display: flex;
-    justify-content: end;
-    padding: var(--distance);
-  }
-
-  .form-input,
-  .form-select,
-  .form-textarea {
-    background-color: var(--gray-700);
+    padding: 20px;
   }
 }
 
-.modal .modal-body form {
+#form-producto {
   --distance: 10px;
   max-width: 550px;
   margin-inline: auto;
@@ -761,13 +735,13 @@ input[type='number']::-webkit-outer-spin-button {
       column-gap: 8px;
     }
 
-    .btn-sidebar-open,
-    .btn-sidebar-close {
+    .btn-sidebar-open:not(.hidden),
+    .btn-sidebar-close:not(.hidden) {
       display: none;
     }
 
-    .btn-sidebar-open.hidden,
-    .btn-sidebar-close.hidden {
+    .btn-sidebar-open,
+    .btn-sidebar-close {
       display: block;
     }
   }
@@ -778,10 +752,10 @@ input[type='number']::-webkit-outer-spin-button {
     &.sidebar-toggle {
       transform: translateX(0);
     }
+  }
 
-    & + .backdrop {
-      display: none;
-    }
+  .backdrop {
+    display: none;
   }
 
   .content {
@@ -794,6 +768,21 @@ input[type='number']::-webkit-outer-spin-button {
 
     .content-main {
       padding: 15px;
+    }
+  }
+
+  .table {
+    .table-head {
+      th:nth-child(n + 2):nth-child(-n + 4) {
+        display: table-cell;
+      }
+    }
+    .table-body {
+      .table-row {
+        td:nth-child(n + 2):nth-child(-n + 4) {
+          display: table-cell;
+        }
+      }
     }
   }
 }

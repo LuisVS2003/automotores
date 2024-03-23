@@ -28,11 +28,13 @@ const dataDetalleVenta = async () => {
 					</td>
 
 					<td>
-						<div class="table-cell-action">
-							${botonEditar}
-							${botonEliminar}
-						</div>
-					</td>
+              <div class="table-cell-action">
+                  ${botonEditar}
+                  ${botonEliminar}
+                  <button type="button" class="button"><a href="/admin/layouts/imprimir.html">Imprimir</a></button>
+              </div>
+          </td>
+
 				</tr>
 			`;
   });

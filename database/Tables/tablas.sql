@@ -2,6 +2,7 @@ DROP DATABASE IF EXISTS automotores;
 CREATE DATABASE automotores;
 USE automotores;
 
+--  ###################################################################
 CREATE TABLE categorias (
 	id	INT AUTO_INCREMENT PRIMARY KEY,
     nombre		VARCHAR(50)		NOT NULL,
@@ -34,6 +35,7 @@ CREATE TABLE productos (
     CONSTRAINT fk_marca_prod FOREIGN KEY (marca_id) REFERENCES marcas(id)
 ) ENGINE = InnoDB;
 
+--  ###################################################################
 CREATE TABLE almacen (
 	id	INT AUTO_INCREMENT PRIMARY KEY,
     direccion	VARCHAR(255)	NOT NULL,
@@ -45,6 +47,7 @@ CREATE TABLE almacen (
     inactive_at	DATETIME		NULL
 ) ENGINE = InnoDB;
 
+--  ###################################################################
 CREATE TABLE kardex (
 	id	INT AUTO_INCREMENT PRIMARY KEY,
     producto_id	INT				NOT NULL,
@@ -71,6 +74,7 @@ CREATE TABLE movimientos (
     CONSTRAINT ck_cantidad_mov CHECK (cantidad > 0)
 ) ENGINE = InnoDB;
 
+--  ###################################################################
 CREATE TABLE proveedores (
 	id	INT AUTO_INCREMENT PRIMARY KEY,
     nombre		VARCHAR(80)		NOT NULL,
@@ -83,6 +87,7 @@ CREATE TABLE proveedores (
     inactive_at	DATETIME		NULL
 ) ENGINE = InnoDB;
 
+--  ###################################################################
 CREATE TABLE clientes (
 	id	INT AUTO_INCREMENT PRIMARY KEY,
     nombres		VARCHAR(50)		NOT NULL,
@@ -93,6 +98,7 @@ CREATE TABLE clientes (
     inactive_at	DATETIME		NULL
 ) ENGINE = InnoDB;
 
+--  ###################################################################
 CREATE TABLE roles (
 	id INT AUTO_INCREMENT PRIMARY KEY,
     nombre		VARCHAR(20)		NOT NULL,
@@ -117,6 +123,7 @@ CREATE TABLE empleados (
     CONSTRAINT fk_rol_emp FOREIGN KEY (rol_id) REFERENCES roles(id)
 ) ENGINE = InnoDB;
 
+--  ###################################################################
 -- Campos calculados: total, subtotal, igv
 CREATE TABLE compras (
 	id	INT AUTO_INCREMENT PRIMARY KEY,
@@ -142,6 +149,7 @@ CREATE TABLE detalles_compras (
     CONSTRAINT ck_cantidad_com CHECK (cantidad > 0)
 ) ENGINE = InnoDB;
 
+--  ###################################################################
 -- Campos calculados: total, subtotal, igv
 CREATE TABLE ventas (
 	id	INT AUTO_INCREMENT PRIMARY KEY,

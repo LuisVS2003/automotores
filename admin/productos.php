@@ -12,7 +12,7 @@
 	<?php require_once './layouts/navbar.html'; ?>
 	<!-- <div id="backdrop-modal" class="backdrop hidden" style="z-index:100;"></div> -->
 	<div class="container">
-		<?php require_once './layouts/sidebar.html'; ?>
+		<?php require_once './layouts/sidebar.php'; ?>
 
 		<div class="content sidebar-toggle">
 			<main class="content-main">

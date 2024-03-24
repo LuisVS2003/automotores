@@ -66,7 +66,7 @@ const getProducto = async () => {
   const data = await dataFetch(URL_PRODUCTO, dataForm);
 
   data.forEach(item => {
-    // console.log(item);
+    console.log(item);
     let tagOption = document.createElement('option');
     tagOption.value = item.id;
     tagOption.textContent = item.producto;
@@ -74,7 +74,7 @@ const getProducto = async () => {
   });
 };
 
-const addDetalleVenta = async () => {
+const addDetalleVenta = async (compraId, inputProductoValue, inputCantidadValue, almacenId) => {
   const dataForm = new FormData();
   dataForm.append('operacion', 'registrarDetalleVenta');
   dataForm.append('venta_id', $('#form-detalle-venta-venta').value);

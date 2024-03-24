@@ -61,6 +61,26 @@ const getAlmacen = async () => {
   addTagOptions($('#input-almacen'), data, 'direccion');
 };
 
+function calcularImporteProducto(cantidad, precio) {
+  let importe = 0;
+  if (cantidad > 0 && precio > 0) {
+    importe = cantidad * precio;
+  }
+  return importe.toFixed(2);
+}
+
+function calcularTotalProducto() {
+  const tableProducto = $('#form-detalle-compra .table-body').children;
+
+  let importeProducto = 0;
+  for (let i = 0; i < tableProducto.length; i++) {
+    importeProducto += parseFloat(tableProducto[i].querySelector('.importe').textContent);
+
+    $('#compra-subtotal').textContent = importeProducto.toFixed(2);
+    $('#compra-total').textContent = importeProducto.toFixed(2);
+  }
+}
+
 let time;
 let inputContent;
 
@@ -68,7 +88,7 @@ async function optionsProducto(e) {
   const inputProducto = e.target;
   const optionsList = inputProducto.nextElementSibling;
 
-  /* Con este evento evitamos que la función getProductos se ejecute cada vez que se escriba */
+  /* Con este evento evitamos que la función optionsProducto se ejecute cada vez que se escriba */
   clearTimeout(time);
   time = setTimeout(async () => {
     if (inputContent !== inputProducto.value && inputProducto.value.length >= 3) {
@@ -79,14 +99,15 @@ async function optionsProducto(e) {
       dataForm.append('nombre', inputContent);
 
       const data = await dataFetch(URL_PRODUCTO, dataForm);
-
+      console.log(data);
       optionsList.innerHTML = '';
       let productos = '';
 
       data.forEach(itemProducto => {
+        const { id, producto, precio } = itemProducto;
         productos += `
           <li>
-            <button data-producto-id="${itemProducto.id}" type="button">${itemProducto.producto}</button>
+            <button data-producto-id="${id}" data-producto-precio="${precio}" type="button">${producto}</button>
           </li>
         `;
       });
@@ -104,6 +125,9 @@ async function optionsProductoVisible(event) {
   inputContent = '';
   const inputProducto = event.target;
   const optionsList = inputProducto.nextElementSibling;
+  const cantidadProducto = inputProducto.closest('.table-row').querySelector('.input-cantidad');
+  const precioProducto = inputProducto.closest('.table-row').querySelector('.precio');
+  const importeProducto = inputProducto.closest('.table-row').querySelector('.importe');
 
   if (inputProducto.value.length >= 3) optionsList.classList.remove('hidden');
 
@@ -117,8 +141,13 @@ async function optionsProductoVisible(event) {
     const optionButton = e.target;
     if (optionButton.tagName === 'BUTTON') {
       const productoId = optionButton.getAttribute('data-producto-id');
+      const productoPrecio = optionButton.getAttribute('data-producto-precio');
+
       inputProducto.setAttribute('data-producto-id', productoId);
       inputProducto.value = optionButton.textContent;
+      precioProducto.textContent = productoPrecio;
+      importeProducto.textContent = calcularImporteProducto(cantidadProducto.value, productoPrecio);
+      calcularTotalProducto();
     }
   });
 }

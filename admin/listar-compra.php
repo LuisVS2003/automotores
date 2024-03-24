@@ -21,7 +21,7 @@
 					<form action="" method="get" autocomplete="off" class="search-form">
 						<input type="text" name="search" placeholder="Buscar..." class="search-input" />
 					</form>
-					<a href="./registrar-detalle-compra.php" aria-label="Añadir producto" class="button">
+					<a href="./registrar-compra" aria-label="Añadir producto" class="button">
 						<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-plus" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
 							<path stroke="none" d="M0 0h24v24H0z" fill="none" />
 							<path d="M12 5l0 14" />

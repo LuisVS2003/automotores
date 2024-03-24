@@ -82,13 +82,9 @@
 											<ul class="options-list hidden"></ul>
 										</td>
 
-										<td class="text-end">
-											111.00
-										</td>
+										<td class="precio text-end">0.00</td>
 
-										<td class="text-end">
-											222.00
-										</td>
+										<td class="importe text-end">0.00</td>
 									</tr>
 								</tbody>
 								<tfoot class="table-foot">
@@ -104,12 +100,12 @@
 										</td>
 										<td colspan="2"></td>
 										<td class="text-end">SubTotal:</td>
-										<td class="text-end">222.00</td>
+										<td id="compra-subtotal" class="text-end">0.00</td>
 									</tr>
 									<tr class="table-row">
 										<td colspan="2"></td>
 										<td class="text-end">Total:</td>
-										<td class="text-end">222.00</td>
+										<td id="compra-total" class="text-end">0.00</td>
 									</tr>
 								</tfoot>
 							</table>
@@ -147,11 +143,25 @@
 
 				if (objetivo.classList.contains('input-producto')) await optionsProductoVisible(event);
 
+
+				if (objetivo.classList.contains('input-cantidad')) {
+					console.log('input-cantidad');
+					const cantidadProducto = objetivo.closest('.table-row').querySelector('.input-cantidad');
+					const precioProducto = objetivo.closest('.table-row').querySelector('.precio');
+					const importeProducto = objetivo.closest('.table-row').querySelector('.importe');
+
+					cantidadProducto.addEventListener('input', () => {
+						importeProducto.textContent = calcularImporteProducto(cantidadProducto.value, precioProducto.textContent);
+						calcularTotalProducto();
+					});
+				}
+
 				if (objetivo.parentElement.classList.contains('delete') || objetivo.classList.contains('delete')) {
 					const rowProducto = objetivo.closest('.table-row');
 					const tableProducto = $('#form-detalle-compra .table-body');
 
 					if (tableProducto.childElementCount > 1) $('#form-detalle-compra .table-body').removeChild(rowProducto);
+					calcularTotalProducto(rowProducto);
 				}
 			});
 
@@ -171,9 +181,9 @@
 						<ul class="options-list hidden"></ul>
 					</td>
 
-					<td class="text-end">111.00</td>
+					<td class="precio text-end">0.00</td>
 
-					<td class="text-end">222.00</td>
+					<td class="importe text-end">0.00</td>
 				`;
 
 				$('#form-detalle-compra .table-body').appendChild(rowCompra);

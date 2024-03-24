@@ -1,6 +1,5 @@
-const tablaDetalleVenta = $('#table-detalle_venta tbody');
-
 const dataVenta = async () => {
+  const tablaDetalleVenta = $('#table-detalle_venta tbody');
   const dataForm = new FormData();
   dataForm.append('operacion', 'listarVenta');
 
@@ -38,48 +37,36 @@ const dataVenta = async () => {
   tablaDetalleVenta.innerHTML = ventas;
 };
 
-const getVenta = async () => {
-  const marcas = $('#form-detalle-venta-venta');
-
+const getEmpleado = async () => {
   const dataForm = new FormData();
-  dataForm.append('operacion', 'listarVenta');
+  dataForm.append('operacion', 'listarEmpleado');
 
-  const data = await dataFetch(URL_VENTA, dataForm);
-
-  let num = 1;
-  let venta = 'venta' + num;
-  data.forEach(item => {
-    // console.log(item);
-    let tagOption = document.createElement('option');
-    tagOption.value = item.id;
-    tagOption.textContent = venta;
-    marcas.appendChild(tagOption);
-    num++;
-  });
-};
-const getProducto = async () => {
-  const categoria = $('#form-detalle-venta-producto');
-
-  const dataForm = new FormData();
-  dataForm.append('operacion', 'listarProducto');
-
-  const data = await dataFetch(URL_PRODUCTO, dataForm);
-
-  data.forEach(item => {
-    console.log(item);
-    let tagOption = document.createElement('option');
-    tagOption.value = item.id;
-    tagOption.textContent = item.producto;
-    categoria.appendChild(tagOption);
-  });
+  const data = await dataFetch(URL_EMPLEADO, dataForm);
+  addTagOptions($('#input-empleado'), data, 'nombre_completo');
 };
 
-const addDetalleVenta = async (compraId, inputProductoValue, inputCantidadValue, almacenId) => {
+const getCliente = async () => {
+  const dataForm = new FormData();
+  dataForm.append('operacion', 'listarCliente');
+
+  const data = await dataFetch(URL_CLIENTE, dataForm);
+  addTagOptions($('#input-cliente'), data, 'nombre_completo');
+};
+
+const getAlmacen = async () => {
+  const dataForm = new FormData();
+  dataForm.append('operacion', 'listarAlmacen');
+
+  const data = await dataFetch(URL_ALMACEN, dataForm);
+  addTagOptions($('#input-almacen'), data, 'direccion');
+};
+
+const addDetalleVenta = async (ventaId, producto, cantidad, almacenId) => {
   const dataForm = new FormData();
   dataForm.append('operacion', 'registrarDetalleVenta');
-  dataForm.append('venta_id', $('#form-detalle-venta-venta').value);
-  dataForm.append('producto_id', $('#form-detalle-venta-producto').value);
-  dataForm.append('cantidad', $('#form-detalle-venta-cantidad').value);
+  dataForm.append('venta_id', ventaId);
+  dataForm.append('producto_id', producto);
+  dataForm.append('cantidad', cantidad);
 
   const data = await dataFetch(URL_DETALLE_VENTA, dataForm);
   console.log(data);

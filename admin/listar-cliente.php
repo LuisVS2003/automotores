@@ -13,7 +13,7 @@
 	<!-- <div id="backdrop-modal" class="backdrop hidden" style="z-index:100;"></div> -->
 
 	<div class="container">
-		<?php require_once './layouts/sidebar.html'; ?>
+		<?php require_once './layouts/sidebar.php'; ?>
 
 		<div class="content sidebar-toggle">
 			<main class="content-main">
@@ -33,8 +33,7 @@
 				<table id="table-clientes" class="table">
 					<thead class="table-head">
 						<tr>
-							<th>Apellidos</th>
-							<th>Nombres</th>
+							<th>Cliente</th>
 							<th>DNI</th>
 							<th>Acciones</th>
 						</tr>
@@ -46,20 +45,6 @@
 			</main>
 		</div>
 	</div>
-
-	<template id="table-row-cliente">
-		<tr data-cliente-id="" class="table-row">
-			<td class="table-text cliente-nombres"></td>
-
-			<td class="table-text cliente-apellidos"></td>
-
-			<td class="table-text cliente-dni"></td>
-
-			<td>
-				<div class="table-cell-action"></div>
-			</td>
-		</tr>
-	</template>
 
 	<?php require_once './layouts/script-js.html'; ?>
 

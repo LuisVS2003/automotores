@@ -1,37 +1,29 @@
-const tablaClientes = $('#table-clientes .table-body');
-
 const dataClientes = async () => {
+  const tablaClientes = $('#table-clientes .table-body');
   const dataForm = new FormData();
   dataForm.append('operacion', 'listarCliente');
 
   const data = await dataFetch(URL_CLIENTE, dataForm);
+  let clientes = '';
 
   data.forEach(itemCliente => {
-    const { id, nombres, apellidos, dni } = itemCliente;
+    const { id, nombre_completo, dni } = itemCliente;
 
-    // Clonar el template para cada fila
-    const trTemplate = $('#table-row-cliente').content.cloneNode(true);
-
-    // Seleccionar elementos dentro del template clonado
-    const tr = trTemplate.querySelector('.table-row');
-    const tdNombre = tr.querySelector('.cliente-nombres');
-    const tdApellidos = tr.querySelector('.cliente-apellidos');
-    const tdDni = tr.querySelector('.cliente-dni');
-    const tdAcciones = tr.querySelector('.table-cell-action');
-
-    // Asignar valores a los elementos
-    tr.setAttribute('data-cliente-id', id);
-    tdNombre.textContent = nombres;
-    tdApellidos.textContent = apellidos;
-    tdDni.textContent = dni;
-    tdAcciones.innerHTML = `
-        ${botonEditar}
-        ${botonEliminar}
-      `;
-
-    // Agregar el template clonado al DOM
-    tablaClientes.appendChild(trTemplate);
+    clientes += `
+      <tr class="table-row">
+        <td>${nombre_completo}</td>
+        <td>${dni === null ? '' : dni}</td>
+        <td>
+          <div data-cliente-id="${id}" class="table-cell-action">
+            ${botonEditar}
+            ${botonEliminar}
+          </div>
+        </td>
+      </tr>
+    `;
   });
+
+  tablaClientes.innerHTML = clientes;
 };
 
 const addCliente = async () => {

@@ -14,7 +14,7 @@
 		public function listarMovimiento()
 		{
 			try {
-				$consulta = $this->conexion->prepare('CALL listarMovimientos()');
+				$consulta = $this->conexion->prepare('CALL spu_movimiento_listar()');
 				$consulta->execute();
 
 				return $consulta->fetchAll(PDO::FETCH_ASSOC);

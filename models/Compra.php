@@ -14,7 +14,7 @@ class Compra extends Conexion
 	public function listarCompra()
 	{
 		try {
-			$consulta = $this->conexion->prepare('CALL listarCompras()');
+			$consulta = $this->conexion->prepare('CALL spu_compra_listar()');
 			$consulta->execute();
 
 			return $consulta->fetchAll(PDO::FETCH_ASSOC);

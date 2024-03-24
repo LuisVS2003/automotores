@@ -14,7 +14,7 @@
 		public function listarKardex()
 		{
 			try {
-				$consulta = $this->conexion->prepare('CALL listarKardex()');
+				$consulta = $this->conexion->prepare('CALL spu_kardex_listar()');
 				$consulta->execute();
 
 				return $consulta->fetchAll(PDO::FETCH_ASSOC);

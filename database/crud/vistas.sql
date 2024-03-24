@@ -45,8 +45,7 @@ CREATE VIEW vw_proveedor AS
 CREATE VIEW vw_cliente AS
 	SELECT
         id,
-        nombres,
-        apellidos,
+        CONCAT(apellidos, ", ", nombres) AS nombre_completo,
         dni
     FROM clientes
     WHERE inactive_at IS NULL

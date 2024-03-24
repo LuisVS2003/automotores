@@ -39,12 +39,12 @@ INSERT INTO categorias (nombre) VALUES
 	("Alternador");
 
 -- CLIENTE #################################################################################
-INSERT INTO clientes (nombres) VALUES
-	("Alejandra Flores Velasco"),
-	("Manuel Díaz Torres"),
-	("Patricia Gómez Sánchez"),
-	("Ricardo López Herrera"),
-	("Laura Martínez Ramírez");
+INSERT INTO clientes (nombres, apellidos) VALUES
+	("Alejandra", "Flores Velasco"),
+	("Manuel", "Díaz Torres"),
+	("Patricia", "Gómez Sánchez"),
+	("Ricardo", "López Herrera"),
+	("Laura", "Martínez Ramírez");
 
 -- PRODUCTO ################################################################################
 INSERT INTO productos (categoria_id, marca_id, nombre, codigo, descripcion, precio)

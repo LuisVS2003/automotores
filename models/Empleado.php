@@ -23,7 +23,6 @@
 				);
 
 				return $consulta->fetchAll(PDO::FETCH_ASSOC);
-				
 			} catch (Exception $e) {
 				die($e->getMessage());
 			}
@@ -31,7 +30,7 @@
 		public function listarEmpleado()
 		{
 			try {
-				$consulta = $this->conexion->prepare('CALL listarEmpleados();');
+				$consulta = $this->conexion->prepare('CALL spu_empleado_listar();');
 				$consulta->execute();
 
 				return $consulta->fetchAll(PDO::FETCH_ASSOC);

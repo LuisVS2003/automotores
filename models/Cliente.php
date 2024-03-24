@@ -14,7 +14,7 @@ class Cliente extends Conexion
 	public function listarCliente()
 	{
 		try {
-			$consulta = $this->conexion->prepare('CALL listarClientes()');
+			$consulta = $this->conexion->prepare('CALL spu_cliente_listar()');
 			$consulta->execute();
 
 			return $consulta->fetchAll(PDO::FETCH_ASSOC);

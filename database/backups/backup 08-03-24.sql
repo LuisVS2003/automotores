@@ -25,7 +25,7 @@ DELIMITER $$
 --
 -- Procedimientos
 --
-CREATE DEFINER=`root`@`localhost` PROCEDURE `listarAlmacenes` ()   BEGIN
+CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_almacen_listar` ()   BEGIN
     SELECT
 		id,
         direccion,
@@ -36,14 +36,14 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `listarAlmacenes` ()   BEGIN
     WHERE inactive_at IS NULL;
 END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `listarCategorias` ()   BEGIN
+CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_categoria_listar` ()   BEGIN
     SELECT
 		id, nombre
     FROM categorias
     WHERE inactive_at IS NULL;
 END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `listarClientes` ()   BEGIN
+CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_cliente_listar` ()   BEGIN
     SELECT
         id,
         nombres,
@@ -54,7 +54,7 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `listarClientes` ()   BEGIN
     WHERE inactive_at IS NULL;
 END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `listarCompras` ()   BEGIN
+CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_compra_listar` ()   BEGIN
     SELECT
 		id,
         proveedor_id
@@ -62,7 +62,7 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `listarCompras` ()   BEGIN
     WHERE inactive_at IS NULL;
 END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `listarDetallesCompras` ()   BEGIN
+CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_detalle_compra_listar` ()   BEGIN
     SELECT
 		id,
         compra_id,
@@ -72,7 +72,7 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `listarDetallesCompras` ()   BEGIN
     WHERE inactive_at IS NULL;
 END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `listarDetallesVentas` ()   BEGIN
+CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_detalle_venta_listar` ()   BEGIN
     SELECT
 		id,
         venta_id,
@@ -82,7 +82,7 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `listarDetallesVentas` ()   BEGIN
     WHERE inactive_at IS NULL;
 END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `listarEmpleados` ()   BEGIN
+CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_empleado_listar` ()   BEGIN
     SELECT
         EMP.id,
         EMP.rol_id,
@@ -97,7 +97,7 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `listarEmpleados` ()   BEGIN
     WHERE EMP.inactive_at IS NULL;
 END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `listarKardex` ()   BEGIN
+CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_kardex_listar` ()   BEGIN
     SELECT
 		id,
 		producto_id,
@@ -108,14 +108,14 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `listarKardex` ()   BEGIN
     WHERE inactive_at IS NULL;
 END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `listarMarcas` ()   BEGIN
+CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_marca_listar` ()   BEGIN
     SELECT
 		id, nombre
     FROM marcas
     WHERE inactive_at IS NULL;
 END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `listarMovimientos` ()   BEGIN
+CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_movimiento_listar` ()   BEGIN
     SELECT
 		id,
         kardex_id,
@@ -126,7 +126,7 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `listarMovimientos` ()   BEGIN
     WHERE inactive_at IS NULL;
 END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `listarProductos` ()   BEGIN
+CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_producto_listar` ()   BEGIN
     SELECT 
 		PRO.id,
         PRO.categoria_id,
@@ -146,7 +146,7 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `listarProductos` ()   BEGIN
         AND MAR.inactive_at IS NULL;
 END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `listarProveedores` ()   BEGIN
+CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_proveedor_listar` ()   BEGIN
     SELECT
 		id,
         nombre,
@@ -158,13 +158,13 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `listarProveedores` ()   BEGIN
     WHERE inactive_at IS NULL;
 END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `listarRoles` ()   BEGIN
+CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_rol_listar` ()   BEGIN
     SELECT
 		id, nombre
     FROM roles;
 END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `listarVentas` ()   BEGIN
+CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_venta_listar` ()   BEGIN
     SELECT
 		id,
         cliente_id,
